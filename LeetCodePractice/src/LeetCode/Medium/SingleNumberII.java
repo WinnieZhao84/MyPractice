@@ -41,7 +41,7 @@ public class SingleNumberII {
     	SingleNumberII solution = new SingleNumberII();
     	
     	// 011, 011, 011, 100
-    	int[] nums = {3,3,3,4,4,4,7};
+    	int[] nums = {3,3,3,4};
     	int result = solution.singleNumber(nums);
     	
     	System.out.println(result);
