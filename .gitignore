@@ -1,2 +1,5 @@
 LeetCodePractice/.settings/org.eclipse.jdt.core.prefs
 LeetCodePractice/bin/.gitignore
+/LeetCodePractice/bin/LeetCode/Easy/*.class
+/LeetCodePractice/bin/LeetCode/Helper/*.class
+/LeetCodePractice/bin/LeetCode/Medium/*.class
