@@ -67,7 +67,7 @@ public class MaximumProductOfWordLengths {
     
     public static void main(String[] args) {
         MaximumProductOfWordLengths solution = new MaximumProductOfWordLengths();
-        String[] words = {"ab", "acd"};
+        String[] words = {"ab", "abd"};
         System.out.println(solution.maxProduct(words));
     }
 }
