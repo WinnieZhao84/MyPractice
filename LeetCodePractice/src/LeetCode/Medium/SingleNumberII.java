@@ -38,13 +38,13 @@ public class SingleNumberII {
     }
     
     public static void main (String[] args) {
-    	SingleNumberII solution = new SingleNumberII();
+        SingleNumberII solution = new SingleNumberII();
+        
+        // 011, 011, 011, 100
+        int[] nums = {3,3,3,4};
+        int result = solution.singleNumber(nums);
     	
-    	// 011, 011, 011, 100
-    	int[] nums = {3,3,3,4};
-    	int result = solution.singleNumber(nums);
-    	
-    	System.out.println(result);
-    	//System.out.println(3^5);
+        System.out.println(result);
+        //System.out.println(3^5);
     }
 }
