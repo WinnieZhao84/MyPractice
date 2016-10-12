@@ -88,7 +88,7 @@ public class DifferentWaysToAddParentheses {
     
     public static void main(String[] args) {
         DifferentWaysToAddParentheses solution = new DifferentWaysToAddParentheses();
-        String input = "11";
+        String input = "2-3-1";
         
         List<Integer> result = solution.diffWaysToCompute(input);
         System.out.println(result.stream().map(Object::toString).collect(Collectors.joining(",")));
