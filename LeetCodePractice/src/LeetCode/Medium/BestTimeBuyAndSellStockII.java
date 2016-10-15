@@ -25,4 +25,12 @@ public class BestTimeBuyAndSellStockII {
         
         return maxDiff;
     }
+    
+    public static void main(String[] args) {
+        BestTimeBuyAndSellStockII solution = new BestTimeBuyAndSellStockII();
+        
+        int[] prices = {1, 2, 3, 0, 2};
+        
+        System.out.println(solution.maxProfit(prices));
+    }
 }
