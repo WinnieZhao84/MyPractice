@@ -55,6 +55,6 @@ public class TopKFrequentElements {
     	
     	int[] nums = {1,1,1,1,2,3};
     	
-    	System.out.print(Arrays.toString(solution.topKFrequent(nums, 5).toArray()));
+    	System.out.print(Arrays.toString(solution.topKFrequent(nums, 3).toArray()));
     }
 }
