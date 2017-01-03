@@ -53,4 +53,10 @@ public class MajorityElementII {
         
         return result;
     }
+    
+    public static void main(String[] args) {
+        MajorityElementII solution = new MajorityElementII();
+        int[] nums = {1,1,1,1,2,0,3,6,4};
+        System.out.println(solution.majorityElement(nums));
+    }
 }
