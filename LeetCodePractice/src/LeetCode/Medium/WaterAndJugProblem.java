@@ -31,7 +31,7 @@ public class WaterAndJugProblem {
         return z%GCD(x, y) == 0;
     }
     
-    private int GCD(int a, int b){
+    public int GCD(int a, int b){
         while(b != 0 ){
             int temp = b;
             b = a%b;
@@ -42,6 +42,8 @@ public class WaterAndJugProblem {
     
     public static void main(String[] args) {
         WaterAndJugProblem solution = new WaterAndJugProblem();
+        System.out.println(solution.GCD(24, 16));
+        
         System.out.println(solution.canMeasureWater(3, 5, 4));
     }
 }

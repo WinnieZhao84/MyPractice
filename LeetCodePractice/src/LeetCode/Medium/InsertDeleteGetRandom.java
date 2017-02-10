@@ -1,6 +1,7 @@
 package LeetCode.Medium;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -41,52 +42,44 @@ import java.util.Random;
  */
 public class InsertDeleteGetRandom {
 
-    List<Integer> list = null;
-    /**
-     * Your RandomizedSet object will be instantiated and called as such:
-     * RandomizedSet obj = new RandomizedSet();
-     * boolean param_1 = obj.insert(val);
-     * boolean param_2 = obj.remove(val);
-     * int param_3 = obj.getRandom();
-     */
+    HashMap<Integer, Integer> map;
+    ArrayList<Integer> list;
     
     /** Initialize your data structure here. */
     public InsertDeleteGetRandom() {
-        list = new ArrayList<>();
+        map = new HashMap<Integer, Integer>();
+        list = new ArrayList<Integer>();
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
-        if (!list.contains(val)) {
+        if(map.containsKey(val)) {
+            return false;
+        }else {
+            map.put(val, list.size());
             list.add(val);
             return true;
-        }
-        else {
-            return false;
         }
     }
     
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-        if (list.contains(val)) {
-            list.remove(Integer.valueOf(val));
-            return true;
-        }
-        else {
+        if(!map.containsKey(val)) {
             return false;
+        }else {
+            int key = map.get(val);
+            int lastElement = list.get(list.size() - 1);
+            map.put(lastElement, key);
+            list.set(key, lastElement);
+            map.remove(val);
+            list.remove(list.size() - 1);
+            return true;
         }
     }
     
     /** Get a random element from the set. */
     public int getRandom() {
-        int size = list.size();
-        
-        if (size == 0) {
-            return 0;
-        }
         Random random = new Random();
-        int index =random.nextInt(size);
-        
-        return list.get(index);
+        return list.get( random.nextInt(list.size()) );
     }
 }
