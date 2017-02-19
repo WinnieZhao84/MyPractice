@@ -19,7 +19,11 @@ public class MaximumXOROfTwoNumbersInAnArray {
     public int findMaximumXOR(int[] nums) {
         int max = 0, mask = 0;
         
-        /* This is a greedy part, since we're looking for the largest XOR, we start 
+        /* The max is a record of the largest XOR we got so far. if it's 11100 at i = 2, it means 
+        before we reach the last two bits, 11100 is the biggest XOR we have, and we're going to explore
+        whether we can get another two '1's and put them into max
+        
+        This is a greedy part, since we're looking for the largest XOR, we start 
         from the very beginning, aka, the 31st position of bits. */
         for (int i = 31; i >= 0; i--) {
             
@@ -36,7 +40,7 @@ public class MaximumXOROfTwoNumbersInAnArray {
             }
             
             // if i = 1 and before this iteration, the maxResult we have now is 1100, 
-            // my wish is the maxResult will grow to 1110, so I will try to find a candidate
+            // my wish is the max result will grow to 1110, so I will try to find a candidate
             // which can give me the greedyTry;
             int greedyTry = max | (1 << i); 
           
