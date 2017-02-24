@@ -26,13 +26,8 @@ public class CountCompleteTreeNodes {
     }
     
     public int countNodes_lognSulution(TreeNode root) {
-        if (root == null) return 0;
-        
         int h = height(root);
-        
-        int hRight = height(root.right);
-
-        return hRight == h - 1 ? (1 << (h-1)) + countNodes(root.right) : (1 << (h-2)) + countNodes(root.left);
+        return h < 0 ? 0 : height(root.right) == h-1 ? (1 << h) + countNodes_lognSulution(root.right) : (1 << h-1) + countNodes_lognSulution(root.left);
     }
     
     public static void main(String[] args) {

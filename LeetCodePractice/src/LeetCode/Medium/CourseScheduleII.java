@@ -1,7 +1,9 @@
 package LeetCode.Medium;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -27,56 +29,96 @@ import java.util.Queue;
  *
  */
 public class CourseScheduleII {
-
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
+    
+    private int N = 0;
+    
+    public int[] findOrder_BFS(int numCourses, int[][] prerequisites) {
         int[] result = new int[numCourses];
-        
-        if (numCourses == 0) return result;
-        
-        int length = prerequisites.length;
-        if (length == 0) {
-            
+
+        int[] indegree = new int[numCourses];
+        for (int i=0; i<prerequisites.length; i++) {
+            int course = prerequisites[i][0];
+            indegree[course]++;
         }
 
-        // Convert graph presentation from edges to indegree of adjacent list.
-        int indegree[] = new int[numCourses];
-        
-        // Indegree - how many prerequisites are needed.
-        for (int i = 0; i < length; i++) 
-            indegree[prerequisites[i][0]]++;
-
-        Queue<Integer> queue = new LinkedList<Integer>();
-
-        for (int i = 0; i < numCourses; i++) {
+        Queue<Integer> nonPreCourses = new LinkedList<>();
+        int count = 0;
+        int canFinishCourses = 0;
+        for (int i=0; i<numCourses; i++) {
             if (indegree[i] == 0) {
-                queue.add(i);
+                canFinishCourses++;
+                nonPreCourses.add(Integer.valueOf(i));
+                result[count++] = i;
             }
         }
-        
-        // How many courses don't need prerequisites.
-        int count = 0;
-        int canFinishCount = queue.size();  
-        while (!queue.isEmpty()) {
-            int prerequisite = queue.remove(); // Already finished this prerequisite course.
-            result[count++] = prerequisite;
 
-            for (int i = 0; i < prerequisites.length; i++)  {
-                if (prerequisites[i][1] == prerequisite) { 
-                    indegree[prerequisites[i][0]]--;
-                    if (indegree[prerequisites[i][0]] == 0) {
-                        canFinishCount++;
-                        queue.add(prerequisites[i][0]);
+        while(!nonPreCourses.isEmpty()) {
+            Integer preCourse = nonPreCourses.poll();
+            for (int i=0; i<prerequisites.length; i++) {
+                if (prerequisites[i][1] == preCourse) {
+                    int course = prerequisites[i][0];
+                    indegree[course]--;
+
+                    if (indegree[course] == 0) {
+                        canFinishCourses++;
+                        result[count++] = course;
+                        nonPreCourses.add(course);
                     }
                 }
+
             }
         }
-        
-        if (canFinishCount == numCourses) {
-            return result;
-        }
-        else {
+
+        if (canFinishCourses != numCourses) {
             return new int[0];
         }
+
+        return result;
+    }
+
+    class Course {
+        boolean visited = false;
+        boolean tested = false;
+        int number;
+        List<Course> pre = new ArrayList<Course>();
+        public Course(int i) {
+            number = i;
+        }
+        public void add(Course c) {
+            pre.add(c);
+        }
+    }
+    
+    public int[] findOrder_DFS(int numCourses, int[][] prerequisites) {
+        N = 0;
+        int[] result = new int[numCourses];
+        Course[] courses = new Course[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            courses[i] = new Course(i);
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            courses[prerequisites[i][0]].add(courses[prerequisites[i][1]]);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (isCyclic(courses[i], result)) {
+                return new int[0];
+            }
+        }
+        return result;
+    }
+
+    private boolean isCyclic(Course cur, int[] result) {
+        if (cur.tested == true) return false;
+        if (cur.visited == true) return true;
+        cur.visited = true;
+        for (Course c : cur.pre) {
+            if (isCyclic(c, result)) {
+                return true;
+            }
+        }
+        cur.tested = true;
+        result[N++] = cur.number;
+        return false;
     }
     
     public static void main(String[] args) {
@@ -84,14 +126,14 @@ public class CourseScheduleII {
         
         int[][] prerequisites =  {{1,0},{0,1}};
         
-        System.out.println(Arrays.toString(solution.findOrder(2, prerequisites)));
+        System.out.println(Arrays.toString(solution.findOrder_DFS(2, prerequisites)));
         
-        int[][] prerequisites1 =  {{1,0}};
+        int[][] prerequisites1 =  {{0, 1}};
         
-        System.out.println(Arrays.toString(solution.findOrder(2, prerequisites1)));
+        System.out.println(Arrays.toString(solution.findOrder_DFS(2, prerequisites1)));
         
-        int[][] prerequisites2 =  {{1,0}, {2,1}, {3,2}, {4,3}, {4,2}};
+        int[][] prerequisites2 =  {{1,0},{2,0},{3,1},{3,2}};
         
-        System.out.println(Arrays.toString(solution.findOrder(5, prerequisites2)));
+        System.out.println(Arrays.toString(solution.findOrder_DFS(4, prerequisites2)));
     }
 }
