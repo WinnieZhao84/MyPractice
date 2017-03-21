@@ -52,5 +52,7 @@ public class GrayCode {
         List<Integer> result = solution.grayCode(3);
         
         result.forEach(r -> System.out.println(r));
+        
+        //System.out.println(1<<0);
     }
 }

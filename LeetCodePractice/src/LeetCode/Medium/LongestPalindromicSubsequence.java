@@ -17,7 +17,8 @@ package LeetCode.Medium;
  *
  */
 public class LongestPalindromicSubsequence {
-
+    
+    // http://algorithms.tutorialhorizon.com/longest-palindromic-subsequence/
     public int longestPalindromeSubseq(String s) {
         
         if (s == null) {

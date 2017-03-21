@@ -25,7 +25,7 @@ import java.util.PriorityQueue;
  * 
  * Note: 
  * 
- * You may assume k is always valid, 1 ≤ k ≤ n2.
+ * You may assume k is always valid, 1 鈮� k 鈮� n2.
  * 
  * @author WinnieZhao
  *
@@ -91,9 +91,9 @@ public class KthSmallestElementInSortedMatrix {
     public static void main (String[] args) {
         KthSmallestElementInSortedMatrix solution = new KthSmallestElementInSortedMatrix();
         
-        int[][] matrix =  {{ 1,  5, 9}, {10, 11, 13}, {12, 13, 15}};
+        int[][] matrix =  {{ 1, 6, 9}, {3, 7, 10}, {4, 8, 2}};
         
-        System.out.println(solution.kthSmallest_better(matrix, 8));
+        System.out.println(solution.kthSmallest_better(matrix, 3));
         
         int[][] matrix1 =  {{-5}};
         System.out.println(solution.kthSmallest_better(matrix1, 1));
