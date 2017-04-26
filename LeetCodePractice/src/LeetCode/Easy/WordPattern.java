@@ -39,7 +39,7 @@ public class WordPattern {
                     || (map.containsValue(strArray[i]) && !map.keySet().contains(pattern.charAt(i)))) {
                 return false;
             }
-                        map.put(pattern.charAt(i), strArray[i]);
+            map.put(pattern.charAt(i), strArray[i]);
         }
         return true;
     }
