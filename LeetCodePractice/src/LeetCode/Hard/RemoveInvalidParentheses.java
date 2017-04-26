@@ -17,6 +17,14 @@ import java.util.*;
  */
 public class RemoveInvalidParentheses {
 
+    /**
+     * The good thing of using BFS is that we can guarantee the number
+     * of parentheses that need to be removed is minimal,
+     * also no recursion call is needed in BFS.
+     *
+     * @param s
+     * @return
+     */
     public List<String> removeInvalidParentheses(String s) {
         List<String> result = new ArrayList<>();
 
