@@ -3,3 +3,9 @@ LeetCodePractice/bin/.gitignore
 /LeetCodePractice/bin/LeetCode/Easy/*.class
 /LeetCodePractice/bin/LeetCode/Helper/*.class
 /LeetCodePractice/bin/LeetCode/Medium/*.class
+.idea/
+LeetCodePractice/.classpath
+LeetCodePractice/.gitignore
+LeetCodePractice/.project
+LeetCodePractice/.settings/org.eclipse.core.resources.prefs
+LeetCodePractice/LeetCodePractice.iml
