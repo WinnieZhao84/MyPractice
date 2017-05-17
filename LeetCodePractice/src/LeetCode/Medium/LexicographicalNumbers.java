@@ -47,4 +47,9 @@ public class LexicographicalNumbers {
         }
         return res;
     }
+
+    public static void main(String[] args) {
+        LexicographicalNumbers solution = new LexicographicalNumbers();
+        System.out.println(solution.lexicalOrder_pass(13));
+    }
 }
