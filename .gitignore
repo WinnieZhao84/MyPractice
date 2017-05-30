@@ -9,3 +9,4 @@ LeetCodePractice/.gitignore
 LeetCodePractice/.project
 LeetCodePractice/.settings/org.eclipse.core.resources.prefs
 LeetCodePractice/LeetCodePractice.iml
+*.class
