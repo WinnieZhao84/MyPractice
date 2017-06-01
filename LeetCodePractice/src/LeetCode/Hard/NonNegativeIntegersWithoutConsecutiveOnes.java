@@ -42,6 +42,40 @@ public class NonNegativeIntegersWithoutConsecutiveOnes {
         return true;
     }
 
+    public int findIntegers_better(int num) {
+        StringBuilder sb = new StringBuilder(Integer.toBinaryString(num)).reverse();
+        int len = sb.length();
+
+        int[] a = new int[len];
+        int[] b = new int[len];
+
+        /**
+         * a[i] stands for how many numbers if bit i is 0.
+         * b[i] stands for how many numbers if bit i is 1.
+         * The value of 1 only comes from previous 0. No consecutive ones!
+         * However, the value of 0 comes from previous 0 and 1.
+         */
+        a[0]=1; b[0]=1;
+        for (int i=1; i<len; i++) {
+            a[i] = a[i-1] + b[i-1];
+            b[i] = a[i-1];
+        }
+
+        int result = a[len-1] + b[len-1];
+
+        for (int i=len-2; i>=0; i--) {
+            if (sb.charAt(i) == '1' && sb.charAt(i+1) == '1') {
+                break;
+            }
+            if (sb.charAt(i) == '0' && sb.charAt(i+1) == '0') {
+                result -= b[i];
+            }
+        }
+
+        return result;
+
+    }
+
     public static void main(String[] args) {
         NonNegativeIntegersWithoutConsecutiveOnes solution = new NonNegativeIntegersWithoutConsecutiveOnes();
         solution.findIntegers(8);
