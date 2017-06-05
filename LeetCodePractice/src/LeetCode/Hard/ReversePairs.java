@@ -27,6 +27,24 @@ public class ReversePairs {
         return mergeSort(nums, 0, nums.length-1);
     }
 
+    /**
+     * In each round, we divide our array into two parts and sort them.
+     * So after "int cnt = mergeSort(nums, s, mid) + mergeSort(nums, mid+1, e); ",
+     * the left part and the right part are sorted and now our only job is to
+     * count how many pairs of number (leftPart[i], rightPart[j]) satisfies leftPart[i] <= 2*rightPart[j]
+     *
+     * For example, left: 4 6 8 right: 1 2 3
+     * so we use two pointers to travel left and right parts.
+     * For each leftPart[i], if j<=e && nums[i]/2.0 > nums[j], we just continue to move j to the end,
+     * to increase rightPart[j], until it is valid.
+     * Like in our example, left's 4 can match 1 and 2; left's 6 can match 1, 2, 3, and left's 8 can match 1, 2, 3.
+     * So in this particular round, there are 8 pairs found, so we increases our total by 8.
+
+     * @param nums
+     * @param s
+     * @param e
+     * @return
+     */
     private int mergeSort(int[] nums, int s, int e){
         if(s>=e) return 0;
 
