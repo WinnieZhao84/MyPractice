@@ -38,7 +38,8 @@ import java.util.TreeMap;
 public class SlidingWindowMedian {
 
     /**
-     * Use two Heaps to store numbers. high for numbers smaller than current median, low for numbers bigger than and equal to current median.
+     * Use two Heaps to store numbers. high for numbers greater than current median, low for numbers smaller than and equal to current median.
+     * Low queue count should be always keeping 1 more than high, so the peek() from low will be the median num
      * Keep adding number from the right side of the sliding window and remove number from left side of the sliding window.
      * And keep adding current median to the result.
      *
@@ -64,6 +65,7 @@ public class SlidingWindowMedian {
         return res;
     }
 
+    // Always move the greater value from low queue to high queue
     private void add(double num) {
         low.offer(num);
         high.offer(low.poll());
@@ -94,6 +96,14 @@ public class SlidingWindowMedian {
         else {
             return low.peek();
         }
+    }
+
+    public static void main(String[] args) {
+        SlidingWindowMedian solution = new SlidingWindowMedian();
+
+        int[] nums = {1,3,-1,-3,5,3,6,7};
+
+        solution.medianSlidingWindow(nums, 3);
     }
 
 }
