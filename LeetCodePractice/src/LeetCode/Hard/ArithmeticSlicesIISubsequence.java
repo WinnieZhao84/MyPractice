@@ -44,26 +44,38 @@ import java.util.Map;
  */
 public class ArithmeticSlicesIISubsequence {
 
+
+    /**
+     *  T(i, d), which denotes the total number of arithmetic subsequence slices ending at index i with difference d.
+     *  The base case and recurrence relation are as follows:
+     *
+     *  Base case: T(0, d) = 0 (This is true for any d).
+     *  Recurrence relation: T(i, d) = summation of (1 + T(j, d)) as long as 0 <= j < i && d == A[i] - A[j].
+
+     * @param A
+     * @return
+     */
     public int numberOfArithmeticSlices(int[] A) {
         int res = 0;
+        Map<Integer, HashMap<Long, Integer>> diffMaps = new HashMap<>();
 
-        Map<Integer, Integer>[] maps = new HashMap[A.length];
-        for(int i=0; i<A.length; i++) {
-            maps[i] = new HashMap<>();
+        for (int i = 0; i < A.length; i++) {
+            HashMap<Long, Integer> diffMap = new HashMap<>();
 
+            diffMaps.put(i, diffMap);
             int num = A[i];
-            for(int j=0; j<i; j++) {
-                if ((long)num-A[j] > Integer.MAX_VALUE) {
-                    continue;
-                }
-                if ((long)num-A[j] < Integer.MIN_VALUE) {
-                    continue;
-                }
 
-                int diff = num - A[j];
-                int count = maps[j].getOrDefault(diff, 0);
+            for (int j = 0; j < i; j++) {
+                if ((long) num - A[j] > Integer.MAX_VALUE)
+                    continue;
+                if ((long) num - A[j] < Integer.MIN_VALUE)
+                    continue;
 
-                maps[i].put(diff, maps[i].getOrDefault(diff,0) + count + 1);
+                long diff = (long) num - A[j];
+                int count = diffMaps.get(j).getOrDefault(diff, 0);
+
+                diffMaps.get(i).put(diff, diffMaps.get(i).getOrDefault(diff, 0) + count + 1);
+
                 res += count;
             }
         }
