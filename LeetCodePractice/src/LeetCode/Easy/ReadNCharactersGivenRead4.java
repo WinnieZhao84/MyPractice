@@ -27,6 +27,7 @@ public class ReadNCharactersGivenRead4 {
     public int read(char[] buf, int n) {
         int index =0;
         char[] r4 = new char[4];
+
         while(index < n){
             int c = read4(r4);
             for(int i=0; i<c && index < n; i++){
