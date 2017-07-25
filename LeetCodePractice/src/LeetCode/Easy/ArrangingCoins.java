@@ -11,11 +11,10 @@ package LeetCode.Easy;
  * n = 5
  * 
  * The coins can form the following rows:
- * 
- * ก่
- * ก่ ก่
- * ก่ ก่
- * 
+ *
+ * X
+ * X X
+ * X X
  * Because the 3rd row is incomplete, we return 2. 
  * 
  * Example 2:
@@ -23,11 +22,11 @@ package LeetCode.Easy;
  * n = 8
  * 
  * The coins can form the following rows:
- * 
- * ก่
- * ก่ ก่
- * ก่ ก่ ก่
- * ก่ ก่
+ *
+ * X
+ * X X
+ * X X X
+ * X X
  * 
  * Because the 4th row is incomplete, we return 3.
 

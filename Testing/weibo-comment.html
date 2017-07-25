@@ -1,0 +1,220 @@
+
+<script type="text/javascript">
+function commentWeibo(content, mid, uid) {
+  var formData = new FormData();
+  formData.append('act', 'post');
+  formData.append('mid', mid);
+  formData.append('uid', uid);
+  formData.append('forward', '0');
+  formData.append('isroot', '0');
+  formData.append('content', content);
+  formData.append('location', 'page_100808_super_index');
+  formData.append('module', 'scommlist');
+  formData.append('group_source', '');
+  formData.append('pdetail', '100808a8fa6bef39d9fb73fcf8431471211e9e');
+  formData.append('is_comment_base', '1');
+  formData.append('_t', '0');
+
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 3000;
+  xhr.responseType = "text";
+  xhr.open('POST', 'http://weibo.com/aj/v6/comment/add?ajwvr=6&__rnd=' + new Date().getTime(), true);
+  xhr.onload = function(e) {
+    if (this.status == 200 || this.status == 304) {
+      var data = JSON.parse(this.responseText);
+      if (data.code == "100000") {
+        console.log(content);
+      } else if (data.code == "100027") {
+        console.log(data);
+      } else {
+        console.log(data);
+      }
+    }
+  };
+  xhr.send(formData);
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * (max + 1));
+}
+
+
+function getUrls() {
+    var urls = [];
+
+    for (var i=0; i<10; i++){
+         urls[i]='';
+    }
+
+    var text = document.getElementById("txt1").value;
+    if (text && text.length > 0)
+    urls[0] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text = document.getElementById("txt2").value;
+    if (text && text.length > 0)
+    urls[1] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text = document.getElementById("txt3").value;
+    if (text && text.length > 0)
+    urls[2] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt4").value;
+    if (text && text.length > 0)
+    urls[3] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt5").value;
+    if (text && text.length > 0)
+    urls[4] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt6").value;
+    if (text && text.length > 0)
+    urls[5] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt7").value;
+    if (text && text.length > 0)
+    urls[6] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt8").value;
+    if (text && text.length > 0)
+    urls[7] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt9").value;
+    if (text && text.length > 0)
+    urls[8] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    text =  document.getElementById("txt10").value;
+    if (text && text.length > 0)
+    urls[9] = text.substring(text.lastIndexOf("/")+1, text.indexOf("?")>0 ? text.indexOf("?") : text.length);
+
+    return urls;
+}
+
+// http://weibo.com/1689761914/follow?rightmod=1&wvr=6
+function getMyUID() {
+    var url = document.getElementById("myweibo").value;
+    if (url.length > 0)
+        return url.substring("http://weibo.com/".length, url.indexOf("/follow"));
+    return "";
+}
+
+var index = getRandomInt(timeouts.length-1);
+
+function startComment() {
+    var uid = getMyUID();
+    var urls = getUrls();
+    var contents = document.getElementById("contents").value.split(',');
+
+    console.log("contents：" + contents);
+    console.log("UID:" + uid);
+    console.log("urls:" + urls);
+
+    var interval = setInterval (function() {
+
+        var content = contents[getRandomInt(contents.length-1)];
+        var mid = url2mid(urls[getRandomInt(urls.length-1)]);
+
+        console.log ("mid=" + mid);
+        console.log ("content=" + content);
+
+        if (mid && mid.length > 0 && uid && uid.length > 0 && content && content.length > 0) {
+
+          //commentWeibo(content, mid, uid);
+        }
+
+    }, 10000);
+}
+
+function stop() {
+    clearInterval(interval);
+}
+  
+var str62keys = [  
+    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",  
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",  
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"  
+];  
+  
+
+function str62to10(str62) {  
+    var i10 = 0;  
+    for (var i = 0; i < str62.length; i++)  
+    {  
+        var n = str62.length - i - 1;  
+        var s = str62[i];  
+        i10 += this.str62keys.indexOf(s) * Math.pow(62, n);  
+    }  
+    return i10;  
+};  
+  
+ 
+function int10to62(int10) {  
+    var s62 = '';  
+    var r = 0;  
+    while (int10 != 0)  
+    {  
+        r = int10 % 62;  
+        s62 = str62keys[r] + s62;  
+        int10 = Math.floor(int10 / 62);  
+    }  
+    return s62;  
+};  
+  
+ 
+function url2mid(url) {
+    var mid = '';
+    if (url && url.length > 0) {
+        for (var i = url.length - 4; i > -4; i = i - 4)
+        {
+            var offset1 = i < 0 ? 0 : i;
+            var offset2 = i + 4;
+            var str = url.substring(offset1, offset2);
+
+            str = str62to10(str);
+            if (offset1 > 0)
+            {
+                while (str.length < 7)
+                {
+                    str = '0' + str;
+                }
+            }
+
+            mid = str + mid;
+        }
+    }
+
+    return mid;  
+};
+</script>
+
+
+<div><label><b>My Weibo URL for getting UID (点击我的关注输入网址):</b> <input type="text" style="width: 300px;" value="" id="myweibo"/></label></div>
+<hr>
+<label><b>输入Weibo URL (格式：http://weibo.com/5893315397/FdZUDeKnx)</b></label>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" value="http://www.weibo.com/5339018234/FdTfn6qWx" id="txt1"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" value="http://www.weibo.com/5339018234/FdTf5F9AU?type=comment" id="txt2"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" value="http://www.weibo.com/5339018234/FdTAouqaz?type=comment" id="txt3"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" value="http://www.weibo.com/5339018234/FdTfze7qm?type=comment" id="txt4"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" value="http://www.weibo.com/5339018234/FdTfX9AoP" id="txt5"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" id="txt6"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" id="txt7"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" id="txt8"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" id="txt9"/></label></div>
+<div><label>Weibo URL: <input type="text" style="width: 300px;" id="txt10"/></label></div>
+<div><input type="text" style="width: 300px;" hidden="true" id="txt11"/></div>
+<div><input type="text" style="width: 300px;" hidden="true" id="txt12"/></div>
+<div><input type="text" style="width: 300px;" hidden="true" id="txt13"/></div>
+<div><input type="text" style="width: 300px;" hidden="true" id="txt14"/></div>
+<hr>
+<div><label><b>评论</b></label></div>
+<textarea cols="100" rows="20" id="contents">
+#甄萱# 你要什麼我就給你什麼 不管是精神上的陪伴還是物質上的東西 只要我能做到我都會給,
+#甄萱# 因為她很美 她是我心目中的睡美人啊,
+#甄萱# 因為我知道你會很長壽 我知道你想讓我活很長會陪著你,
+#甄萱# 我愛她 我可以包容她的一切,
+#甄萱# 我前世一定是​​Selina的奴隸 上輩子已經被她累死了 但是債沒換完，
+#甄萱# [爱],
+#甄萱# [doge]
+</textarea>
+<hr>
+<input type="button" value="开始" onclick="startComment()"/>
+<hr>
