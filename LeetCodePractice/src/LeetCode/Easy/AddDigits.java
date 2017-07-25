@@ -18,16 +18,16 @@ public class AddDigits {
     }
     
     private int addDigitHelper(int num) {
-    	if (num <= 9 && num >=0) {
-    		return num;
-    	}
-    	
-    	int result = 0;
-    	while (num > 0) {
-    		result += num % 10;
-    		num = num/10;
-    	}
-    	return addDigitHelper(result);
+        if (num <= 9 && num >=0) {
+            return num;
+        }
+
+        int result = 0;
+        while (num > 0) {
+            result += num % 10;
+            num = num/10;
+        }
+        return addDigitHelper(result);
     }
     
     /**
@@ -48,7 +48,7 @@ public class AddDigits {
     }
     
     public static void main(String[] args) {
-    	AddDigits solution = new AddDigits();
-    	System.out.print(solution.addDigits(38));
+        AddDigits solution = new AddDigits();
+        System.out.print(solution.addDigits(38));
     }
 }
