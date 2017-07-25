@@ -1,11 +1,11 @@
 
 <script type="text/javascript">
-function commentWeibo(content, mid, uid) {
+function commentWeibo(content, mid, uid, forward) {
   var formData = new FormData();
   formData.append('act', 'post');
   formData.append('mid', mid);
   formData.append('uid', uid);
-  formData.append('forward', '0');
+  formData.append('forward', forward);
   formData.append('isroot', '0');
   formData.append('content', content);
   formData.append('location', 'page_100808_super_index');
@@ -18,16 +18,28 @@ function commentWeibo(content, mid, uid) {
   var xhr = new XMLHttpRequest();
   xhr.timeout = 3000;
   xhr.responseType = "text";
+
   xhr.open('POST', 'http://weibo.com/aj/v6/comment/add?ajwvr=6&__rnd=' + new Date().getTime(), true);
+  //xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+  //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  var output = document.getElementById("output");
+
   xhr.onload = function(e) {
     if (this.status == 200 || this.status == 304) {
       var data = JSON.parse(this.responseText);
       if (data.code == "100000") {
         console.log(content);
-      } else if (data.code == "100027") {
+        output.value += content +"\r\n";
+
+      } 
+      else if (data.code == "100027") {
         console.log(data);
-      } else {
+        output.value += data +"\r\n";
+      } 
+      else {
         console.log(data);
+        output.value += data +"\r\n";
       }
     }
   };
@@ -42,7 +54,7 @@ function getRandomInt(max) {
 function getUrls() {
     var urls = [];
 
-    for (var i=0; i<10; i++){
+    for (var i=0; i<15; i++){
          urls[i]='';
     }
 
@@ -97,12 +109,12 @@ function getMyUID() {
     return "";
 }
 
-var index = getRandomInt(timeouts.length-1);
-
 function startComment() {
+    var timeout = document.getElementById("timeout").value;
     var uid = getMyUID();
     var urls = getUrls();
     var contents = document.getElementById("contents").value.split(',');
+    var forward = document.getElementById("forward").checked ? 1 : 0;
 
     console.log("contents：" + contents);
     console.log("UID:" + uid);
@@ -110,18 +122,20 @@ function startComment() {
 
     var interval = setInterval (function() {
 
+        var urlIndex = getRandomInt(urls.length-1);
         var content = contents[getRandomInt(contents.length-1)];
-        var mid = url2mid(urls[getRandomInt(urls.length-1)]);
-
-        console.log ("mid=" + mid);
+        var mid = url2mid(urls[urlIndex]);
+        //output.value += "for url=" +urls[urlIndex] + " => mid=" + mid +"\r\n";
+        
+        console.log ("for url=" +urls[urlIndex] + " => mid=" + mid);
         console.log ("content=" + content);
 
         if (mid && mid.length > 0 && uid && uid.length > 0 && content && content.length > 0) {
 
-          //commentWeibo(content, mid, uid);
+           commentWeibo(content, mid, uid, forward);
         }
 
-    }, 10000);
+    }, timeout);
 }
 
 function stop() {
@@ -187,7 +201,7 @@ function url2mid(url) {
 </script>
 
 
-<div><label><b>输入"我的关注"Weibo地址(weibo主页->关注，格式：http://weibo.com/1689761914/follow):</b> <input type="text" style="width: 300px;" value="" id="myweibo"/></label></div>
+<div><label><b>输入"我的关注"Weibo地址(weibo主页->关注，格式：http://weibo.com/1689761914/follow):</b> <input type="text" style="width: 300px;" value="http://weibo.com/2193415833/follow?rightmod=1&wvr=6" id="myweibo"/></label></div>
 <hr>
 <label><b>输入要评论的Weibo链接(格式：http://weibo.com/5893315397/FdZUDeKnx)</b></label>
 <div><label>Weibo URL: <input type="text" style="width: 400px;" value="http://www.weibo.com/5339018234/FdTfn6qWx" id="txt1"/></label></div>
@@ -206,7 +220,10 @@ function url2mid(url) {
 <div><input type="text" style="width: 300px;" hidden="true" id="txt14"/></div>
 <div><input type="text" style="width: 300px;" hidden="true" id="txt15"/></div>
 <hr>
-<div><label><b>评论</b></label></div>
+<div><label>Add Comment per Seconds:</label><input type="number" style="width: 300px;" value="10000" id="timeout"/></div>
+<div><label>转发?</label><input type="checkbox" style="width: 300px;" id="forward"/></div>
+<hr>
+<div><label><b>评论内容 (添加请用","隔开)</b></label></div>
 <textarea cols="100" rows="20" id="contents">
 #甄萱# 你要什麼我就給你什麼 不管是精神上的陪伴還是物質上的東西 只要我能做到我都會給,
 #甄萱# 因為她很美 她是我心目中的睡美人啊,
@@ -219,3 +236,6 @@ function url2mid(url) {
 <hr>
 <input type="button" value="开始" onclick="startComment()"/>
 <hr>
+<div><label><b>输出</b></label></div>
+<textarea cols="100" rows="20" id="output">
+</textarea>
