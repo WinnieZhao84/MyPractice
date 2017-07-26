@@ -20,9 +20,9 @@ function commentWeibo(content, mid, uid, forward) {
   xhr.responseType = "text";
 
   xhr.open('POST', 'http://weibo.com/aj/v6/comment/add?ajwvr=6&__rnd=' + new Date().getTime(), true);
-  //xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+  xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
   //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
+  xhr.withCredentials = true;
   var output = document.getElementById("output");
 
   xhr.onload = function(e) {
