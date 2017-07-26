@@ -1,15 +1,20 @@
 var comment_contents = [
 '#甄萱# 你要什麼我就給你什麼 不管是精神上的陪伴還是物質上的東西 只要我能做到我都會給',
 '#甄萱# 因為她很美 她是我心目中的睡美人啊',
+'#甄萱# [爱][爱]',
+'#甄萱# 330 [爱] 1031',
 '#甄萱# 因為我知道你會很長壽 我知道你想讓我活很長會陪著你',
 '#甄萱# 我愛她 我可以包容她的一切',
 '#甄萱# 我前世一定是​​Selina的奴隸 上輩子已經被她累死了 但是債沒換完',
 '#甄萱# [爱]',
-'#甄萱# [doge]'
+'#甄萱# Selina是我心目中的睡美人啊',
+'#甄萱# [爱][爱][爱][爱]',
+'#甄萱# [doge][doge][doge]'
 ];
 
 var weiboUrls = [
     'http://www.weibo.com/5339018234/FecARE17r',
+    'http://www.weibo.com/5339018234/FecKjiEMl',
     'http://www.weibo.com/5339018234/Fea0SCXRP',
     'http://www.weibo.com/5339018234/FecJGkzVf',
     'http://www.weibo.com/5339018234/FecPTnFRX',
@@ -20,10 +25,12 @@ var weiboUrls = [
     'http://www.weibo.com/5339018234/FdTfX9AoP'
 ];
 
-//const MY_WEIBO_URL = 'http://weibo.com/1689761914/follow?rightmod=1&wvr=6';
-const MY_WEIBO_URL =  'http://weibo.com/2193415833/follow?rightmod=1&wvr=6';
+const MY_WEIBO_URL = 'http://weibo.com/1689761914/follow?rightmod=1&wvr=6';
+//const MY_WEIBO_URL =  'http://weibo.com/2193415833/follow?rightmod=1&wvr=6';
 
 const TIME_OUT = 10000;
+
+const forward = 0;
 
 function postWeibo(content) {
     var formData = new FormData();
@@ -225,7 +232,6 @@ var runCount = 0;
 function commentWeiboTimerExec() {
     var urls = getUrls();
     var uid = getMyUID(MY_WEIBO_URL);
-    var forward = 1;
 
     var urlIndex = getRandomInt(urls.length-1);
     var content = comment_contents[getRandomInt(comment_contents.length-1)];
