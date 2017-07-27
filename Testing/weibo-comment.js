@@ -51,7 +51,7 @@ function forwardWeibo(mid, content) {
     var formData = new FormData();
 
     // page_100505_home, page_100808_super_index
-    formData.append('location', 'page_100505_home');
+    formData.append('location', 'page_100808_super_index');
     formData.append('reason', content);
     formData.append('style_type', 1);
     formData.append('pdetail', '100808a8fa6bef39d9fb73fcf8431471211e9e');
