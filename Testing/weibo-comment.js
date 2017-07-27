@@ -33,7 +33,7 @@ var weiboUrls = [
 ];
 
 // Your own weibo link, once you login please click your "flower" link to get this
-const MY_WEIBO_URL =  'http://weibo.com/6327617441/follow?rightmod=1&wvr=6';
+const MY_WEIBO_URL =  'http://weibo.com/1689761914/follow?rightmod=1&wvr=6';
 
 // What I want to do?
 // 0: Comment and forward
@@ -41,7 +41,7 @@ const MY_WEIBO_URL =  'http://weibo.com/6327617441/follow?rightmod=1&wvr=6';
 // 2: Forward as Public
 // 3: Posting new weibo
 // 4: ALL -> Can do all above togetger
-const WHAT_I_WANT_TODO = 2;
+const WHAT_I_WANT_TODO = 1;
 
 const TIME_OUT = 10000;
 
@@ -86,7 +86,7 @@ function forwardWeibo(mid, content) {
 function postWeibo(content) {
     var formData = new FormData();
 
-    formData.append('mid', mid);
+    //formData.append('mid', mid);
     formData.append('location', 'page_100808_super_index');
     //formData.append('id', '100808a8fa6bef39d9fb73fcf8431471211e9e');
     formData.append('domain', '100808');
@@ -157,10 +157,10 @@ function commentWeibo(content, mid, uid, forward) {
       var data = JSON.parse(this.responseText);
       if (data.code == "100000") {
         console.log(data);
-      } 
+      }
       else if (data.code == "100027") {
         console.log(data);
-      } 
+      }
       else {
         console.log(data);
       }
@@ -228,38 +228,38 @@ function getUrls() {
 function getMyUID(url) {
     return url.substring("http://weibo.com/".length, url.indexOf("/follow"));
 }
-  
-var str62keys = [  
-    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",  
-    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",  
-    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"  
+
+var str62keys = [
+    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 ];
 
-function str62to10(str62) {  
-    var i10 = 0;  
-    for (var i = 0; i < str62.length; i++)  
-    {  
-        var n = str62.length - i - 1;  
-        var s = str62[i];  
-        i10 += this.str62keys.indexOf(s) * Math.pow(62, n);  
-    }  
-    return i10;  
-};  
-  
- 
-function int10to62(int10) {  
-    var s62 = '';  
-    var r = 0;  
-    while (int10 != 0)  
-    {  
-        r = int10 % 62;  
-        s62 = str62keys[r] + s62;  
-        int10 = Math.floor(int10 / 62);  
-    }  
-    return s62;  
-};  
-  
- 
+function str62to10(str62) {
+    var i10 = 0;
+    for (var i = 0; i < str62.length; i++)
+    {
+        var n = str62.length - i - 1;
+        var s = str62[i];
+        i10 += this.str62keys.indexOf(s) * Math.pow(62, n);
+    }
+    return i10;
+};
+
+
+function int10to62(int10) {
+    var s62 = '';
+    var r = 0;
+    while (int10 != 0)
+    {
+        r = int10 % 62;
+        s62 = str62keys[r] + s62;
+        int10 = Math.floor(int10 / 62);
+    }
+    return s62;
+};
+
+
 function url2mid(url) {
     var mid = '';
     if (url && url.length > 0) {
@@ -282,7 +282,7 @@ function url2mid(url) {
         }
     }
 
-    return mid;  
+    return mid;
 };
 
 var runCount = 0;
