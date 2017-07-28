@@ -326,13 +326,14 @@ function commentWeiboTimerExec() {
 
     console.log ("You dont get the lucky number this time, wait for next try in " + TIME_OUT + " seconds!");
 
-    if (runCount > 0 && runCount % 4==0) {
+    if (runCount > 0 && runCount % 4==0 && TAKE_A_NAP > 0) {
         console.log("Added Weibo successfully 4 times, take a nap for " +TAKE_A_NAP+ " seconds now!");
         console.log(new Date());
         var endTime = new Date().getTime() + nap;
         while (new Date().getTime() <= endTime) {}
         console.log(new Date());
         console.log("OK!!!!! BACK TO WORK!");
+        runCount++;
     }
 
     if (mid && mid.length > 0 && uid && uid.length > 0 && content && content.length > 0) {
