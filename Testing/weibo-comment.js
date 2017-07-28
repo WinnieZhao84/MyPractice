@@ -53,7 +53,7 @@ const MY_WEIBO_ACCOUNT = "ocdnini0220"
 // 4. Forward with two comments
 // 5: Forward in Private
 // 6: ALL -> Can do all above together
-const WHAT_I_WANT_TODO = 5;
+const WHAT_I_WANT_TODO = 1;
 
 // Send weibo frequence in seconds (10 means every 10 seconds now).
 const TIME_OUT = 10;
