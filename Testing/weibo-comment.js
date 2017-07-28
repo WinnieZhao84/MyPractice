@@ -7,6 +7,9 @@ var comment_contents = [
 '#甄萱# 你要什麼我就給你什麼 不管是精神上的陪伴還是物質上的東西 只要我能做到我都會給',
 '#甄萱# 因為她很美 她是我心目中的睡美人啊',
 '#甄萱# [爱][爱]',
+'#甄萱# 我心目中的睡美人就是Selina!',
+'#甄萱# 不管是精神上的陪伴還是物質上的東西 只要我能做到我都會給',
+'#甄萱# 我萱真瘦了; 我萱真瘦了; 我萱真瘦了',
 '#甄萱# 330 [爱] 1031',
 '#甄萱# 因為我知道你會很長壽 我知道你想讓我活很長會陪著你',
 '#甄萱# 我愛她 我可以包容她的一切',
@@ -22,11 +25,17 @@ var comment_contents = [
 // Please make sure the URL format like below:
 // If you add new one, please split the sentence with ","
 var weiboUrls = [
-  'http://weibo.com/6329047861/Feo7ye59O'
+  'http://www.weibo.com/5339018234/Fed1toxbs',
+  'http://www.weibo.com/5339018234/Fea0SCXRP'
 ];
 
 // Your own weibo link, once you login please click your "flower" link to get this
 const MY_WEIBO_URL =  'http://weibo.com/1689761914/follow';
+
+// Your weibo account, only required for Forward Privately
+// Login your weibo, click "Home" 首页 => http://weibo.com/ocdnini0220/home?topnav=1&wvr=6
+// "ocdnini0220" in the link will be your Weibo account
+const MY_WEIBO_ACCOUNT = "ocdnini0220"
 
 // What I want to do?
 // 0: Comment and forward
@@ -34,11 +43,14 @@ const MY_WEIBO_URL =  'http://weibo.com/1689761914/follow';
 // 2: Forward into Group
 // 3: Posting new weibo
 // 4. Forward with two comments
-// 5: ALL -> Can do all above togetger
-const WHAT_I_WANT_TODO = 200;
+// 5: Forward in Private
+// 6: ALL -> Can do all above together
+const WHAT_I_WANT_TODO = 5;
 
-// send weibo frequence (seconds)
+// Send weibo frequence in seconds (10 means every 10 seconds now).
 const TIME_OUT = 10;
+// Sleep time (sleep for 45 seconds for each 4 times)
+const TAKE_A_NAP = 45;
 
 /*********************!!!! YOU DONT NEED TO TUNCH ANYTHING BELOW. JUST STUPID SCRIPT !!!!!******************************************/
 /***********************************************************************************************************************************/
@@ -81,17 +93,16 @@ function forwardWeibo(mid, content) {
 function forwardWeiboPrivate(mid, content) {
     var formData = new FormData();
 
-    formData.append('location', 'page_100505_home');
+    formData.append('location', 'v6_content_home');
     formData.append('reason', content);
     formData.append('style_type', 1);
-    formData.append('visible', 1);
     formData.append('mid', mid);
-    formData.append('rank', 0);
-    formData.append('pub_type','dialog');
+    formData.append('rank', 1);
+    formData.append('group_source','group_all');
     formData.append('_t', '0');
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://weibo.com/aj/v6/mblog/forward?ajwvr=6&domain=ocdnini0220&__rnd=' + new Date().getTime(), true);
+    xhr.open('POST', 'http://weibo.com/aj/v6/mblog/forward?ajwvr=6&domain='+ MY_WEIBO_ACCOUNT + '&__rnd=' + new Date().getTime(), true);
 
     xhr.onload = function(e) {
         if (this.status == 200 || this.status == 304) {
@@ -145,9 +156,7 @@ function forwardWeiboToHome(mid, content) {
 function postWeibo(content) {
     var formData = new FormData();
 
-    //formData.append('mid', mid);
     formData.append('location', 'page_100808_super_index');
-    //formData.append('id', '100808a8fa6bef39d9fb73fcf8431471211e9e');
     formData.append('domain', '100808');
     formData.append('module', 'share_topic');
     formData.append('api_url', 'http://i.huati.weibo.com/page/modulepublisher');
@@ -304,8 +313,8 @@ function url2mid(url) {
     return mid;
 };
 
+var nap = TAKE_A_NAP * 1000;
 var runCount = 0;
-
 function commentWeiboTimerExec() {
     var urls = getUrls();
     var uid = getMyUID(MY_WEIBO_URL);
@@ -316,17 +325,27 @@ function commentWeiboTimerExec() {
 
     console.log ("You dont get the lucky number this time, wait for next try in " + TIME_OUT + " seconds!");
 
-    if (mid && mid.length > 0 && uid && uid.length > 0 && content && content.length > 0) {
+    if (runCount > 0 && runCount % 4==0) {
+        console.log("Added Weibo successfully 4 times, take a nap for " +TAKE_A_NAP+ " seconds now!");
+        console.log(new Date());
+        var endTime = new Date().getTime() + nap;
+        while (new Date().getTime() <= endTime) {}
+        console.log(new Date());
+        console.log("OK!!!!! BACK TO WORK!");
+    }
 
+    if (mid && mid.length > 0 && uid && uid.length > 0 && content && content.length > 0) {
+        console.log (runCount);
         console.log ("for url=" +urls[urlIndex] + " => mid=" + mid);
         console.log ("content=" + content);
+
         var action = '';
         if (WHAT_I_WANT_TODO == 0) {
             action = 'comment and foward..';
             commentWeibo(content, mid, uid, 1);
         }
         else if (WHAT_I_WANT_TODO == 1) {
-            action = 'comment only';
+            action = 'comment only..';
             commentWeibo(content, mid, uid, 0);
         }
         else if (WHAT_I_WANT_TODO == 2) {
@@ -334,24 +353,29 @@ function commentWeiboTimerExec() {
             forwardWeibo(mid, content);
         }
         else if (WHAT_I_WANT_TODO == 3) {
-            action = 'post to group.';
+            action = 'post to group..';
             postWeibo(content);
         }
         else if (WHAT_I_WANT_TODO == 4) {
-            action = 'forward weibo and add comment to source publisher and current poster.';
+            action = 'forward weibo and add comment to source publisher and current poster..';
             forwardPrivateWeibo(mid, content);
         }
         else if (WHAT_I_WANT_TODO == 5) {
-            action = 'add new post, comment and forward..';
+            action = 'forward privately..';
+            forwardWeiboPrivate(mid, content);
+        }
+        else if (WHAT_I_WANT_TODO == 6) {
+            action = 'add new post, comment and forward together..';
             postWeibo(content);
             forwardWeibo(mid, content);
             commentWeibo(content, mid, uid, 1);
         }
         else {
-            action = 'forward privately';
-            forwardWeiboPrivate(mid, content);
+            action = 'comment and foward..';
+            commentWeibo(content, mid, uid, 1);
         }
         console.log ("Going to " + action);
+        runCount++;
     }
 };
 
