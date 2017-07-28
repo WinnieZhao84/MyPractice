@@ -43,7 +43,7 @@ const MY_WEIBO_URL =  'http://weibo.com/1689761914/follow';
 // Your weibo account, only required for Forward Privately
 // Login your weibo, click "Home" 首页 => http://weibo.com/ocdnini0220/home?topnav=1&wvr=6
 // "ocdnini0220" in the link will be your Weibo account
-const MY_WEIBO_ACCOUNT = "ocdnini0220"
+const MY_WEIBO_ACCOUNT = "ocdnini0220";
 
 // What I want to do?
 // 0: Comment and forward
