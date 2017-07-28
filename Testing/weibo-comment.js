@@ -26,7 +26,15 @@ var comment_contents = [
 // If you add new one, please split the sentence with ","
 var weiboUrls = [
   'http://www.weibo.com/5339018234/Fed1toxbs',
-  'http://www.weibo.com/5339018234/Fea0SCXRP'
+  'http://www.weibo.com/5339018234/Fea0SCXRP',
+  'http://www.weibo.com/5339018234/FecKjiEMl',
+  'http://www.weibo.com/5339018234/FecJGkzVf',
+  'http://www.weibo.com/5339018234/FecPTnFRX',
+  'http://www.weibo.com/5339018234/FdTfn6qWx',
+  'http://www.weibo.com/5339018234/FdTf5F9AU?type=comment',
+  'http://www.weibo.com/5339018234/FdTAouqaz?type=comment',
+  'http://www.weibo.com/5339018234/FdTfze7qm?type=comment',
+  'http://www.weibo.com/5339018234/FdTfX9AoP'
 ];
 
 // Your own weibo link, once you login please click your "flower" link to get this
@@ -241,7 +249,6 @@ function getUrls() {
     for (var i=0; i<weiboUrls.length*2; i++){
          urls[i]='';
     }
-
     for (var i=0; i<weiboUrls.length; i++) {
         var text = weiboUrls[i];
         if (text && text.length > 0) {
@@ -265,8 +272,7 @@ var str62keys = [
 
 function str62to10(str62) {
     var i10 = 0;
-    for (var i = 0; i < str62.length; i++)
-    {
+    for (var i = 0; i < str62.length; i++) {
         var n = str62.length - i - 1;
         var s = str62[i];
         i10 += this.str62keys.indexOf(s) * Math.pow(62, n);
@@ -278,8 +284,7 @@ function str62to10(str62) {
 function int10to62(int10) {
     var s62 = '';
     var r = 0;
-    while (int10 != 0)
-    {
+    while (int10 != 0) {
         r = int10 % 62;
         s62 = str62keys[r] + s62;
         int10 = Math.floor(int10 / 62);
@@ -298,18 +303,14 @@ function url2mid(url) {
             var str = url.substring(offset1, offset2);
 
             str = str62to10(str);
-            if (offset1 > 0)
-            {
-                while (str.length < 7)
-                {
+            if (offset1 > 0) {
+                while (str.length < 7) {
                     str = '0' + str;
                 }
             }
-
             mid = str + mid;
         }
     }
-
     return mid;
 };
 
