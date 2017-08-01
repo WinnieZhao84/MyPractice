@@ -22,11 +22,11 @@ public class MaximumAverageSubarrayI {
      * Cumulative Sum
      *
      * We know that in order to obtain the averages of subarrays with length kk, we need to obtain the sum of these kk length subarrays.
-     * One of the methods of obtaining this sum is to make use of a cumulative sum array, sumsum, which is populated only once.
-     * Here, sum[i] is used to store the sum of the elements of the given numsnums array from the first element upto the element at the i-th index.
+     * One of the methods of obtaining this sum is to make use of a cumulative sum array, sum, which is populated only once.
+     * Here, sum[i] is used to store the sum of the elements of the given nums array from the first element up to the element at the i-th index.
      *
      * Once the sum array has been filled up, in order to find the sum of elements from the index ii to i+k, all we need to do is to use:
-     * sum[i] - sum[i-k]. Thus, now, by doing one more iteration over the sumsum array, we can determine the maximum average possible from
+     * sum[i] - sum[i-k]. Thus, now, by doing one more iteration over the sum array, we can determine the maximum average possible from
      * the subarrays of length k.
 
      * @param nums
@@ -54,9 +54,9 @@ public class MaximumAverageSubarrayI {
      *
      * Instead of creating a cumulative sum array first, and then traversing over it to determine the required sum,
      * we can simply traverse over nums just once, and on the go keep on determining the sums possible for the
-     * subarrays of length kk. To understand the idea, assume that we already know the sum of elements from
+     * subarrays of length k. To understand the idea, assume that we already know the sum of elements from
      * index i to index i+k, say it is x.. Now, to determine the sum of elements from the index i+1 to the index i+k+1,
-     * all we need to do is to subtract the element nums[i] from xx and to add the element nums[i+k+1] to x.
+     * all we need to do is to subtract the element nums[i] from x and to add the element nums[i+k+1] to x.
      * We can carry out our process based on this idea and determine the maximum possible average.
      */
     public double findMaxAverage_better(int[] nums, int k) {
