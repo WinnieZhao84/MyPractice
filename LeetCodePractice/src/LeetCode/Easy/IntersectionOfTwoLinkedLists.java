@@ -7,12 +7,11 @@ import LeetCode.Helper.ListNode;
 
 
 For example, the following two linked lists:
-
-A:          a1 ¡ú a2
-                                                   ¨K
-                     c1 ¡ú c2 ¡ú c3
-                                                    ¨J            
-B:     b1 ¡ú b2 ¡ú b3
+ A:          a1 -> a2
+                      |
+                      c1 -> c2 -> c3
+                      |
+ B:     b1 -> b2 ->  b3
 begin to intersect at node c1.
 
 

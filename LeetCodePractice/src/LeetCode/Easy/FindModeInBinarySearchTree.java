@@ -22,13 +22,26 @@ import LeetCode.Helper.TreeNode;
 
 * Note: If a tree has more than one mode, you can return them in any order.
 
-* Follow up: Could you do that without using any extra space? (Assume that the implicit stack space incurred due to recursion does not count).
+* Follow up: Could you do that without using any extra space?
+ * (Assume that the implicit stack space incurred due to recursion does not count).
 
  * @author WinnieZhao
  *
  */
 public class FindModeInBinarySearchTree {
 
+    /**
+     * The way to do it properly is to do two passes.
+     * One to find the highest number of occurrences of any value,
+     * and then a second pass to collect all values occurring that often.
+     *
+     * Here's a (two-pass) solution that I think can rightfully be called O(1) space.
+     * Both passes keep track of the current value etc, and the second pass additionally
+     * collects the modes in the result array.
+     * Also, this way you could very easily replace the recursive in-order traversal with
+     * for example Morris traversal. Then you wouldn't even need to disregard the recursion
+     * stack space in order to claim O(1) extra space usage.
+     */
     private int currVal = 0;
     private int currCount = 0;
     private int maxCount = 0;
@@ -55,7 +68,8 @@ public class FindModeInBinarySearchTree {
         if (currCount > maxCount) {
             maxCount = currCount;
             modeCount = 1;
-        } else if (currCount == maxCount) {
+        }
+        else if (currCount == maxCount) {
             if (modes != null)
                 modes[modeCount] = currVal;
             modeCount++;

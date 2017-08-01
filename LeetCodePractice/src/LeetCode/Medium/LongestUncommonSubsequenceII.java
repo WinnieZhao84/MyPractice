@@ -31,7 +31,7 @@ public class LongestUncommonSubsequenceII {
 
         Arrays.sort(strs, (a, b) -> b.length() - a.length());
         for (int i=0;i<strs.length;i++){
-            //check whether strs[i] is sub sequenece of others
+            //check whether strs[i] is sub sequence of others
             boolean flag = false;
             for(int j=0;j<strs.length;j++){
                 if (j!=i && isSub(strs[i], strs[j])){

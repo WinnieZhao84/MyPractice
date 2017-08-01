@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * Write a program that outputs the string representation of numbers from 1 to n.
  * 
- * But for multiples of three it should output ¡°Fizz¡± instead of the number and for the multiples of five output ¡°Buzz¡±. 
- * For numbers which are multiples of both three and five output ¡°FizzBuzz¡±.
+ * But for multiples of three it should output "Fizz" instead of the number and for the multiples of five output "Buzz".
+ * For numbers which are multiples of both three and five output "FizzBuzz".
  * 
  * n = 15,
 
@@ -59,7 +59,7 @@ public class FizzBuzz {
     
     // Not using "%" operation
     public List<String> fizzBuzz_better(int n) {
-        List<String> ret = new ArrayList<String>(n);
+        List<String> ret = new ArrayList<>(n);
         for(int i=1,fizz=0,buzz=0;i<=n ;i++){
             fizz++;
             buzz++;
