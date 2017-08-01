@@ -34,7 +34,8 @@ public class NumberOfBoomerangs {
                 int d = getDistance(points[i], points[j]);
                 map.put(d, map.getOrDefault(d, 0) + 1);
             }
-            
+
+            // the number of permutations with 2 points
             for(int val : map.values()) {
                 res += val * (val-1);
             }            

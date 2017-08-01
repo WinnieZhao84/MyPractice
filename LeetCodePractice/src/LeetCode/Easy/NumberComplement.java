@@ -5,7 +5,7 @@ package LeetCode.Easy;
  * 
  * Note:
  * The given integer is guaranteed to fit within the range of a 32-bit signed integer.
- * You could assume no leading zero bit in the integer¡¯s binary representation.
+ * You could assume no leading zero bit in the integer's binary representation.
  * 
  * Example 1:
  * Input: 5
@@ -21,7 +21,18 @@ package LeetCode.Easy;
  *
  */
 public class NumberComplement {
-    
+
+    /**
+     * Binary Representation of 5 : 101
+     * Highest one bit : 100
+     * Shift left : 1000
+     * Mask is : 111
+     *
+     * Final result : 10
+
+     * @param num
+     * @return
+     */
     public int findComplement(int num) {
         int mask = (Integer.highestOneBit(num) << 1) - 1;
         return num ^ mask;
