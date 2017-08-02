@@ -46,7 +46,7 @@ public class RangeAdditionII {
     // right corner for an operation [i, j][i,j] is given by the index (i, j)(i,j). The maximum element will be the one
     // on which all the operations have been performed.
     // Further, we can observe that to count the number of elements lying in this intersection region, we don't actually
-    // need to perform the operations, but we need to determine the lower right cornerof the intersecting region only.
+    // need to perform the operations, but we need to determine the lower right corner of the intersecting region only.
     // This corner is given by (x,y)=(min(op[0],min(op[1])),
     // where min(op[i]) represents the minimum value of op[i] from among all the op[i]'s in the given set of operations.
     // Thus, the resultant count of elements lying in the intersection is given by: x*y.

@@ -10,3 +10,5 @@ LeetCodePractice/.project
 LeetCodePractice/.settings/org.eclipse.core.resources.prefs
 LeetCodePractice/LeetCodePractice.iml
 *.class
+Testing/weibo-comment.txt
+Testing/weibo-poll.js
