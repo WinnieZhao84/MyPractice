@@ -71,6 +71,16 @@ public class BinaryTreeLongestConsecutiveSequenceII {
 
         return new int[] {inr, dcr};
     }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(2);
+        root.right = new TreeNode(1);
+        root.left = new TreeNode(1);
+
+        BinaryTreeLongestConsecutiveSequenceII solution = new BinaryTreeLongestConsecutiveSequenceII();
+
+        System.out.print(solution.longestConsecutive(root));
+    }
 }
 
 

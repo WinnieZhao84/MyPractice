@@ -3,7 +3,8 @@ package LeetCode.Medium;
 /**
  * Additive number is a string whose digits can form additive sequence.
  * 
- * A valid additive sequence should contain at least three numbers. Except for the first two numbers, each subsequent number in the sequence must be the sum of the preceding two.
+ * A valid additive sequence should contain at least three numbers. Except for the first two numbers,
+ * each subsequent number in the sequence must be the sum of the preceding two.
  * 
  * For example:
  * "112358" is an additive number because the digits can form an additive sequence: 1, 1, 2, 3, 5, 8.
@@ -23,51 +24,54 @@ package LeetCode.Medium;
  */
 public class AdditiveNumber {
 
+    /**
+     * Choose the first number A, it can be the leftmost 1 up to i digits.
+     * i<=(L-1)/2 because the third number should be at least as long as the first number
+     *
+     * Choose the second number B, it can be the leftmost 1 up to j digits excluding the first number.
+     * the limit for j is a little bit tricky, because we don't know whether A or B is longer.
+     * The remaining string (with length L-j) after excluding A and B should have a length of at least max(length A, length B),
+     * where length A = i and length B = j-i, thus L-j >= max(j-i, i)
+     *
+     * Calls the recursive checker function and returns true if passes the checker function, or continue to the next
+     * choice of B (A) until there is no more choice for B or A, in which case returns a false.
+
+     * @param num
+     * @return
+     */
     public boolean isAdditiveNumber(String num) {
-        if (num == null || num.length() <=1) {
-            return false;
-        }
-        int length = num.length();
-        for (int i=0; i<length; i++) {
-            for (int j = i + 1; j < length - i - 1; j++) {
-                
-                String first = num.substring(0, i + 1);  
-                String second = num.substring(i + 1, j + 1);  
-                
-                if(isValid(j + 1, num, first, second)) {
-                    return true; 
-                }
+        int L = num.length();
+
+        // choose the first number A
+        for(int i=1; i<=(L-1)/2; i++) {
+            // A cannot start with a 0 if its length is more than 1
+            if(num.charAt(0) == '0' && i>=2) break; //previous code: continue;
+
+            // choose the second number B
+            for(int j=i+1; L-j>=j-i && L-j>=i; j++) {
+                // B cannot start with a 0 if its length is more than 1
+                if(num.charAt(i) == '0' && j-i>=2) break; // previous: continue;
+
+                long num1 = Long.parseLong(num.substring(0, i)); // A
+                long num2 = Long.parseLong(num.substring(i, j)); // B
+                String substr = num.substring(j); // remaining string
+
+                if(isAdditive(substr, num1, num2)) return true; // return true if passes isAdditive test
+                // else continue; // continue for loop if does not pass isAdditive test
             }
         }
-        
-        return false;
+        return false; // does not pass isAdditive test, thus is not additive
     }
-    
-    private boolean isValid (int start, String num, String first, String second) {
-        if (start == num.length()) {
-            return true;
-        }
 
-        Long f = Long.valueOf(first);
-        Long s = Long.valueOf(second);
-        
-        // The number can't be leading zeros
-        if(!Long.toString(f).equals(first) || !Long.toString(s).equals(second)) {
-            return false;
-        }
-        Long sum = f + s;
-        String sumStr = Long.toString(sum);  
-        if (start + sumStr.length() > num.length()) {
-            return false;
-        }
-        String third = num.substring(start, start + sumStr.length());  
-        long t = Long.parseLong(third); 
-        
-        if (!Long.toString(t).equals(third) || t != sum) {
-            return false;
-        }
-        start = start + sumStr.length();
-        return this.isValid(start, num, second, third);
+    // Recursively checks if a string is additive
+    private boolean isAdditive(String str, long num1, long num2) {
+        if(str.equals("")) return true; // reaches the end of string means a yes
+
+        long sum = num1+num2;
+        String s = ((Long)sum).toString();
+        if(!str.startsWith(s)) return false; // if string does not start with sum of num1 and num2, returns false
+
+        return isAdditive(str.substring(s.length()), num2, sum); // recursively checks the remaining string
     }
     
     public static void main(String[] args) {
