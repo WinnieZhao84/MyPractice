@@ -14,7 +14,8 @@ import java.util.*;
  * If your line go through the edge of a brick, then the brick is not considered as crossed.
  * You need to find out how to draw the line to cross the least bricks and return the number of crossed bricks.
  *
- * You cannot draw a line just along one of the two vertical edges of the wall, in which case the line will obviously cross no bricks.
+ * You cannot draw a line just along one of the two vertical edges of the wall, in which case the line will obviously
+ * cross no bricks.
  *
  * Example:
  * Input:

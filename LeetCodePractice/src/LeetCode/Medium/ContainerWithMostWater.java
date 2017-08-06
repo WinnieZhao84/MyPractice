@@ -6,7 +6,16 @@ package LeetCode.Medium;
  * which together with x-axis forms a container, such that the container contains the most water.
  * 
  * Note: You may not slant the container.
- * 
+ *
+ * [1  8  6  2  5  4  8  3  7]
+ *     |              |
+ *     |              |     |
+ *     |  |           |     |
+ *     |  |     |     |     |
+ *     |  |     |  |  |     |
+ *     |  |     |  |  |  |  |
+ *     |  |  |  |  |  |  |  |
+ *  |  |  |  |  |  |  |  |  |
  * @author WinnieZhao
  *
  */

@@ -9,8 +9,10 @@ import java.util.Map;
  * 
  * What if we change the game so that players cannot re-use integers?
  * 
- * For example, two players might take turns drawing from a common pool of numbers of 1..15 without replacement until they reach a total >= 100.
- * Given an integer maxChoosableInteger and another integer desiredTotal, determine if the first player to move can force a win, assuming both players play optimally.
+ * For example, two players might take turns drawing from a common pool of numbers of 1..15 without replacement
+ * until they reach a total >= 100.
+ * Given an integer maxChoosableInteger and another integer desiredTotal, determine if the first player to move can
+ * force a win, assuming both players play optimally.
  * You can always assume that maxChoosableInteger will not be larger than 20 and desiredTotal will not be larger than 300.
  * 
  * Example
@@ -68,8 +70,11 @@ public class CanIWin {
         }
         return map.get(key);
     }
-    
-    // transfer boolean[] to an Integer 
+
+    // Transfer boolean[] to an Integer
+    // Say the boolean[] is {false, false, true, true, false}, then we can transfer it to an Integer
+    // with binary representation as 00110. Since Integer is a perfect choice to be the key of HashMap,
+    // then we now can "memorize" the sub-problems using Map<Integer, Boolean>.
     private int format(boolean[] used){
         int num = 0;
         for(boolean b: used){

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 /**
- * Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+ * Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C
+ * where the candidate numbers sums to T.
  * 
  * The same repeated number may be chosen from C unlimited number of times.
  * 
@@ -30,8 +31,8 @@ public class CombinationSum {
     
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         
-        List<List<Integer>> result  = new ArrayList<List<Integer>>();
-        this.combinationSumHelper(candidates, target, result, new ArrayList<Integer>(), 0);
+        List<List<Integer>> result  = new ArrayList<>();
+        this.combinationSumHelper(candidates, target, result, new ArrayList<>(), 0);
         
         return result;
     }
@@ -42,7 +43,7 @@ public class CombinationSum {
             return;
         }
         else if (target == 0) {
-            result.add(new ArrayList<Integer>(combination));
+            result.add(new ArrayList<>(combination));
         }
         else {
             for (int i=start; i<candidates.length; i++) {

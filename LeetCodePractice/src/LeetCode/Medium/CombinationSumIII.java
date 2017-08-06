@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.
+ * Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used
+ * and each combination should be a unique set of numbers.
  * 
  * Example 1:
  * 
@@ -25,9 +26,9 @@ import java.util.stream.Collectors;
 public class CombinationSumIII {
 
     public List<List<Integer>> combinationSum3(int k, int n) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         
-        this.combinationSumHelper(k, n, result, new ArrayList<Integer>(), 1);
+        this.combinationSumHelper(k, n, result, new ArrayList<>(), 1);
         
         return result;
     }
@@ -38,7 +39,7 @@ public class CombinationSumIII {
             return;
         }
         else if (target == 0 && combination.size() == count) {
-            result.add(new ArrayList<Integer>(combination));
+            result.add(new ArrayList<>(combination));
         }
         else {
             for (int i=start; i<=9; i++) {
@@ -55,8 +56,8 @@ public class CombinationSumIII {
 
         List<List<Integer>> result = solution.combinationSum3(3, 9);
         
-        for (List<Integer> combinantion : result) {
-            System.out.println(combinantion.stream()
+        for (List<Integer> combination : result) {
+            System.out.println(combination.stream()
                     .map(Object::toString)
                     .collect(Collectors.joining(",")));
         }

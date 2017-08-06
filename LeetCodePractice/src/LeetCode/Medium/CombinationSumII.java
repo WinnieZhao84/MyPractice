@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Given a collection of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+ * Given a collection of candidate numbers (C) and a target number (T), find all unique combinations in C
+ * where the candidate numbers sums to T.
  * 
  * Each number in C may only be used once in the combination.
  * 
@@ -29,10 +30,10 @@ import java.util.stream.Collectors;
 public class CombinationSumII {
     
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         
         Arrays.sort(candidates);
-        this.combinationSumHelper(candidates, target, result, new ArrayList<Integer>(), 0);
+        this.combinationSumHelper(candidates, target, result, new ArrayList<>(), 0);
         
         return result;
     }
@@ -43,7 +44,7 @@ public class CombinationSumII {
             return;
         }
         else if (target == 0) {
-            result.add(new ArrayList<Integer>(combination));
+            result.add(new ArrayList<>(combination));
         }
         else {
             for (int i=start; i<candidates.length; i++) {
@@ -65,8 +66,8 @@ public class CombinationSumII {
 
         List<List<Integer>> result = solution.combinationSum2(candidates, 8);
         
-        for (List<Integer> combinantion : result) {
-            System.out.println(combinantion.stream()
+        for (List<Integer> combination : result) {
+            System.out.println(combination.stream()
                     .map(Object::toString)
                     .collect(Collectors.joining(",")));
         }

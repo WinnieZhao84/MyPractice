@@ -3,8 +3,9 @@ package LeetCode.Medium;
 import java.util.Arrays;
 
 /**
- * You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest 
- * number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+ * You are given coins of different denominations and a total amount of money amount.
+ * Write a function to compute the fewest number of coins that you need to make up that amount.
+ * If that amount of money cannot be made up by any combination of the coins, return -1.
  * 
  * Example 1:
  * coins = [1, 2, 5], amount = 11
@@ -46,8 +47,8 @@ public class CoinChange {
     
     public static void main(String[] args) {
         CoinChange solution = new CoinChange();
-        int[] coins = {2,5};
+        int[] coins = {1,2,5};
         
-        System.out.println(solution.coinChange(coins, 3));
+        System.out.println(solution.coinChange(coins, 11));
     }
 }
