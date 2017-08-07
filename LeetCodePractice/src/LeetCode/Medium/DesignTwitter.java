@@ -80,9 +80,13 @@ public class DesignTwitter {
     
     /** Compose a new tweet. */
     public void postTweet(int userId, int tweetId) {
-        if (!fans.containsKey(userId)) fans.put(userId, new HashSet<>());
+        if (!fans.containsKey(userId)) {
+            fans.put(userId, new HashSet<>());
+        }
         fans.get(userId).add(userId);
-        if (!tweets.containsKey(userId)) tweets.put(userId, new LinkedList<>());
+        if (!tweets.containsKey(userId)) {
+            tweets.put(userId, new LinkedList<>());
+        }
         tweets.get(userId).addFirst(new Tweet(cnt++, tweetId));
     }
     
@@ -91,7 +95,9 @@ public class DesignTwitter {
      *  Tweets must be ordered from most recent to least recent. 
      */
     public List<Integer> getNewsFeed(int userId) {
-        if (!fans.containsKey(userId)) return new LinkedList<>();
+        if (!fans.containsKey(userId)) {
+            return new LinkedList<>();
+        }
         PriorityQueue<Tweet> feed = new PriorityQueue<>((t1, t2) -> t2.time - t1.time);
         fans.get(userId).stream()
             .filter(f -> tweets.containsKey(f))
@@ -103,13 +109,17 @@ public class DesignTwitter {
     
     /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
     public void follow(int followerId, int followeeId) {
-        if (!fans.containsKey(followerId)) fans.put(followerId, new HashSet<>());
+        if (!fans.containsKey(followerId)) {
+            fans.put(followerId, new HashSet<>());
+        }
         fans.get(followerId).add(followeeId);
     }
     
     /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
     public void unfollow(int followerId, int followeeId) {
-        if (fans.containsKey(followerId) && followeeId != followerId) fans.get(followerId).remove(followeeId);
+        if (fans.containsKey(followerId) && followeeId != followerId) {
+            fans.get(followerId).remove(followeeId);
+        }
     }
     
     public static void main(String[] args) {

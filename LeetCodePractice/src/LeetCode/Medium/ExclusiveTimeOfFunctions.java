@@ -38,7 +38,7 @@ import java.util.Stack;
 public class ExclusiveTimeOfFunctions {
 
     /**
-     * Before starting off with the solution, let's discuss a simple idea. Suppose we have three functions func_11, func_22
+     * Before starting off with the solution, let's discuss a simple idea. Suppose we have three functions func_1, func_2
      * and func_3 such that func_1 calls func_2 and then func_2 calls func_3. In this case, func_3  starts at the end and
      * ends first, func_2 starts at 2nd position and ends at the 2nd last step. Similarly, func_1 starts first and ends at
      * the last position. Thus, we can conclude that the function which is entered at the end finishes first and the one

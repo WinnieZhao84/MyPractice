@@ -10,10 +10,8 @@ import java.util.Queue;
  * in the Dota2 game. The voting for this change is a round-based procedure.
  * In each round, each senator can exercise one of the two rights:
  *
- * 1. Ban one senator's right:
- * A senator can make another senator lose all his rights in this and all the following rounds.
- * 2. Announce the victory:
- * If this senator found the senators who still have rights to vote are all from the same party,
+ * 1. Ban one senator's right: A senator can make another senator lose all his rights in this and all the following rounds.
+ * 2. Announce the victory: If this senator found the senators who still have rights to vote are all from the same party,
  * he can announce the victory and make the decision about the change in the game.
  *
  * Given a string representing each senator's party belonging. The character 'R' and 'D' represent the Radiant party

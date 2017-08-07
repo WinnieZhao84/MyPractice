@@ -127,7 +127,9 @@ public class DesignSnakeGame {
                 len++;
             }
         }
-        while(snake.size() > len+1) snake.removeLast();
+        while(snake.size() > len+1) {
+            snake.removeLast();
+        }
 
         return len;
     }

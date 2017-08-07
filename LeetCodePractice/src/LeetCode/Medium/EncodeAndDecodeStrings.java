@@ -59,13 +59,25 @@ public class EncodeAndDecodeStrings {
 
         while(k < s.length()){
             int pound = s.indexOf("#", k);
-            int size = Integer.parseInt(s.substring(k, pound));
+            String str = s.substring(k, pound);
+            int size = Integer.parseInt(str);
             res.add(s.substring(pound+1, pound+1+size));
             k = pound+1+size;
         }
 
         return res;
 
+    }
+
+    public static void main(String[] args) {
+        List<String> strs = new ArrayList<>();
+        strs.add("abc");
+        strs.add("defg");
+
+        EncodeAndDecodeStrings solution = new EncodeAndDecodeStrings();
+
+        System.out.println(solution.encode(strs));
+        System.out.println(solution.decode(solution.encode(strs)));
     }
 
 }
