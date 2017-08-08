@@ -44,7 +44,7 @@ public class GenerateParentheses {
    public static void main (String[] args) {
        GenerateParentheses solution = new GenerateParentheses();
        
-       List<String> result = solution.generateParenthesis(0);
+       List<String> result = solution.generateParenthesis(3);
        
        System.out.println(result.stream().collect(Collectors.joining(",")));
    }

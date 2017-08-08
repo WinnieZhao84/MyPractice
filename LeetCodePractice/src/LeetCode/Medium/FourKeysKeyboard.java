@@ -31,23 +31,26 @@ package LeetCode.Medium;
  */
 public class FourKeysKeyboard {
 
-    public int maxA(int N) {
-        if (N <= 6)  {
-            return N;
-        }
-        int[] dp = new int[N + 1];
-        for (int i = 1; i <= 6; i++) {
-            dp[i] = i;
-        }
-        dp[0] = 0;
+    /**
+     * We use i steps to reach maxA(i) then use the remaining n - i steps to reach n - i - 1 copies of maxA(i)
+     *
+     * For example: A, A, A, Ctrl A, Ctrl C, Ctrl V, Ctrl V
+     * Here we have n = 7 and we used i = 3 steps to reach AAA
+     * Then we use the remaining n - i = 4 steps: Ctrl A, Ctrl C, Ctrl V, Ctrl V, to reach n - i - 1 = 3 copies of AAA
+     *
+     * We either don't make copies at all, in which case the answer is just n, or if we want to make copies,
+     * we need to have 3 steps reserved for Ctrl A, Ctrl C, Ctrl V so i can be at most n - 3
 
-        for (int i=7; i<=N; i++) {
+     * @param n
+     * @return
+     */
+    public int maxA(int n) {
+        int[] dp = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
             dp[i] = i;
-            for (int j=3; j<i; j++) {
-                dp[i] = Math.max(dp[i], dp[i-j]*(j-1));
-            }
+            for (int j = 1; j <= i - 3; j++)
+                dp[i] = Math.max(dp[i], dp[j] * (i - j - 1));
         }
-
-        return dp[N];
+        return dp[n];
     }
 }
