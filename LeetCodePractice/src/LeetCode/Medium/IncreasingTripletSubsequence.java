@@ -5,7 +5,7 @@ package LeetCode.Medium;
  * 
  * Formally the function should:
  * Return true if there exists i, j, k 
- * such that arr[i] < arr[j] < arr[k] given 0 ¡Ü i < j < k ¡Ü n-1 else return false.
+ * such that arr[i] < arr[j] < arr[k] given 0 <= i < j < k <= n-1 else return false.
  * Your algorithm should run in O(n) time complexity and O(1) space complexity.
  * 
  * Examples:

@@ -12,13 +12,13 @@ package LeetCode.Medium;
 public class IntegerBreak {
 
     /**
-     * 2 == 1 + 1; result = 1。
-     * 3 == 1 + 2; result = 2。
+     * 2 == 1 + 1; result = 1
+     * 3 == 1 + 2; result = 2
      * 4 == 2 + 2; result = 4
-     * 5 == 2 + 3; result = 6。
+     * 5 == 2 + 3; result = 6
      * 6 == 3 + 3; result = 9
      * 7 == 3 + 4; result = 12
-     * 8 == 3 + 3 + 2; result = 18。
+     * 8 == 3 + 3 + 2; result = 18
      * 9 == 3 + 3 + 3; result = 27
      * 10 == 3 + 3 + 4; result = 36
      * 

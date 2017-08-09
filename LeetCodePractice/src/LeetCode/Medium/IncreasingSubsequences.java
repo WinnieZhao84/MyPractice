@@ -41,8 +41,13 @@ public class IncreasingSubsequences {
         
         List<Integer> unique = new ArrayList<Integer>();
         for (int i = index; i<nums.length; i++) {
-            if (res.size() > 0 && nums[i] < res.get(res.size()-1)) continue; // skip non-increase
-            if (unique.contains(nums[i])) continue; // skip duplicate
+            if (res.size() > 0 && nums[i] < res.get(res.size()-1)) {
+                continue; // skip non-increase
+            }
+
+            if (unique.contains(nums[i])) {
+                continue; // skip duplicate
+            }
             unique.add(nums[i]);
             
             res.add(nums[i]);

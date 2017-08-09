@@ -25,7 +25,8 @@ import java.util.Map;
  * 1 does each group allow duplicates, such as ["a", "a"].
  * 2 how to calculate unique hash key.
  *
- * For Java to do a mod operation, you need to do (26 + a)%26, if a == -25, then without 26+, you get a%26 == -25. This is not the case in Python.
+ * For Java to do a mod operation, you need to do (26 + a)%26, if a == -25, then without 26+, you get a%26 == -25.
+ * This is not the case in Python.
 
  * Created by WinnieZhao on 4/10/2017.
  */
