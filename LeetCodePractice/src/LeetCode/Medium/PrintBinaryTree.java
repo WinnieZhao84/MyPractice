@@ -91,7 +91,7 @@ public class PrintBinaryTree {
         res[i][(l + r) / 2] = "" + root.val;
 
         fill(res, root.left, i + 1, l, (l + r) / 2);
-        fill(res, root.right, i + 1, (l + r + 1) / 2, r);
+        fill(res, root.right, i + 1, (l + r) / 2 + 1, r);
     }
 
     private int getDepth(TreeNode root) {
