@@ -35,8 +35,9 @@ public class LetterCombinationsOfPhoneNumber {
                     ans.add(t+s);
             }
         }
-    return ans;
-}
+
+        return ans;
+    }
     
     public List<String> letterCombinations(String digits) {
         List<String> result = new ArrayList<>();

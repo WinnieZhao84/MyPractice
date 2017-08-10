@@ -1,4 +1,4 @@
-package LeetCode.Medium;
+package LeetCode.Hard;
 
 /**
  * Given two integers n and k, find how many different arrays consist of numbers from 1 to n such that

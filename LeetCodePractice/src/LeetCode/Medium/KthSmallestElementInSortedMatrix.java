@@ -25,7 +25,7 @@ import java.util.PriorityQueue;
  * 
  * Note: 
  * 
- * You may assume k is always valid, 1 鈮� k 鈮� n2.
+ * You may assume k is always valid, 1 <= k <= n^2.
  * 
  * @author WinnieZhao
  *

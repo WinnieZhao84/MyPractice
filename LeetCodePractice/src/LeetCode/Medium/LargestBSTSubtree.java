@@ -68,7 +68,10 @@ public class LargestBSTSubtree {
         int max = 0;
 
         public int largestBSTSubtree(TreeNode root) {
-            if (root == null) { return 0; }
+            if (root == null) {
+                return 0;
+            }
+
             traverse(root, null);
             return max;
         }
