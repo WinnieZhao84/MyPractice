@@ -50,10 +50,10 @@ public class CoinPath {
      * starting from the index i. We start with the last index as the current index and proceed backwards for filling
      * the next and dp array.
      *
-     * With i as the current index, we consider all the next possible positions from i+1i+1, i+2i+2,..., i+Bi+B,
-     * and determine the position, j, which leads to a minimum cost of reaching the end of AA, which is given
-     * by A[i]+dp[j]A[i]+dp[j]. We update next[i] with this corresponding index. We also update dp[i] with the minimum
-     * cost, to be used by the previous indices' cost calculations.
+     * With i as the current index, we consider all the next possible positions from i+1, i+2,..., i+B, and determine
+     * the position, j, which leads to a minimum cost of reaching the end of AA, which is given by A[i]+dp[j].
+     * We update next[i] with this corresponding index. We also update dp[i] with the minimum cost, to be used by the
+     * previous indices' cost calculations.
      *
      * At the end, we again jump over the indices as per the next array and put these indices in the res array to be returned.
 
