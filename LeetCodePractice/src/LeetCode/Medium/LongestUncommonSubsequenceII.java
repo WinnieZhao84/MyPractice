@@ -48,11 +48,16 @@ public class LongestUncommonSubsequenceII {
     //check if s1 is substring of s2
     private boolean isSub(String s1, String s2){
         //if len(s1)>len(s2) return false
-        if(s1.length()>s2.length()) return false;
+        if(s1.length()>s2.length()) {
+            return false;
+        }
+
         //pos++ when same character
         int j=0;
-        for(int i=0;j<s1.length()&&i<s2.length();i++){
-            if(s1.charAt(j)==s2.charAt(i)) j++;
+        for(int i=0;j<s1.length()&&i<s2.length();i++) {
+            if(s1.charAt(j)==s2.charAt(i)) {
+                j++;
+            }
         }
 
         return j==s1.length();
@@ -61,10 +66,10 @@ public class LongestUncommonSubsequenceII {
     public static void main(String[] args) {
         LongestUncommonSubsequenceII solutin = new LongestUncommonSubsequenceII();
 
-        String[] strs = {"aaa","aaa","aa"};
+        String[] strs = {"aaa","a","aa"};
         System.out.println(solutin.findLUSlength(strs));
 
-        String[] strs1 = {"aba","cdc","eae"};
+        String[] strs1 = {"cdddc","cdc","eae"};
         System.out.println(solutin.findLUSlength(strs1));
     }
 

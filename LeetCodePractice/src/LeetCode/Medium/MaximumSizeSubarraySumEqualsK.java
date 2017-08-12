@@ -34,4 +34,11 @@ public class MaximumSizeSubarraySumEqualsK {
 
         return len == Integer.MIN_VALUE ? 0 : len;
     }
+
+    public static void main(String[] args) {
+        MaximumSizeSubarraySumEqualsK solution = new MaximumSizeSubarraySumEqualsK();
+
+        int[] nums = {-2, -1, 2, 1};
+        System.out.println(solution.maxSubArrayLen(nums, 1));
+    }
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given an integer array of size n, find all elements that appear more than n/3 times. The algorithm should run in linear time and in O(1) space.
+ * Given an integer array of size n, find all elements that appear more than n/3 times.
+ * The algorithm should run in linear time and in O(1) space.
  * 
  * @author WinnieZhao
  *
@@ -12,9 +13,11 @@ import java.util.List;
 public class MajorityElementII {
 
     public List<Integer> majorityElement(int[] nums) {
-        if (nums == null || nums.length == 0) return new ArrayList<Integer>();
+        if (nums == null || nums.length == 0) {
+            return new ArrayList<>();
+        }
         
-        List<Integer> result = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<>();
         int number1 = nums[0], number2 = nums[0], count1 = 0, count2 = 0, len = nums.length;
         for (int i = 0; i < len; i++) {
             if (nums[i] == number1) {
@@ -56,7 +59,7 @@ public class MajorityElementII {
     
     public static void main(String[] args) {
         MajorityElementII solution = new MajorityElementII();
-        int[] nums = {1,1,1,1,2,0,3,6,4};
+        int[] nums = {2,3,1,1,1,1,1,6,4};
         System.out.println(solution.majorityElement(nums));
     }
 }

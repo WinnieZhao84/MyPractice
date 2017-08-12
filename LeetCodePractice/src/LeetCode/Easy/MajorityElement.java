@@ -36,5 +36,13 @@ public class MajorityElement {
         }
         return major;
     }
+
+    public static void main(String[] args) {
+        MajorityElement solution = new MajorityElement();
+
+        int[] nums = {1, 2, 1, 2, 2};
+
+        System.out.println(solution.majorityElement_better(nums));
+    }
     
 }

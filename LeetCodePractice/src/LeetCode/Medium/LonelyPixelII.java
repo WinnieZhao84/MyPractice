@@ -28,7 +28,7 @@ import java.util.Map;
  *  0            [['W', '(B)', 'W', '(B)', 'B', 'W'],
  *  1             ['W', '(B)', 'W', '(B)', 'B', 'W'],
  *  2             ['W', '(B)', 'W', '(B)', 'B', 'W'],
- *  3             ['W', 'W',   'B',  'W',  'B', 'W']]
+ *  3             ['W',  'W',  'B',  'W',  'B', 'W']]
  *
  * Take 'B' at row R = 0 and column C = 1 as an example:
  * Rule 1, row R = 0 and column C = 1 both have exactly N = 3 black pixels.
@@ -73,5 +73,16 @@ public class LonelyPixelII {
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        LonelyPixelII solution = new LonelyPixelII();
+
+        char[][]picture = {{'W', 'B', 'W', 'B', 'B', 'W'},
+                            {'W', 'B', 'W', 'B', 'B', 'W'},
+                            {'W', 'B', 'W', 'B', 'B', 'W'},
+                            {'W', 'W', 'B', 'W', 'B', 'W'}};
+
+        System.out.println(solution.findBlackPixel(picture, 3));
     }
 }

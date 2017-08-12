@@ -1,7 +1,8 @@
 package LeetCode.Medium;
 
 /**
- * Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every character in T appears no less than k times.
+ * Find the length of the longest substring T of a given string (consists of lowercase letters only)
+ * such that every character in T appears no less than k times.
  * 
  * Example 1:
  * 
@@ -72,7 +73,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
     public static void main(String[] args) {
         LongestSubstringWithAtLeastKRepeatingCharacters solution = new LongestSubstringWithAtLeastKRepeatingCharacters();
         
-        System.out.println(solution.longestSubstring("ababacb", 3));
+        System.out.println(solution.longestSubstring("ababacb", 2));
     }
     
 }

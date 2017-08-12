@@ -46,7 +46,9 @@ public class MostFrequentSubtreeSum {
             max = Math.max(max, item.getValue());
         }
         int check = max;
-        int[] result = frequent.entrySet().stream().filter(entry -> entry.getValue().equals(check)).mapToInt(entry -> entry.getKey()).toArray();
+        int[] result = frequent.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(check))
+                .mapToInt(entry -> entry.getKey()).toArray();
 
         return result;
     }

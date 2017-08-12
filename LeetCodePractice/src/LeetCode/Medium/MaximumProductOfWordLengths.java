@@ -1,7 +1,8 @@
 package LeetCode.Medium;
 
 /**
- * Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters. 
+ * Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two
+ * words do not share common letters.
  * You may assume that each word will contain only lower case letters. If no such two words exist, return 0.
  * 
  * Example 1:
@@ -67,7 +68,7 @@ public class MaximumProductOfWordLengths {
     
     public static void main(String[] args) {
         MaximumProductOfWordLengths solution = new MaximumProductOfWordLengths();
-        String[] words = {"ab", "abd"};
+        String[] words = {"cbc", "abd"};
         System.out.println(solution.maxProduct(words));
     }
 }

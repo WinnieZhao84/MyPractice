@@ -7,7 +7,8 @@ import java.util.*;
  *
  * Now, we define a pair (c, d) can follow another pair (a, b) if and only if b < c. Chain of pairs can be formed in this fashion.
  *
- * Given a set of pairs, find the length longest chain which can be formed. You needn't use up all the given pairs. You can select pairs in any order.
+ * Given a set of pairs, find the length longest chain which can be formed. You needn't use up all the given pairs.
+ * You can select pairs in any order.
  *
  * Example 1:
  * Input: [[1,2], [2,3], [3,4]]

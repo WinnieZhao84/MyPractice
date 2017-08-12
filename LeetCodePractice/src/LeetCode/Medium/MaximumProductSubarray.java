@@ -31,7 +31,7 @@ public class MaximumProductSubarray {
     
     public static void main(String[] args) {
         MaximumProductSubarray solution = new MaximumProductSubarray();
-        int[] nums = {2,3,-2,4};
+        int[] nums = {2,3,-2,-4};
         System.out.println(solution.maxProduct(nums));
     }
 }

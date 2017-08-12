@@ -25,6 +25,15 @@ package LeetCode.Medium;
  */
 public class MaxConsecutiveOnesII {
 
+    /**
+     * 说我们有一次将0翻转成1的机会，问此时最大连续1的个数，再看看follow up中的说明，很明显是让我们只遍历一次数组，
+     * 肯定需要用一个变量cnt来记录连续1的个数吧，那么当遇到了0的时候怎么处理呢，因为我们有一次0变1的机会，
+     * 所以我们遇到0了还是要累加cnt，然后我们此时需要用另外一个变量cur来保存当前cnt的值，然后cnt重置为0，
+     * 以便于让cnt一直用来统计纯连续1的个数，然后我们每次都用用cnt+cur来更新结果res
+     *
+     * @param nums
+     * @return
+     */
     public int findMaxConsecutiveOnes(int[] nums) {
         int res = 0, cur = 0, cnt = 0;
         for (int num : nums) {

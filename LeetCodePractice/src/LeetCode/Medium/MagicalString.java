@@ -3,9 +3,10 @@ package LeetCode.Medium;
 /**
  * A magical string S consists of only '1' and '2' and obeys the following rules:
  * 
- * The string S is magical because concatenating the number of contiguous occurrences of characters '1' and '2' generates the string S itself.
+ * The string S is magical because concatenating the number of contiguous occurrences of characters '1' and '2'
+ * generates the string S itself.
  * 
- * The first few elements of string S is the following: S = "1221121221221121122бнбн"
+ * The first few elements of string S is the following: S = "1221121221221121122....."
  * If we group the consecutive '1's and '2's in S, it will be:
  * 1 22 11 2 1 22 1 22 11 2 11 22 ......
  * 
