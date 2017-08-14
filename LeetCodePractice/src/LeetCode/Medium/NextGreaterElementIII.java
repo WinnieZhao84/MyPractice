@@ -56,6 +56,7 @@ public class NextGreaterElementIII {
         System.out.println(solution.nextGreaterElement(21));
         System.out.println(solution.nextGreaterElement(1999999999));
         System.out.println(solution.nextGreaterElement(1234));
+        System.out.println(solution.nextGreaterElement(1243));
         System.out.println(solution.nextGreaterElement(12222333));
     }
 }

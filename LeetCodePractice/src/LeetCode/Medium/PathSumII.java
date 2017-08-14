@@ -36,7 +36,7 @@ public class PathSumII {
             return result;
         }
         
-        this.pathSumHelper(root, sum, new ArrayList<Integer>(), result);
+        this.pathSumHelper(root, sum, new ArrayList<>(), result);
         
         return result;
     }

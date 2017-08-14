@@ -20,7 +20,9 @@ package LeetCode.Medium;
  * 11000
  * 00100
  * 00011
- * 
+ *
+ * Answer: 3
+ *
  * @author WinnieZhao
  *
  */
