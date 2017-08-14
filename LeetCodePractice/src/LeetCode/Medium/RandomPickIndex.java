@@ -3,7 +3,8 @@ package LeetCode.Medium;
 import java.util.Random;
 
 /**
- * Given an array of integers with possible duplicates, randomly output the index of a given target number. You can assume that the given target number must exist in the array.
+ * Given an array of integers with possible duplicates, randomly output the index of a given target number.
+ * You can assume that the given target number must exist in the array.
  * 
  * Note:
  * The array size can be very large. Solution that uses too much extra space will not pass the judge.
@@ -43,7 +44,8 @@ public class RandomPickIndex {
             if (nums[i] != target)
                 continue;
             /*
-            For the nth target, ++count is n. Then the probability that rnd.nextInt(++count)==0 is 1/n. Thus, the probability that return nth target is 1/n.
+            For the nth target, ++count is n. Then the probability that rnd.nextInt(++count)==0 is 1/n.
+            Thus, the probability that return nth target is 1/n.
             For (n-1)th target, the probability of returning it is (n-1)/n * 1/(n-1)= 1/n.
             */
             if (rnd.nextInt(++count) == 0)

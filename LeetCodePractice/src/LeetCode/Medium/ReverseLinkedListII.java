@@ -11,7 +11,7 @@ import LeetCode.Helper.ListNode;
  * 
  * Note:
  * Given m, n satisfy the following condition:
- * 1 ¡Ü m ¡Ü n ¡Ü length of list.
+ * 1 <= m <= n <= length of list.
  * 
  * @author WinnieZhao
  *
@@ -29,7 +29,7 @@ public class ReverseLinkedListII {
             pre = pre.next;
         }
         
-        // 1 - 2 -3 - 4 - 5 ; m=2; n =4 ---> pre = 1, start = 2, then = 3
+        // 1 - 2 - 3 - 4 - 5 ; m=2; n =4 ---> pre = 1, start = 2, then = 3
         // dummy-> 1 -> 2 -> 3 -> 4 -> 5
         ListNode start = pre.next;
         ListNode then = start.next;

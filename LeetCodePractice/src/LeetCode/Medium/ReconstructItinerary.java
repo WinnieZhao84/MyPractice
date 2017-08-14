@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. 
+ * Given a list of airline tickets represented by pairs of departure and arrival airports [from, to],
+ * reconstruct the itinerary in order.
  * All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
  * 
  * Note:
  * 
- * If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. 
+ * If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical
+ * order when read as a single string.
  * For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
  * 
  * All airports are represented by three capital letters (IATA code).
@@ -47,7 +49,7 @@ public class ReconstructItinerary {
         numTickets = tickets.length;
         numTicketsUsed = 0;
         
-        Map<String, List<String>> ticketsMap = new HashMap<String, List<String>>();
+        Map<String, List<String>> ticketsMap = new HashMap<>();
         
         for (String[] s : tickets) {
             List<String> list = new ArrayList<>();

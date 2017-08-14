@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class Permutations {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         
-        this.permute_helper(result, new ArrayList<Integer>(), nums);
+        this.permute_helper(result, new ArrayList<>(), nums);
         
         return result;
     }

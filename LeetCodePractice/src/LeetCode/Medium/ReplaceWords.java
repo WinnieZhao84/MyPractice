@@ -57,8 +57,10 @@ public class ReplaceWords {
     }
 
     /**
-     * The only modification to the standard Trie, is that we need a function getShortestPrefix that returns the shortest prefix of the given word in the trie,
-     * if the shortest prefix exists or return the original word. Once we have this, all we have to do is iterate through the sentence and replace each word
+     * The only modification to the standard Trie, is that we need a function getShortestPrefix
+     * that returns the shortest prefix of the given word in the trie,
+     * if the shortest prefix exists or return the original word. Once we have this, all we have
+     * to do is iterate through the sentence and replace each word
      * with the getShortestPrefix(word) in the trie.
      */
     public String replaceWords_better(List<String> dict, String sentence) {

@@ -49,18 +49,24 @@ public class PermutationInString {
     }
 
     // Slide window
+    // Time complexity: O(l​1 ​​+ 26∗(l2 ​​− l​1)), where l1 is the length of string s1 and l2 is the length of string s2
+    // Space complexity: O(1). Constant space is used.
     public boolean checkInclusion_better(String s1, String s2) {
         if (s1.length() > s2.length())
             return false;
+
         int[] s1map = new int[26];
         int[] s2map = new int[26];
+
         for (int i = 0; i < s1.length(); i++) {
             s1map[s1.charAt(i) - 'a']++;
             s2map[s2.charAt(i) - 'a']++;
         }
+
         for (int i = 0; i < s2.length() - s1.length(); i++) {
-            if (matches(s1map, s2map))
+            if (matches(s1map, s2map)) {
                 return true;
+            }
             s2map[s2.charAt(i + s1.length()) - 'a']++;
             s2map[s2.charAt(i) - 'a']--;
         }

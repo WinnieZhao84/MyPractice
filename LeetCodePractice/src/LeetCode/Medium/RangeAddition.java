@@ -66,4 +66,12 @@ public class RangeAddition {
         return Arrays.copyOfRange(res, 0, res.length-1);
 
     }
+
+    public static void main(String[] args) {
+        RangeAddition solution = new RangeAddition();
+
+        int[][] updates = {{1,  3,  2}, {2,  4,  3}, {0,  2, -2}};
+
+        System.out.print(solution.getModifiedArray(5, updates));
+    }
 }

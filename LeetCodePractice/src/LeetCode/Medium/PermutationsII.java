@@ -23,14 +23,14 @@ import java.util.List;
 public class PermutationsII {
 
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         
         if(nums==null || nums.length==0) return result;
         
         boolean[] used = new boolean[nums.length];
         Arrays.sort(nums);
         
-        this.permuteUnique_helper(result, new ArrayList<Integer>(), nums, used);
+        this.permuteUnique_helper(result, new ArrayList<>(), nums, used);
         
         return result;
     }
@@ -38,7 +38,7 @@ public class PermutationsII {
     private void permuteUnique_helper(List<List<Integer>> result, List<Integer> list, int[] nums, boolean[] used) {
         
         if (list.size() == nums.length) {
-            result.add(new ArrayList<Integer>(list));
+            result.add(new ArrayList<>(list));
             return;
         }
         

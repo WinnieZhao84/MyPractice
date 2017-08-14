@@ -2,7 +2,8 @@ package LeetCode.Medium;
 
 /**
  * Given an array of integers A and let n to be its length.
- * Assume Bk to be an array obtained by rotating the array A k positions clock-wise, we define a "rotation function" F on A as follow:
+ * Assume Bk to be an array obtained by rotating the array A k positions clock-wise,
+ * we define a "rotation function" F on A as follow:
  * 
  * F(k) = 0 * Bk[0] + 1 * Bk[1] + ... + (n-1) * Bk[n-1].
  * Calculate the maximum value of F(0), F(1), ..., F(n-1).
@@ -56,13 +57,15 @@ public class RotateFunction {
      * F(1) = (4A) + (0B) + (1C) + (2D) + (3E)
      * F(2) = (3A) + (4B) + (0C) + (1D) + (2E)
      *
-     * This problem at a glance seem like a difficult problem. I am not very strong in mathematics, so this is how I visualize this problem
+     * This problem at a glance seem like a difficult problem. I am not very strong in mathematics,
+     * so this is how I visualize this problem
      *
      * We can construct F(1) from F(0) by two step:
      * Step 1. taking away one count of each coin from F(0), this is done by subtracting "sum" from "iteration" in the code below
-     * after step 1 F(0) = (-1A) + (0B) + (1C) + (2D) + (3*E)
+     * after step 1 F(0) = (-1A) + (0B) + (1C) + (2D) + (3E)
      *
-     * Step 2. Add n times the element which didn't contributed in F(0), which is A. This is done by adding "A[j-1]len" in the code below.
+     * Step 2. Add n times the element which didn't contributed in F(0), which is A. This is done by adding "A[j-1]len"
+     * in the code below.
      * after step 2 F(0) = (4A) + (0B) + (1C) + (2D) + (3E)
      *
      * At this point F(0) can be considered as F(1) and F(2) to F(4) can be constructed by repeating the above steps.

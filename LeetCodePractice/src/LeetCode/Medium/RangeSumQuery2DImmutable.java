@@ -1,8 +1,10 @@
 package LeetCode.Medium;
 
 /**
- * Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
- * The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3), which contains sum = 8.
+ * Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner
+ * (row1, col1) and lower right corner (row2, col2).
+ * The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3),
+ * which contains sum = 8.
  * 
  * Example:
  * Given matrix = [
@@ -20,7 +22,7 @@ package LeetCode.Medium;
  *  Note:
  *  You may assume that the matrix does not change.
  *  There are many calls to sumRegion function. 
- *  You may assume that row1 ¡Ü row2 and col1 ¡Ü col2.
+ *  You may assume that row1 <= row2 and col1 <= col2.
  * 
  * @author WinnieZhao
  *

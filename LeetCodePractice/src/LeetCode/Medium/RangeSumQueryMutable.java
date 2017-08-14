@@ -1,7 +1,7 @@
 package LeetCode.Medium;
 
 /**
- * Given an integer array nums, find the sum of the elements between indices i and j (i ¡Ü j), inclusive.
+ * Given an integer array nums, find the sum of the elements between indices i and j (i <= j), inclusive.
  * 
  * The update(i, val) function modifies nums by updating the element at index i to val.
  * Example:
@@ -38,7 +38,12 @@ public class RangeSumQueryMutable {
             this.sum = 0;
         }
     }
-    
+
+    /**
+     * Segment tree is a very flexible data structure, because it is used to solve numerous range query problems
+     * like finding minimum, maximum, sum, greatest common divisor, least common denominator in array in logarithmic time.
+     *
+     */
     SegmentTreeNode root = null;
     
     public RangeSumQueryMutable(int[] nums) {

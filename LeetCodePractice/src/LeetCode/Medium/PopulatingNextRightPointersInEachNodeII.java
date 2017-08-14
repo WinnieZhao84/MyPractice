@@ -69,24 +69,41 @@ public class PopulatingNextRightPointersInEachNodeII {
     }
     
     public void connect_constantSpace(TreeLinkNode root) {
-        TreeLinkNode tempChild = new TreeLinkNode(0);
-        
-        while (root != null) {
-            TreeLinkNode currentChild = tempChild;
-            
-            while (root != null) {
-                if (root.left != null) {
-                    currentChild.next = root.left;
-                    currentChild = currentChild.next;
+        TreeLinkNode head = null; //head of the next level
+        TreeLinkNode prev = null; //the leading node on the next level
+        TreeLinkNode cur = root;  //current node of current level
+
+        while (cur != null) {
+
+            while (cur != null) { //iterate on the current level
+                //left child
+                if (cur.left != null) {
+                    if (prev != null) {
+                        prev.next = cur.left;
+                    }
+                    else {
+                        head = cur.left;
+                    }
+                    prev = cur.left;
                 }
-                if (root.right != null) {
-                    currentChild.next = root.right;
-                    currentChild = currentChild.next;
+                //right child
+                if (cur.right != null) {
+                    if (prev != null) {
+                        prev.next = cur.right;
+                    }
+                    else {
+                        head = cur.right;
+                    }
+                    prev = cur.right;
                 }
-                root = root.next;
+                //move to next node
+                cur = cur.next;
             }
-            root = tempChild.next;
-            tempChild.next = null;
+
+            //move to next level
+            cur = head;
+            head = null;
+            prev = null;
         }
     }
     

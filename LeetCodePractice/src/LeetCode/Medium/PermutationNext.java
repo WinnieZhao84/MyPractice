@@ -10,9 +10,9 @@ import java.util.Arrays;
  * 
  * Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
  * 
- * 1,2,3 ¡ú 1,3,2
- * 3,2,1 ¡ú 1,2,3
- * 1,1,5 ¡ú 1,5,1
+ * 1,2,3 => 1,3,2
+ * 3,2,1 => 1,2,3
+ * 1,1,5 => 1,5,1
  * 
  * @author WinnieZhao
  *
@@ -64,17 +64,18 @@ public class PermutationNext {
             int t = a[first];
             a[first] = a[last];
             a[last] = t;
-            first ++;
-            last --;
+            first++;
+            last--;
         }
     }
     
     public static void main(String[] args) {
-        int[] nums = {1,2,4,4};
+        int[] nums = {1,2,4,3};
         
         PermutationNext solution = new PermutationNext();
         solution.nextPermutation(nums);
-        
+        // swap => 1, 3, 4, 2
+        // reverse => 1, 3, 2, 4
         System.out.println(Arrays.toString(nums));
     }
 }
