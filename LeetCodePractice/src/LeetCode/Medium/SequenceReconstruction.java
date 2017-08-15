@@ -6,8 +6,8 @@ import java.util.*;
  * 444
  *
  * Check whether the original sequence org can be uniquely reconstructed from the sequences in seqs.
- * The org sequence is a permutation of the integers from 1 to n, with 1 ≤ n ≤ 104.
- * Reconstruction means building a shortest common supersequence of the sequences in seqs
+ * The org sequence is a permutation of the integers from 1 to n, with 1 ≤ n ≤ 10^4.
+ * Reconstruction means building a shortest common super sequence of the sequences in seqs
  * (i.e., a shortest sequence so that all sequences in seqs are subsequences of it).
  * Determine whether there is only one sequence that can be reconstructed from seqs and it is the org sequence.
  *
@@ -40,6 +40,15 @@ import java.util.*;
  */
 public class SequenceReconstruction {
 
+    /**
+     * Topological Sort: This problem is to determine if there‘s one, and only one sequence to sort a DAG.
+     * The method is to check if the queue‘s size is always 1 or not. If the queue has over 1 size when we're
+     * conducting topological sort, we return false, which implies that there exists more than 1 sequence to sort this DAG
+     *
+     * @param org
+     * @param seqs
+     * @return
+     */
     public boolean sequenceReconstruction(int[] org, int[][] seqs) {
         Map<Integer, Set<Integer>> map = new HashMap<>();
         Map<Integer, Integer> indegree = new HashMap<>();
@@ -50,7 +59,8 @@ public class SequenceReconstruction {
                     map.put(seq[0], new HashSet<>());
                     indegree.put(seq[0], 0);
                 }
-            } else {
+            }
+            else {
                 for(int i = 0; i < seq.length - 1; i++) {
                     if(!map.containsKey(seq[i])) {
                         map.put(seq[i], new HashSet<>());
@@ -77,12 +87,18 @@ public class SequenceReconstruction {
         int index = 0;
         while(!queue.isEmpty()) {
             int size = queue.size();
-            if(size > 1) return false;
+            if(size > 1) {
+                return false;
+            }
             int curr = queue.poll();
-            if(index == org.length || curr != org[index++]) return false;
+            if(index == org.length || curr != org[index++]) {
+                return false;
+            }
             for(int next: map.get(curr)) {
                 indegree.put(next, indegree.get(next) - 1);
-                if(indegree.get(next) == 0) queue.offer(next);
+                if (indegree.get(next) == 0) {
+                    queue.offer(next);
+                }
             }
         }
         return index == org.length && index == map.size();
