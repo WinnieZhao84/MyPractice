@@ -40,7 +40,7 @@ public class SolveTheEquation {
      * while that on the right hand side is treated as negative, in the current implementation.
      * Likewise, every number on the left hand side is treated as negative,
      * while that on the right hand side is treated as positive. Thus, by doing so,
-     * we obtain all the x's in the new lhslhs and all the numbers in the new rhsrhs of the original equation.
+     * we obtain all the x's in the new lhs and all the numbers in the new rhs of the original equation.
      *
      * @param equation
      * @return

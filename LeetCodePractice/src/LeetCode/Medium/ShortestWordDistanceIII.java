@@ -19,7 +19,7 @@ public class ShortestWordDistanceIII {
         int shortest = Integer.MAX_VALUE;
 
         // if word1 == word2, then r is the last index, and l is current index;
-        // if not equal, then l and r is for differnt word
+        // if not equal, then l and r is for different word
         for (int i=0; i<words.length; i++) {
             if (word1.equals(words[i])) {
                 l = i;

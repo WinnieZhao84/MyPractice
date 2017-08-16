@@ -23,7 +23,7 @@ import java.util.Map;
  *
  *      |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
  * AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
- *      |  0 0 1 |
+ *                   | 0 0 1 |
  *
  * Created by WinnieZhao on 2017/4/4.
  */

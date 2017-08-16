@@ -23,6 +23,12 @@ import java.util.Set;
  */
 public class SimplifyPath {
 
+    /**
+     * The main idea is to push to the stack every valid file name (not in {"",".",".."}),
+     * popping only if there's smth to pop and we met "..".
+     * @param path
+     * @return
+     */
     public String simplifyPath(String path) {
         Deque<String> stack = new LinkedList<>();
         Set<String> skip = new HashSet<>(Arrays.asList("..",".",""));
@@ -35,7 +41,9 @@ public class SimplifyPath {
             }
         }
         String res = "";
-        for (String dir : stack) res = "/" + dir + res;
+        for (String dir : stack) {
+            res = "/" + dir + res;
+        }
         return res.isEmpty() ? "/" : res;
     }
     

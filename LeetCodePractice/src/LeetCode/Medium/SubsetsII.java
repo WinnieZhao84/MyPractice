@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Given a collection of integers that might contain duplicates, nums, return all possible subsets.
+ * Given a collection of integers that might contain duplicates, return all possible subsets.
  * 
  * Note: The solution set must not contain duplicate subsets.
  * 

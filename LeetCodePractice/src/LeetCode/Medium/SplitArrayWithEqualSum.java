@@ -1,6 +1,7 @@
 package LeetCode.Medium;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 548
@@ -62,10 +63,11 @@ public class SplitArrayWithEqualSum {
         }
 
         for (int j = 3; j < nums.length - 3; j++) {
-            HashSet <Integer> set = new HashSet<>();
+            Set<Integer> set = new HashSet<>();
             for (int i = 1; i < j - 1; i++) {
-                if (sum[i - 1] == sum[j - 1] - sum[i])
+                if (sum[i - 1] == sum[j - 1] - sum[i]) {
                     set.add(sum[i - 1]);
+                }
             }
             for (int k = j + 2; k < nums.length - 1; k++) {
                 if (sum[nums.length - 1] - sum[k] == sum[k - 1] - sum[j] && set.contains(sum[k - 1] - sum[j]))

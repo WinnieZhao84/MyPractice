@@ -17,11 +17,13 @@ public class StrobogrammaticNumberII {
     public List<String> findStrobogrammatic(int n) {
         List<String> res;
 
+        // even number
         if( (n&1) == 0) {
             List<String> l0 = new ArrayList<>();
             l0.add("");
             res = l0;
         }
+        // odd number
         else{
             List<String> l1 = new ArrayList<>();
             l1.add("1");
