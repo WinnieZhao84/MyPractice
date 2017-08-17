@@ -24,31 +24,35 @@ import java.util.Arrays;
  */
 public class TaskScheduler {
 
+    /**
+     * Find the most frequent char(s) first, then there will be c[25]-1 intervals
+     * Between the same task, it must have n spaces, so there will be (n + 1) length of chars for each section
+     * e.g.
+     * AAAABBBEEFFGG 3
+     *
+     * here X represents a space gap:
+     * Frame: "AXXXAXXXAXXXA"
+     * insert 'B': "ABXXABXXABXXA" <--- 'B' has higher frequency than the other characters, insert it first.
+     * insert 'E': "ABEXABEXABXXA"
+     * insert 'F': "ABEFABEXABFXA" <--- each time try to fill the k-1 gaps as full or evenly as possible.
+     * insert 'G': "ABEFABEGABFGA"
+     *
+     * 25-i: count for the less frequence letters.
+     */
     public int leastInterval(char[] tasks, int n) {
-        int[] map = new int[26];
-
-        for (char c: tasks) {
-            map[c - 'A']++;
+        int[] c = new int[26];
+        for(char t : tasks){
+            c[t - 'A']++;
         }
 
-        Arrays.sort(map);
+        Arrays.sort(c);
 
-        int time = 0;
-        while (map[25] > 0) {
-            int i = 0;
-            while (i <= n) {
-                if (map[25] == 0) {
-                    break;
-                }
-                if (i < 26 && map[25 - i] > 0) {
-                    map[25 - i]--;
-                }
-                time++;
-                i++;
-            }
-            Arrays.sort(map);
+        int i = 25;
+        while(i >= 0 && c[i] == c[25]) {
+            i--;
         }
-        return time;
+
+        return Math.max(tasks.length, (c[25] - 1) * (n + 1) + 25 - i);
     }
 
     public static void main(String[] args) {

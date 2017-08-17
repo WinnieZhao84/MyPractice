@@ -1,5 +1,8 @@
 package LeetCode.Medium;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Write a program to find the n-th ugly number.
  * 
@@ -23,23 +26,35 @@ package LeetCode.Medium;
 public class UglyNumberII {
 
     public int nthUglyNumber(int n) {
-        int[] ugly = new int[n];
-        ugly[0] = 1;
-        
-        int index2 = 0, index3 = 0, index5 = 0;
-        int factor2 = 2, factor3 = 3, factor5 = 5;
-        for(int i=1;i<n;i++){
-            int min = Math.min(Math.min(factor2,factor3),factor5);
-            ugly[i] = min;
-            
-            if(factor2 == min)
-                factor2 = 2*ugly[++index2];
-            if(factor3 == min)
-                factor3 = 3*ugly[++index3];
-            if(factor5 == min)
-                factor5 = 5*ugly[++index5];
+        if(n<=0)
+            return 0;
+
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+
+        int i=0;
+        int j=0;
+        int k=0;
+
+        while(list.size()<n){
+            int m2 = list.get(i)*2;
+            int m3 = list.get(j)*3;
+            int m5 = list.get(k)*5;
+
+            int min = Math.min(m2, Math.min(m3, m5));
+            list.add(min);
+
+            if(min==m2)
+                i++;
+
+            if(min==m3)
+                j++;
+
+            if(min==m5)
+                k++;
         }
-        return ugly[n-1];
+
+        return list.get(list.size()-1);
     }
     
     public static void main(String[] args) {

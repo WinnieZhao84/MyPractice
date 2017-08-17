@@ -25,6 +25,20 @@ package LeetCode.Medium;
  */
 public class TwoKeysKeyboard {
 
+    /**
+     * The algorithm iterates through the factors backwards, selecting the greatest one first.
+     * This ensures that the amount of copy/paste operations is minimal. For instance, consider the number 8.
+     *
+     * You can do it in three ways:
+     * Copy (1A), paste (2A), paste (3A), paste (4A), paste (5A), paste (6A), paste (7A), paste (8A)
+     * Copy (1A), paste (2A), copy (2A), paste (4A), paste (6A), paste (8A)
+     * Copy (1A), paste (2A), paste (2A), copy (4A), paste (8A)
+     *
+     * Because 4 is 8's highest factor, it will give the optimal solution.
+
+     * @param n
+     * @return
+     */
     public int minSteps(int n) {
 
         int[] dp = new int[n+1];
@@ -43,6 +57,7 @@ public class TwoKeysKeyboard {
 
     public static void main(String[] args) {
         TwoKeysKeyboard solution = new TwoKeysKeyboard();
+        System.out.println(solution.minSteps(5));
         System.out.println(solution.minSteps(8));
     }
 }

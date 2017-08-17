@@ -70,7 +70,7 @@ public class SuperUglyNumber {
     public static void main(String[] args) {
         SuperUglyNumber solution = new SuperUglyNumber();
         
-        int[] primes = {5, 7, 13, 19};
-        System.out.println(solution.nthSuperUglyNumber(12, primes));
+        int[] primes = {2, 7, 13, 19};
+        System.out.println(solution.nthSuperUglyNumber_better(12, primes));
     }
 }

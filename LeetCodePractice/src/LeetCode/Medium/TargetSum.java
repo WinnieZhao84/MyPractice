@@ -25,18 +25,6 @@ package LeetCode.Medium;
 public class TargetSum {
     
     int count = 0; // For DFS
-
-    public int findTargetSumWays_dp(int[] nums, int S) {
-        if ((nums == null || nums.length == 0) && S == 0) return 0;
-        
-        int length = nums.length;
-        int[] dp = new int[length+1];
-        dp[0] = 0;
-        
-        return 0;
-        
-        
-    }
     
     public int findTargetSumWays_dfs(int[] nums, int S) {
         if ((nums == null || nums.length == 0) && S == 0) return 0;
@@ -61,8 +49,6 @@ public class TargetSum {
     /**
      * Optimization: The idea is If the sum of all elements left is smaller than absolute value of target, 
      * there will be no answer following the current path. Thus we can return.
-     * 
-     * @param args
      */
     
     public int findTargetSumWays_dfs_better(int[] nums, int S) {
@@ -93,6 +79,6 @@ public class TargetSum {
         TargetSum solution = new TargetSum();
         
         int[] nums = {1, 1, 1, 1, 1};
-        System.out.println(solution.findTargetSumWays_dfs(nums, 3));
+        System.out.println(solution.findTargetSumWays_dfs_better(nums, 3));
     }
 }

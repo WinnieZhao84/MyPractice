@@ -19,7 +19,8 @@ import java.util.Arrays;
     Given an array of integers representing the data, return whether it is a valid utf-8 encoding.
     
     Note:
-    The input is an array of integers. Only the least significant 8 bits of each integer is used to store the data. This means each integer represents only 1 byte of data.
+    The input is an array of integers. Only the least significant 8 bits of each integer is used to store the data.
+    This means each integer represents only 1 byte of data.
     
     Example 1:
     
