@@ -23,7 +23,7 @@ public class ValidPerfectSquare {
     /*
      * Another option:
      * 
-     * This is a math problem£º
+     * This is a math problem:
      * 1 = 1
      * 4 = 1 + 3
      * 9 = 1 + 3 + 5

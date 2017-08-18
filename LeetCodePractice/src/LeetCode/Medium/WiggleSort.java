@@ -51,7 +51,7 @@ public class WiggleSort {
         WiggleSort solution = new WiggleSort();
 
         int[] nums = {3, 5, 2, 1, 6, 4};
-        solution.wiggleSort(nums);
+        solution.wiggleSort_better(nums);
         System.out.println(Arrays.toString(nums));
     }
 }

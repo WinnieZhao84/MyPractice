@@ -20,36 +20,21 @@ public class WiggleSortII {
 
     // Read the discussion, google's interview question which requires either O(n) time or O(1) space
     public void wiggleSort(int[] nums) {
-        if (nums == null || nums.length <= 1) {
-            return;
-        }
         Arrays.sort(nums);
-        
-        int start = 0;
-        int end = nums.length - 1;
-        int middle = start + (end - start) / 2;
-        
-        int[] temp = Arrays.copyOf(nums, nums.length);
-        
-        int i=middle;
-        int j=end;
-        for (int k=0; k<=end; k++) {
-            if (k%2 == 0) {
-                nums[k] = temp[i];
-                i--;
-            }
-            else {
-                nums[k] = temp[j];
-                j--;
-            }
 
-            if (j == middle) {
-                break;
-            }
+        int[] copy = new int[nums.length];
+        for(int i = 0; i< nums.length; ++i) {
+            copy[i] = nums[i];
         }
-        if (i==0) {
-            nums[end] = temp[0];
+
+        for(int i = 0; i< nums.length; ++i) {
+            int w = i%2;
+            if(w == 0)//Take 2,   1,   0
+                nums[i] = copy[(nums.length-1)/2 - i/2];
+            else     //Take   5,   4,   3
+                nums[i] = copy[nums.length-1 - i/2];
         }
+        //Take in this order to avoid the case: [4,5,5,6]
         
     }
     

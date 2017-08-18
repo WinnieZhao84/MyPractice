@@ -78,6 +78,6 @@ public class VerifyPreorderSerializationOfBinaryTree {
         String preorder = "9,3,4,#,#,1,#,#,2,#,6,#,#";
         
         VerifyPreorderSerializationOfBinaryTree solution = new VerifyPreorderSerializationOfBinaryTree();
-        System.out.println(solution.isValidSerialization(preorder));
+        System.out.println(solution.isValidSerialization_better(preorder));
     }
 }

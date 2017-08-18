@@ -10,7 +10,7 @@ package LeetCode.Medium;
  * Fill any of the jugs completely with water.
  * Empty any of the jugs.
  * Pour water from one jug into another till the other jug is completely full or the first jug itself is empty.
- * 
+ *
  * Example 1: (From the famous "Die Hard" example)
  * Input: x = 3, y = 5, z = 4
  * Output: True
@@ -27,7 +27,7 @@ public class WaterAndJugProblem {
         if (x + y < z) return false;
         if ( x == z || y == z || x + y == z ) return true;
         
-      //get GCD, then we can use the property of B¨¦zout's identity
+        //get GCD, then we can use the property of B out's identity
         return z%GCD(x, y) == 0;
     }
     
@@ -43,7 +43,8 @@ public class WaterAndJugProblem {
     public static void main(String[] args) {
         WaterAndJugProblem solution = new WaterAndJugProblem();
         System.out.println(solution.GCD(24, 16));
-        
+        System.out.println(solution.GCD(6, 8));
+
         System.out.println(solution.canMeasureWater(3, 5, 4));
     }
 }

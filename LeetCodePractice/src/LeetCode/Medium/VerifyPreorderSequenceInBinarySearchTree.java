@@ -17,7 +17,8 @@ public class VerifyPreorderSequenceInBinarySearchTree {
     public boolean verifyPreorder(int[] preorder) {
         Stack<Integer> stack =new Stack<>();
         int min = Integer.MIN_VALUE;
-        for(int val:preorder){
+
+        for(int val : preorder){
             if( val < min) return false;
 
             while(!stack.isEmpty() && val > stack.peek()){

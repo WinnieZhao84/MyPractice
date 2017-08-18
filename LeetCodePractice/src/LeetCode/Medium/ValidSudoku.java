@@ -16,48 +16,32 @@ import java.util.Set;
 public class ValidSudoku {
 
     public boolean isValidSudoku(char[][] board) {
-        
-    	Set<Integer> valid = new HashSet<Integer>();
-    	for (int i=0; i<9; i++) {
-    		valid.clear();
-    		for (int j=0; j<9; j++) {
-    			if (board[i][j] == '.') {
-    				continue;
-    			}
-    			if (!valid.add(board[i][j] - '0')) {
-    				return false;
-    			}
-    		}
-    	}
-    	
-    	for (int i=0; i<9; i++) {
-    		valid.clear();
-    		for (int j=0; j<9; j++) {
-    			
-    			if (board[j][i] == '.') {
-    				continue;
-    			}
-    			if (!valid.add(board[j][i] - '0')) {
-    				return false;
-    			}
-    		}
-    	}
-    	
-    	for (int i=0; i<9; i=i+3) {
-    		for (int j=0; j<9; j=j+3) {
-        		valid.clear();
-    			for (int k=0; k<9; k++) {
-    				if (board[i+k/3][j+k%3] == '.') {
-        				continue;
-        			}
-        			if (!valid.add(board[i+k/3][j+k%3]-'0')) {
-        				return false;
-        			}
-    			}
-    		}
-    	}
-    	
-    	return true;
+        for(int i = 0; i<9; i++){
+            Set<Character> rows = new HashSet<>();
+            Set<Character> columns = new HashSet<>();
+            Set<Character> cube = new HashSet<>();
+
+            for (int j = 0; j < 9;j++){
+                if (board[i][j]!='.' && !rows.add(board[i][j])) {
+                    return false;
+                }
+                if(board[j][i]!='.' && !columns.add(board[j][i])) {
+                    return false;
+                }
+                int RowIndex = 3*(i/3);
+                int ColIndex = 3*(i%3);
+
+                /**
+                 * Use % for horizontal traversal. Because % increments by 1 for each j : 0%3 = 0 , 1%3 = 1, 2%3 = 2, and resets back.
+                 * So this covers horizontal traversal for each block by 3 steps.
+                 * Use / for vertical traversal. Because / increments by 1 after every 3 j: 0/3 = 0; 1/3 = 0; 2/3 =0; 3/3 = 1.
+                 */
+                if(board[RowIndex + j/3][ColIndex + j%3]!='.' && !cube.add(board[RowIndex + j/3][ColIndex + j%3])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     public static void main(String[] args) {

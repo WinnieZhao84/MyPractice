@@ -84,14 +84,16 @@ public class WallsAndGates {
             }
         }
 
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty()) {
             Pair p = queue.poll();
+
             for(int[] d : dir){
                 int x = p.x + d[0];
                 int y = p.y + d[1];
-                if(x <0 || x >= rooms.length || y <0 || y>= rooms[0].length
-                        || rooms[x][y] <= rooms[p.x][p.y] + 1)
+
+                if (x <0 || x >= rooms.length || y <0 || y>= rooms[0].length || rooms[x][y] <= rooms[p.x][p.y] + 1) {
                     continue;
+                }
                 rooms[x][y] = rooms[p.x][p.y] + 1;
                 queue.offer(new Pair(x,y));
             }
