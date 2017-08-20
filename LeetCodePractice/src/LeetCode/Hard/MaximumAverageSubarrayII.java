@@ -73,26 +73,21 @@ public class MaximumAverageSubarrayII {
     }
 
     private boolean hasAvgAbove(int[] nums, int k, double target) {
-        double sum = 0, extraSum =0;
+        double sum = 0, prev = 0, min_sum = 0;
         for(int i=0; i<k; i++){
             sum += nums[i]-target;
         }
         // must have at least k elements; the nums before the last k element should be kept if their sum > 0;
         // else we should remove them from the current sum (equivalent to update the start position)
-        int curr = k;
-        while (curr < nums.length) {
-            if (sum >= 0) {
+        if (sum >= 0)
+            return true;
+        for (int i = k; i < nums.length; i++) {
+            sum += nums[i] - target;
+            prev += nums[i - k] - target;
+            min_sum = Math.min(prev, min_sum);
+            if (sum >= min_sum)
                 return true;
-            }
-            sum += nums[curr] - target;
-            extraSum += nums[curr-k] - target;
-
-            if (extraSum < 0) { //update the start position of the current sum
-                sum -= extraSum;
-                extraSum = 0;
-            }
-            curr++;
         }
-        return sum >= 0;
+        return false;
     }
 }

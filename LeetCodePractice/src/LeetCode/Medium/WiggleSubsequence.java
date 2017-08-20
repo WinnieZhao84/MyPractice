@@ -1,8 +1,10 @@
 package LeetCode.Medium;
 
 /**
- * A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. 
- * The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
+ * A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate
+ * between positive and negative.
+ * The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is
+ * trivially a wiggle sequence.
  * 
  * For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative. 
  * In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive 
@@ -51,7 +53,8 @@ public class WiggleSubsequence {
                 nums[result] = nums[i + 1];
                 result++;
                 flag = !flag;    //Toggle the requirement from small to big number
-            } else {
+            }
+            else {
                 if (!flag && nums[i + 1] > nums[i]) {
                     nums[result] = nums[i + 1];
                     result++;
@@ -67,10 +70,15 @@ public class WiggleSubsequence {
      * up position, it means nums[i] > nums[i-1]
      * down position, it means nums[i] < nums[i-1]
      * equals to position, nums[i] == nums[i-1]
+     *
      * So we can use two arrays up[] and down[] to record the max wiggle sequence length so far at index i.
-     * If nums[i] > nums[i-1], that means it wiggles up. the element before it must be a down position. so up[i] = down[i-1] + 1; down[i] keeps the same with before.
-     * If nums[i] < nums[i-1], that means it wiggles down. the element before it must be a up position. so down[i] = up[i-1] + 1; up[i] keeps the same with before.
-     * If nums[i] == nums[i-1], that means it will not change anything becasue it didn't wiggle at all. so both down[i] and up[i] keep the same.
+     * If nums[i] > nums[i-1], that means it wiggles up. the element before it must be a down position.
+     * so up[i] = down[i-1] + 1; down[i] keeps the same with before.
+     * If nums[i] < nums[i-1], that means it wiggles down. the element before it must be a up position.
+     * so down[i] = up[i-1] + 1; up[i] keeps the same with before.
+     * If nums[i] == nums[i-1], that means it will not change anything because it didn't wiggle at all.
+     * so both down[i] and up[i] keep the same.
+     *
      * In fact, we can reduce the space complexity to O(1), but current way is more easy to understanding.
 
      * @param nums
@@ -90,10 +98,12 @@ public class WiggleSubsequence {
             if( nums[i] > nums[i-1] ){
                 up[i] = down[i-1]+1;
                 down[i] = down[i-1];
-            }else if( nums[i] < nums[i-1]){
+            }
+            else if( nums[i] < nums[i-1]){
                 down[i] = up[i-1]+1;
                 up[i] = up[i-1];
-            }else{
+            }
+            else{
                 down[i] = down[i-1];
                 up[i] = up[i-1];
             }
