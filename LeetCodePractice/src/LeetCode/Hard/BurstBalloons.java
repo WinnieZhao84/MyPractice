@@ -21,10 +21,11 @@ package LeetCode.Hard;
  */
 public class BurstBalloons {
 
-    public int DP(int i, int j, int[] coins, int[][] dp) {
+    private int DP(int i, int j, int[] coins, int[][] dp) {
         if (dp[i][j] > 0) return dp[i][j];
         for (int x = i; x <= j; x++) {
-            dp[i][j] = Math.max(dp[i][j], DP(i, x - 1, coins, dp) + coins[i - 1] * coins[x] * coins[j + 1] + DP(x + 1, j, coins, dp));
+            dp[i][j] = Math.max(dp[i][j],
+                    DP(i, x - 1, coins, dp) + coins[i - 1] * coins[x] * coins[j + 1] + DP(x + 1, j, coins, dp));
         }
         return dp[i][j];
     }

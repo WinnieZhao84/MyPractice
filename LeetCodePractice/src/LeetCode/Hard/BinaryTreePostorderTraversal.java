@@ -48,7 +48,6 @@ public class BinaryTreePostorderTraversal {
             recursion(node.right, result);
         }
 
-
         if (node.left != null) {
             recursion(node.left, result);
         }

@@ -6,7 +6,8 @@ import java.util.Stack;
  *
  * Implement a basic calculator to evaluate a simple expression string.
  *
- * The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces.
+ * The expression string may contain open ( and closing parentheses ), the plus + or minus sign -,
+ * non-negative integers and empty spaces.
  *
  * You may assume that the given expression is always valid.
  *
@@ -23,7 +24,7 @@ public class BasicCalculator {
     public int calculate(String s) {
         if (s == null || s.isEmpty()) return 0;
 
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new Stack<>();
         int result = 0;
         int num = 0;
         int sign = 1;
@@ -68,7 +69,7 @@ public class BasicCalculator {
     public static void main (String[] args) {
         BasicCalculator solution = new BasicCalculator();
 
-        System.out.println(solution.calculate("1-(5)"));
+        System.out.println(solution.calculate("1-2+(5+1)"));
     }
 
 }

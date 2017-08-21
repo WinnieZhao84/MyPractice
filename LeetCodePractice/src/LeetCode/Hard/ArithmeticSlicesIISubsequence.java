@@ -24,7 +24,7 @@ import java.util.Map;
  * The function should return the number of arithmetic subsequence slices in the array A.
  *
  * The input contains N integers. Every integer is in the range of -2^31 and 2^31-1 and 0 ≤ N ≤ 1000.
- * The output is guaranteed to be less than 231-1.
+ * The output is guaranteed to be less than 2^31-1.
  *
  * Example:
  * Input: [2, 4, 6, 8, 10]
@@ -81,4 +81,5 @@ public class ArithmeticSlicesIISubsequence {
         }
         return res;
     }
+
 }
