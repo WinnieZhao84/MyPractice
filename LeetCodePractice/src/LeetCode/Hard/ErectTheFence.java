@@ -47,7 +47,7 @@ public class ErectTheFence {
          * Traverse over the sorted points array after adding the initial two points in the hull temporarily
          * (which are pushed over the stack hull). For every new point considered, we check if the current
          * point lies in the counter-clockwise direction relative to the last two points.
-         * If so, the current point is staightaway pushed onto hull. If not(indicated by a positive orientation),
+         * If so, the current point is straightaway pushed onto hull. If not(indicated by a positive orientation),
          * we again get the inference that the last point on the hull needs to lie inside the boundary and not on the boundary.
          * Thus, we keep on popping the points from hull till the current point lies in a counterclockwise direction
          * relative to the top two points on the hull.

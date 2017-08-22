@@ -52,7 +52,7 @@ public class FirstMissingPositive {
     public static void main(String[] args) {
         FirstMissingPositive solution = new FirstMissingPositive();
 
-        int[] nums = {1, 2, 0};
+        int[] nums = {2,1,0};
         System.out.println(solution.firstMissingPositive(nums));
 
         int[] nums1 = {3,4,-1,1};

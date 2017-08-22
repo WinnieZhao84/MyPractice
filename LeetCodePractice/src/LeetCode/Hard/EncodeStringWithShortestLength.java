@@ -43,7 +43,7 @@ package LeetCode.Hard;
 public class EncodeStringWithShortestLength {
 
     /**
-     * The idea is to firstly concantenate dp[i][k] and dp[k+1][j] directly to construct dp[i][j],
+     * The idea is to firstly concatenate dp[i][k] and dp[k+1][j] directly to construct dp[i][j],
      * and then check if there exist possible repeat patterns in the original substring s.substring(i, j+1) that could further shorten dp[i][j]
      *
      * @param s

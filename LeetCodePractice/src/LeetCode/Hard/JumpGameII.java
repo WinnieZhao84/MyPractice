@@ -42,5 +42,12 @@ public class JumpGameII {
 
         return step;
     }
+
+    public static void main(String[] args) {
+        JumpGameII solution = new JumpGameII();
+
+        int[] nums = {1,2,1,1,4};
+        System.out.println(solution.jump(nums));
+    }
 }
 

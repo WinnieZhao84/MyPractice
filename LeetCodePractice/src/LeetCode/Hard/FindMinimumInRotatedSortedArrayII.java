@@ -19,7 +19,7 @@ public class FindMinimumInRotatedSortedArrayII {
         }
 
         /**
-         * {2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 2} 和 {2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2}，
+         * {2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 2} and {2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2}，
          * So if the first and last and the middle are all the same value, binary search won't work because it can't decide which half should go to
          * so in this case, we move the end--, skip one same num, it won't affect the final result because we just removed one duplicate num.
          * And then still use binary search for the remaining nums. In the worst case such as all the nums are the same value, the complexity will be O(n)
