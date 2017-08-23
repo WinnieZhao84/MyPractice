@@ -79,13 +79,15 @@ public class MaximumAverageSubarrayII {
         }
         // must have at least k elements; the nums before the last k element should be kept if their sum > 0;
         // else we should remove them from the current sum (equivalent to update the start position)
-        if (sum >= 0)
+        if (sum >= 0) {
             return true;
+        }
+
         for (int i = k; i < nums.length; i++) {
             sum += nums[i] - target;
             prev += nums[i - k] - target;
             min_sum = Math.min(prev, min_sum);
-            if (sum >= min_sum)
+            if (sum - min_sum >= 0)
                 return true;
         }
         return false;

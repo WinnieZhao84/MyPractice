@@ -17,16 +17,19 @@ import java.util.Arrays;
 public class MaximumGap {
 
     /**
-     * Suppose there are N elements in the array, the min value is min and the max value is max.
-     * Then the maximum gap will be no smaller than ceiling[(max - min ) / (N - 1)].
+     * Suppose there are N elements and they range from A to B.
+     * Then the maximum gap will be no smaller than ceiling[(B - A) / (N - 1)]
      *
-     * Let gap = ceiling[(max - min ) / (N - 1)]. We divide all numbers in the array into n-1 buckets,
-     * where k-th bucket contains all numbers in [min + (k-1)gap, min + k*gap). Since there are n-2 numbers
-     * that are not equal min or max and there are n-1 buckets, at least one of the buckets are empty.
-     * We only need to store the largest number and the smallest number in each bucket.
-
-     * @param nums
-     * @return
+     * Let the length of a bucket to be len = ceiling[(B - A) / (N - 1)], then we will have at most num = (B - A) / len + 1 of bucket
+     * for any number K in the array, we can easily find out which bucket it belongs by calculating loc = (K - A) / len and
+     * therefore maintain the maximum and minimum elements in each bucket.
+     *
+     * Since the maximum difference between elements in the same buckets will be at most len - 1,
+     * so the final answer will not be taken from two elements in the same buckets.
+     *
+     * For each non-empty buckets p, find the next non-empty buckets q, then q.min - p.max could be the potential answer to the question.
+     * Return the maximum of all those values.
+     *
      */
     public int maximumGap(int[] nums) {
         if (nums == null || nums.length == 0) {
@@ -73,7 +76,7 @@ public class MaximumGap {
             previous = bucketsMAX[i];
         }
 
-        maxGap = Math.max(maxGap, max - previous); // updata the final max value gap
+        maxGap = Math.max(maxGap, max - previous); // update the final max value gap
         return maxGap;
     }
 }

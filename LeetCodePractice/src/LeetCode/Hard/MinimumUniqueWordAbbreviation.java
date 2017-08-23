@@ -64,6 +64,7 @@ public class MinimumUniqueWordAbbreviation {
         return "";
     }
 
+    // Same logic as algorithm for Generalized Abbreviation
     private void getAbbreviations(PriorityQueue<String> queue, String target,
                                   StringBuilder curr, int pos, int count) {
         int len = curr.length();
@@ -87,6 +88,7 @@ public class MinimumUniqueWordAbbreviation {
         curr.setLength(len);
     }
 
+    // Same logic as algorithm for Valid Word Abbreviation
     private boolean isValidAbbr(String word, String abbr) {
         if (word.length() == 0) {
             return abbr.length() == 0;

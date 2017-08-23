@@ -17,7 +17,7 @@ public class LongestSubstringWithAtMostKDistinctCharacters {
         int maxLen = 0;
 
         // Key: letter; value: the number of occurrences.
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        Map<Character, Integer> map = new HashMap<>();
         int i;
         for (i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);

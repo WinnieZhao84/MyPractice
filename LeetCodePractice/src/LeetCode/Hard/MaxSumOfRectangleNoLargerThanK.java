@@ -49,23 +49,32 @@ public class MaxSumOfRectangleNoLargerThanK {
             int[] array = new int[n];
             // sum from row j to row i
             for(int j = i; j>=0; j--){
-                int val = 0;
+                int sum = 0;
                 TreeSet<Integer> set = new TreeSet<>();
                 set.add(0);
                 //traverse every column/row and sum up
                 for(int x = 0; x<n; x++){
                     array[x] = array[x] + (colIsBig ? matrix[j][x] : matrix[x][j]);
 
-                    val = val + array[x];
-                    //use TreeMap to binary search previous sum to get possible result
-                    Integer subres = set.ceiling(val-k);
-                    if(null!=subres){
-                        res=Math.max(res,val-subres);
+                    sum = sum + array[x];
+
+                    // use TreeMap to binary search previous sum to get possible result
+                    // find a least value as subres，make sum – k <= x，so it will ensure => sum – x <=k
+                    Integer subres = set.ceiling(sum-k);
+                    if (subres != null) {
+                        res=Math.max(res,sum-subres);
                     }
-                    set.add(val);
+                    set.add(sum);
                 }
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        MaxSumOfRectangleNoLargerThanK solution = new MaxSumOfRectangleNoLargerThanK();
+        int[][] matrix = {{1,  0, 1},{0, -2, 3}};
+
+        System.out.println(solution.maxSumSubmatrix(matrix, 2));
     }
 }

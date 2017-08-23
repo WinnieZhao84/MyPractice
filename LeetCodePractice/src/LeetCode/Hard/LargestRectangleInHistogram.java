@@ -24,7 +24,7 @@ public class LargestRectangleInHistogram {
             return 0;
         }
 
-        Stack<Integer> stack = new Stack<>();// stack for index to caculate width.
+        Stack<Integer> stack = new Stack<>();// stack for index to calculate width.
         int max = 0;
         int i = 0;
         while ( i <= heights.length ) {
@@ -43,5 +43,12 @@ public class LargestRectangleInHistogram {
 
         return max;
 
+    }
+
+    public static void main(String[] args) {
+        LargestRectangleInHistogram solution = new LargestRectangleInHistogram();
+
+        int[] heights = {2,1,5,4,9,1};
+        System.out.println(solution.largestRectangleArea(heights));
     }
 }

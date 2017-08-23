@@ -48,8 +48,10 @@ public class GeneralizedAbbreviation {
                 sb.append(count);
             }
             sb.append(chars[pos]);
+
             this.dfs(res, chars, sb, pos+1, 0);
         }
+        // set the string builder to ""
         sb.setLength(length);
     }
 

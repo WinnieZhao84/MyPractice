@@ -21,7 +21,7 @@ public class LongestSubstringWithAtMostTwoDistinctCharacters {
         int maxLen = 0;
 
         // Key: letter; value: the index of the last occurrence.
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        Map<Character, Integer> map = new HashMap<>();
         int i;
 
         for (i = 0; i < s.length(); ++i) {
