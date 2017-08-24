@@ -63,6 +63,14 @@ public class NonNegativeIntegersWithoutConsecutiveOnes {
 
         int result = a[len-1] + b[len-1];
 
+        /**
+         * we need to do the subtraction only for the highest effective bit as the problem requires less than or equal to n.
+         * If there are two consecutive ones, other integers will be less than it, stop!
+         * If met 01, according to the dp formula, the number of qualified integers for first 0 should be 00 and 01,
+         * both of them are less than or equal to 01. The same for 10.
+         * Finally, for 00, the number of qualified integers for first 0 should be 00 and 01, but 01 is greater than 00,
+         * we should subtract it.
+         */
         for (int i=len-2; i>=0; i--) {
             if (sb.charAt(i) == '1' && sb.charAt(i+1) == '1') {
                 break;
@@ -78,6 +86,6 @@ public class NonNegativeIntegersWithoutConsecutiveOnes {
 
     public static void main(String[] args) {
         NonNegativeIntegersWithoutConsecutiveOnes solution = new NonNegativeIntegersWithoutConsecutiveOnes();
-        solution.findIntegers(8);
+        solution.findIntegers_better(8);
     }
 }

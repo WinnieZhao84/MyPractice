@@ -64,4 +64,31 @@ public class PalindromePartitioningII {
 
         return results[0];
     }
+
+    public int minCut_clear(String s) {
+        if (s.length()==0) {
+            return 0;
+        }
+
+        int[] cuts = new int[s.length()+1]; // number of cuts for the first k characters
+
+        for (int i=0;i<s.length();i++) {
+            cuts[i] = Integer.MAX_VALUE;
+        }
+
+        cuts[s.length()]=-1;
+
+        for(int i=s.length()-1; i>=0; i--) {
+            // odd length palindrome
+            for (int a=i,b=i; a>=0 && b<s.length() && s.charAt(a)==s.charAt(b); a--,b++) {
+                cuts[a] = Math.min(cuts[a], 1+cuts[b+1]);
+            }
+            // even length palindrome
+            for (int a=i, b=i+1; a>=0 && b<s.length() && s.charAt(a)==s.charAt(b); a--, b++) {
+                cuts[a] = Math.min(cuts[a], 1+cuts[b+1]);
+            }
+        }
+
+        return cuts[0];
+    }
 }

@@ -81,6 +81,7 @@ public class PerfectRectangle {
             x2 = Math.max(rect[2], x2);
             y2 = Math.max(rect[3], y2);
 
+            // sum up each rectangle area
             area += (rect[2] - rect[0]) * (rect[3] - rect[1]);
 
             String s1 = rect[0] + " " + rect[1]; // bottom-left

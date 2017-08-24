@@ -7,12 +7,16 @@ import java.util.List;
 /**
  * 305
  *
- * A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which turns the water at position (row, col) into a land.
- * Given a list of positions to operate, count the number of islands after each addLand operation. An island is surrounded by water and is formed by connecting adjacent
- * lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water
+ * A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation
+ * which turns the water at position (row, col) into a land.
+ *
+ * Given a list of positions to operate, count the number of islands after each addLand operation.
+ * An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
+ * You may assume all four edges of the grid are all surrounded by water
  *
  * Example:
- * Given m = 3, n = 3, positions = [[0,0], [0,1], [1,2], [2,1]]. Initially, the 2d grid grid is filled with water. (Assume 0 represents water and 1 represents land).
+ * Given m = 3, n = 3, positions = [[0,0], [0,1], [1,2], [2,1]]. Initially, the 2d grid grid is filled with water.
+ * (Assume 0 represents water and 1 represents land).
  * 0 0 0
  * 0 0 0
  * 0 0 0
@@ -53,17 +57,25 @@ public class NumberOfIslandsII {
         Arrays.fill(roots, -1);
 
         for(int[] p : positions) {
+            // To transform the two dimension problem into the classic UF, perform a linear mapping:
             int root = n * p[0] + p[1];     // assume new point is isolated island
             roots[root] = root;             // add new island
             count++;
 
+            /**
+             * The idea is simple. To represent a list of islands, we use trees. i.e., a list of roots.
+             * This helps us find the identifier of an island faster. If roots[c] = p means the parent of node c is p,
+             * we can climb up the parent chain to find out the identifier of an island,
+             *
+             * i.e., which island this point belongs to: Do root[root[roots[c]]]... until root[c] == c;
+             */
             for(int[] dir : dirs) {
                 int x = p[0] + dir[0];
                 int y = p[1] + dir[1];
                 int nb = n * x + y;
                 if(x < 0 || x >= m || y < 0 || y >= n || roots[nb] == -1) continue;
 
-                int rootNb = findIsland(roots, nb);
+                int rootNb = findIsland_better(roots, nb);
                 if (root != rootNb) {        // if neighbor is in another island
                     roots[root] = rootNb;   // union two islands
                     root = rootNb;          // current tree root = joined tree root
@@ -76,8 +88,30 @@ public class NumberOfIslandsII {
         return result;
     }
 
-    public int findIsland(int[] roots, int id) {
-        while(id != roots[id]) id = roots[id];
+    private int findIsland(int[] roots, int id) {
+        while(id != roots[id]) {
+            id = roots[id];
+        }
         return id;
+    }
+
+    /**
+     * PATH COMPRESSION (BONUS) add one line to shorten the tree. The new runtime becomes: 19ms (95.94%).
+     * @return
+     */
+
+    private int findIsland_better(int[] roots, int id) {
+        while(id != roots[id]) {
+            roots[id] = roots[roots[id]];   // only one line added
+            id = roots[id];
+        }
+        return id;
+    }
+
+    public static void main(String[] args) {
+        int[][] positions = {{0,0}, {0,1}, {1,1}, {1,2}, {2,1}};
+
+        NumberOfIslandsII solution = new NumberOfIslandsII();
+        solution.numIslands2(3,3, positions);
     }
 }

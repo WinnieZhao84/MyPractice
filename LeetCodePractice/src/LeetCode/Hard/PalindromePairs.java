@@ -23,6 +23,7 @@ public class PalindromePairs {
 
         if (words == null || words.length < 2) return result;
 
+        // word and index mapping
         Map<String, Integer> map = new HashMap<>();
 
         for (int i=0; i<words.length; i++) {
