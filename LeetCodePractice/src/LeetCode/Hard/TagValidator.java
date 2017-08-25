@@ -89,11 +89,16 @@ public class TagValidator {
         }
 
         for(int i = 0; i < code.length();){
-            if (i>0 && stack.isEmpty()) return false;
+            if (i>0 && stack.isEmpty()) {
+                return false;
+            }
+
             if (code.startsWith("<![CDATA[", i)){
                 int j = i+9;
                 i = code.indexOf("]]>", j);
-                if (i < 0) return false;
+                if (i < 0) {
+                    return false;
+                }
                 i += 3;
             }
             else if(code.startsWith("</", i)){
@@ -119,7 +124,9 @@ public class TagValidator {
                     return false;
                 }
                 for(int k = j; k < i; k++){
-                    if(!Character.isUpperCase(code.charAt(k))) return false;
+                    if(!Character.isUpperCase(code.charAt(k))) {
+                        return false;
+                    }
                 }
                 String s = code.substring(j, i++);
                 stack.push(s);

@@ -45,8 +45,8 @@ public class TextJustification {
 
         for(int i = 0, w; i < words.length; i = w) {
             int len = -1; //We need to skip the space for last word hence start len = -1
-            //check how many words fit into the line
 
+            //check how many words fit into the line
             for (w = i; w < words.length && len + words[w].length() + 1 <= maxWidth; w++) {
                 len += words[w].length() + 1; // 1 extra for the space
             }
