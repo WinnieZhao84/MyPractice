@@ -43,6 +43,7 @@ public class ReverseNodesInKGroup {
             if (count == k) {
                 System.out.println("pre:" + pre.val);
                 System.out.println("next:" + next.val);
+
                 pre = reverse(pre, next);
                 count = 0;
             }

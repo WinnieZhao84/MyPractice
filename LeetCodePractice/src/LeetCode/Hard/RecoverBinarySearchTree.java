@@ -33,7 +33,7 @@ public class RecoverBinarySearchTree {
      * What is the business we are doing here?
      * We need to find the first and second elements that are not in order right?
      *
-     * How do we find these two elements? For example, we have the following tree that is printed as in order traversal:
+     * How do we find these two elements? For example, we have the following tree that is printed as in-order traversal:
      * 6, 3, 4, 5, 2
      *
      * We compare each node with its next one and we can find out that 6 is the first element to swap because 6 > 3 and 2 is the

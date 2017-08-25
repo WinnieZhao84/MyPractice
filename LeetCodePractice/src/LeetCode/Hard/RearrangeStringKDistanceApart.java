@@ -51,8 +51,9 @@ public class RearrangeStringKDistanceApart {
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int index = 0;index<length;index++){
+        for(int index = 0; index<length;  index++){
             int candidatePos = findValidMax(count, valid, index);
+
             if (candidatePos == -1) {
                 return "";
             }
@@ -68,6 +69,7 @@ public class RearrangeStringKDistanceApart {
     private int findValidMax(int[] count, int[] valid, int index){
         int max = Integer.MIN_VALUE;
         int candidatePos = -1;
+
         for(int i=0; i<count.length; i++){
             if (count[i]>0 && count[i]>max && index>=valid[i]) {
                 max = count[i];

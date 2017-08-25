@@ -18,7 +18,7 @@ package LeetCode.Hard;
  * isMatch("aa", "a*") → true
  * isMatch("aa", ".*") → true
  * isMatch("ab", ".*") → true
- * isMatch("aab", "c*a*b") → true
+ * isMatch("aab", "c*a*b") → true (* matched zero of preceding char, so zero 'c' two 'a' and one 'b')
 
  * Created by WinnieZhao on 2017/6/20.
  */
@@ -28,6 +28,11 @@ public class RegularExpressionMatching {
         boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         dp[0][0] = true;
 
+        /**
+         * Initial state: dp[0][0] = true, e.g. "" -> "", true.
+         * dp[i][0] = false: i >= 1, any string cannot match a empty string
+         * dp[0][i], if (p.charAt(j) == '*'), dp[0][j] = dp[0][j - 2]
+         */
         for (int i = 1; i <= p.length(); i++){
             if (p.charAt(i-1) == '*') {
                 dp[0][i] = dp[0][i-2];
@@ -40,6 +45,9 @@ public class RegularExpressionMatching {
                 char sChar = s.charAt(i-1);
 
                 if (pChar != '*'){
+                    // When pChar is not "*"
+                    // 1) If pChar and sChar is the same, or pChar is ".", dp[i][j] should be same as dp[i-1][j-1]
+                    // 2) otherwise it's false
                     if (pChar == sChar || pChar == '.'){
                         dp[i][j] = dp[i-1][j-1];
                     }
@@ -48,11 +56,17 @@ public class RegularExpressionMatching {
                     }
                 }
                 else {
+                    // When pChar is *, "*" can represent zero or more than 1 preceding chars, so:
+                    // 1) If previous J position is not the same as sChar, and it's not a "."
+                    //  dp[i][j] should be same s dp[i][j-2] as the suppose "*" represent zero preceding char now
                     if (p.charAt(j-2) != sChar && p.charAt(j-2) != '.'){
                         dp[i][j] = dp[i][j-2];
                     }
-                    else{
-                        dp[i][j] = dp[i-1][j] || dp[i][j-2];
+                    // 2) dp[i][j - 2]  ||  // zero matched
+                    //    dp[i][j - 1] ||   // 1 matched
+                    //    dp[i - 1][j]      // 2+ matched
+                    else {
+                        dp[i][j] = dp[i][j - 2] || dp[i - 1][j] || dp[i][j - 1];
                     }
                 }
             }
@@ -101,12 +115,12 @@ public class RegularExpressionMatching {
         }
         // case 2: when the second char of p is '*', complex case.
         else {
-            //case 2.1: a char & '*' can stand for 0 element
+            //case 2.1: a char '*' can stand for 0 element
             if (isMatch(s, p.substring(2))) {
                 return true;
             }
 
-            //case 2.2: a char & '*' can stand for 1 or more preceding element,
+            //case 2.2: a char '*' can stand for 1 or more preceding element,
             //so try every sub string
             int i = 0;
             while (i<s.length() && (s.charAt(i)==p.charAt(0) || p.charAt(0)=='.')){

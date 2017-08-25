@@ -19,6 +19,7 @@ package LeetCode.Hard;
  */
 public class Remove9 {
 
+     // 9 -> 10; 19 -> 21
     public int newInteger(int n) {
         return Integer.valueOf(Integer.toString(n,9));
     }
