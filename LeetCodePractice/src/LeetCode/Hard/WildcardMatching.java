@@ -64,4 +64,10 @@ public class WildcardMatching {
         return pPointer == p.length();
     }
 
+    public static void main(String[] args) {
+        WildcardMatching solution = new WildcardMatching();
+
+        System.out.println(solution.isMatch("aaa", "*"));
+    }
+
 }

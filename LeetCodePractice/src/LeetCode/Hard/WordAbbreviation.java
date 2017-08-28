@@ -41,9 +41,12 @@ public class WordAbbreviation {
             ans[i] = makeAbbr(dict.get(i), 1); // make abbreviation for each string
         }
 
+        // Make abbreviation for each word.
+        // Then, check each word, if there are some strings which have same abbreviation with it, increase the prefix.
         for (int i=0;i<len;i++) {
             while (true) {
                 HashSet<Integer> set=new HashSet<>();
+
                 for (int j=i+1;j<len;j++) {
                     if (ans[j].equals(ans[i])) {
                         set.add(j); // check all strings with the same abbreviation
@@ -69,6 +72,7 @@ public class WordAbbreviation {
         builder.append(s.substring(0, k));
         builder.append(s.length()-1-k);
         builder.append(s.charAt(s.length()-1));
+
         return builder.toString();
     }
 }
