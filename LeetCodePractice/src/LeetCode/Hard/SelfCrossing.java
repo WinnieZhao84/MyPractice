@@ -18,9 +18,9 @@ package LeetCode.Hard;
  *
  * Example 2:
  * Given x = [1, 2, 3, 4],
- *  ┌──────┐
- *  │      │
- *  │
+ *     ┌──────┐
+ *    │      │
+ *   │
  *  │
  * └────────────>
  *
@@ -28,7 +28,7 @@ package LeetCode.Hard;
  *
  * Example 3:
  * Given x = [1, 1, 1, 1],
- * ┌───┐
+ *  ┌───┐
  * │   │
  * └───┼>
  *
@@ -56,7 +56,7 @@ public class SelfCrossing {
     // 3. Sixth line crosses first line and works for the lines after
     //      x(1)
     //     ┌──────┐
-    //     │     │x(0)
+    //     │ x(0)│
     // x(2)│     │────│
     //     │     x(5)│x(4)
     //     └───────────│

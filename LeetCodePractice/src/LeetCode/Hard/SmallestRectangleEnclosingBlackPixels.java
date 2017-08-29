@@ -24,10 +24,15 @@ public class SmallestRectangleEnclosingBlackPixels {
 
     public int minArea(char[][] image, int x, int y) {
         int m = image.length, n = image[0].length;
+        // Find leftmost
         int colMin = binarySearch(image, true, 0, y, 0, m, true);
+        // Find rightmost
         int colMax = binarySearch(image, true, y + 1, n, 0, m, false);
+        // Find topmost
         int rowMin = binarySearch(image, false, 0, x, colMin, colMax, true);
+        // Find bottommost
         int rowMax = binarySearch(image, false, x + 1, m, colMin, colMax, false);
+
         return (rowMax - rowMin) * (colMax - colMin);
     }
 

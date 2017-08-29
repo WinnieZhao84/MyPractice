@@ -96,8 +96,8 @@ public class StrobogrammaticNumberIII {
         }
         while (n > 1) {
             List<String> newresult = new LinkedList<String>();
-            for (String s:result) {
-                for (Character c:map.keySet()) {
+            for (String s : result) {
+                for (Character c : map.keySet()) {
                     if (n != 2 || c != '0') {
                         newresult.add(c + s + map.get(c));
                     }

@@ -25,19 +25,16 @@ package LeetCode.Hard;
 public class StudentAttendanceRecordII {
 
     /**
-     * dp[i]the number of all possible attendance (without 'A') records with length i :
+     * dp[i]: the number of all possible attendance (without 'A') records with length i :
      * end with "P": dp[i-1]
      * end with "PL": dp[i-2]
      * end with "PLL": dp[i-3]
      * end with "LLL": is not allowed
      *
      * so dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
-
-     the number of all possible attendance (with 'A') records with length n:
-     ∑(dp[i] *dp[n-1-i]) i = 0,1,...,n-1
-
-     * @param n
-     * @return
+     *
+     * the number of all possible attendance (with 'A') records with length n: ∑(dp[i] * dp[n-1-i]) (i = 0,1,...,n-1)
+     *
      */
     static final int M = 1000000007;
 

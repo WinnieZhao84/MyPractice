@@ -45,7 +45,7 @@ public class SmallestGoodBase {
      * (2)=> k*(n-k^m-1) = k + k^2 + k^3 + ... + k^(m-1)
      *
      * so from (1) and (2):
-     * n-1 = k*(n-k^m-1)
+     *  n-1 = k*(n-k^m-1)
      *  k*n-k^m = n-1
      *  k^m = nk - n + 1
      *  n = k^m-1/k-1

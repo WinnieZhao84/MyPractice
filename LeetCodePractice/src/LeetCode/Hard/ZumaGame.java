@@ -54,6 +54,7 @@ public class ZumaGame {
         handMap.put('B',0);
         handMap.put('G',0);
         handMap.put('W',0);
+
         for (char h : hand.toCharArray()) {
             handMap.put(h, handMap.get(h) + 1);
         }
@@ -136,7 +137,7 @@ public class ZumaGame {
     public static void main(String[] args) {
         ZumaGame solution = new ZumaGame();
 
-        int min = solution.findMinStep("WRGY", "WRBRW");
+        int min = solution.findMinStep("WWRGY", "WRBRW");
 
         System.out.println(min);
     }

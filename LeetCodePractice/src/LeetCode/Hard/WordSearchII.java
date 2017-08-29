@@ -1,14 +1,13 @@
 package LeetCode.Hard;
 
-import LeetCode.Helper.TreeNode;
-
 import java.util.*;
 
 /**
  *
  * Given a 2D board and a list of words from the dictionary, find all words in the board.
  *
- * Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring.
+ * Each word must be constructed from letters of sequentially adjacent cell, where "adjacent"
+ * cells are those horizontally or vertically neighboring.
  * The same letter cell may not be used more than once in a word.
  *
  * For example,
@@ -28,7 +27,8 @@ import java.util.*;
  *
  * If the current candidate does not exist in all words' prefix, you could stop backtracking immediately.
  * What kind of data structure could answer such query efficiently? Does a hash table work? Why or why not?
- * How about a Trie? If you would like to learn how to implement a basic trie, please work on this problem: Implement Trie (Prefix Tree).
+ * How about a Trie? If you would like to learn how to implement a basic trie, please work on this problem:
+ * Implement Trie (Prefix Tree).
 
  * Created by WinnieZhao on 2017/4/27.
  */
@@ -40,7 +40,7 @@ public class WordSearchII {
 
     public List<String> findWords(char[][] board, String[] words) {
 
-        if (board == null || board.length == 0 || board[0].length == 0) return new ArrayList<String>();
+        if (board == null || board.length == 0 || board[0].length == 0) return new ArrayList<>();
 
         for (String word : words) {
             dict.insert(word);

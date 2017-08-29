@@ -44,7 +44,9 @@ public class StrangePrinter {
                 dp[i][j] = dp[i + 1][j] + 1;
                 char c = cs[i];
                 for (int k = i; k < j; ++k){
-                    if (cs[k + 1] == c) dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k + 1][j] - 1);
+                    if (cs[k + 1] == c) {
+                        dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k + 1][j] - 1);
+                    }
                 }
             }
         }

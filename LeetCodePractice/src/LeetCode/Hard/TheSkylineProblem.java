@@ -45,9 +45,9 @@ public class TheSkylineProblem {
          * including both start and end point. The trick here is to set the start segment as negative height.
          * This has a few good uses:
          * 1) make sure the start segment comes before the end one after sorting.
-         * 2) when pushing into the queue, it is very each to distinguish either to add or remove a segment.
-         * 3) when the two adjacent building share same start and end x value, the next start segment always
-         *    come before due to the negative height, this makes sure that when we peek the queue,
+         * 2) when pushing into the queue, it is very easy to distinguish either to add or remove a segment.
+         * 3) when the two adjacent building share same start and end value, the next start segment always
+         *    come in first due to the negative height, this makes sure that when we peek the queue,
          *    we always get the value we are supposed to get.
          *    When the first building is lower when we peek the queue, we get the height of the second building,
          *    and the first building will be removed in the next round of iteration.
@@ -61,6 +61,8 @@ public class TheSkylineProblem {
         }
 
         // Sort heights by x and then y in ascending order
+        // {{2,9,10},{3,7,15},{5,12,12},{15,20,10},{19,24,8}} =>
+        // [2, -10], [3, -15], [5, -12], [7, 15], [9, 10], [12, 12], [15, -10], [19, -8], [20, 10], [24, 8]
         Collections.sort(heights, (a, b) -> (a[0] == b[0]) ? a[1] - b[1] : a[0] - b[0]);
 
         // Sort the priority queue in descending order
@@ -71,9 +73,11 @@ public class TheSkylineProblem {
 
         for(int[] h : heights) {
             if(h[1] < 0) {
+                // a left point, add height
                 pq.offer(-h[1]);
             }
             else {
+                // a right point, remove height (current skyline box ended)
                 pq.remove(h[1]);
             }
 
@@ -84,6 +88,14 @@ public class TheSkylineProblem {
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        TheSkylineProblem solution = new TheSkylineProblem();
+
+        int[][] buildings = {{2,9,10},{3,7,15},{5,12,12},{15,20,10},{19,24,8}};
+
+        solution.getSkyline(buildings);
     }
 
     /**

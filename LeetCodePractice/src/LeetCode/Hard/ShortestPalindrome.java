@@ -29,6 +29,9 @@ public class ShortestPalindrome {
         return new StringBuilder(s.substring(table[table.length - 1])).reverse().toString() + s;
     }
 
+    /**
+     * KMP Algorithm (https://segmentfault.com/a/1190000003059361)
+     */
     private int[] getTable(String s) {
         //get lookup table
         int[] table = new int[s.length()];
