@@ -12,9 +12,9 @@ public class ReverseInteger {
 
     public int reverse(int x) {
     	int max = Integer.MAX_VALUE;
-    	
+
         long result = 0;
-        
+
         int value = Math.abs(x);
     	while (value > 0) {
     		int y = value%10;
@@ -24,7 +24,7 @@ public class ReverseInteger {
     		}
     		value = value/10;
     	}
-    	
+
     	if (x < 0) {
     		return 0 - (int)result;
     	}
@@ -33,6 +33,6 @@ public class ReverseInteger {
     
     public static void main(String[] args) {
     	ReverseInteger solution = new ReverseInteger();
-    	System.out.print(solution.reverse(1000000003));
+    	System.out.print(solution.reverse(1534236469));
     }
 }
