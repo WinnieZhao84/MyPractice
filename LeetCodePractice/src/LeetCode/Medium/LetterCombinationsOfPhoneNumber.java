@@ -24,19 +24,29 @@ public class LetterCombinationsOfPhoneNumber {
     private String[] letters = {"", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv","wxyz"}; 
     
     public List<String> letterCombinations_better(String digits) {
-        LinkedList<String> ans = new LinkedList<String>();
-        String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        ans.add("");
-        for(int i =0; i<digits.length();i++){
-            int x = Character.getNumericValue(digits.charAt(i));
-            while(ans.peek().length() == i){
-                String t = ans.remove();
-                for(char s : mapping[x].toCharArray())
-                    ans.add(t+s);
-            }
+        LinkedList<String> res = new LinkedList<>();
+        if (digits == null || digits.isEmpty()) {
+            return res;
         }
 
-        return ans;
+        String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+        char[] chars = digits.toCharArray();
+        res.add("");
+        for (int i=0; i<chars.length; i++) {
+            int x = chars[i] - '0';
+
+            while (res.peek().length() == i) {
+                String temp = res.remove();
+                for (char c : mapping[x].toCharArray()) {
+
+                    res.add(temp+c);
+                }
+            }
+
+        }
+
+        return res;
     }
     
     public List<String> letterCombinations(String digits) {
@@ -77,7 +87,7 @@ public class LetterCombinationsOfPhoneNumber {
     public static void main(String[] args) {
         LetterCombinationsOfPhoneNumber solution = new LetterCombinationsOfPhoneNumber();
         
-        List<String> result = solution.letterCombinations_better("234");
+        List<String> result = solution.letterCombinations("234");
         
         System.out.println(result.stream().collect(Collectors.joining(",")));
     }
