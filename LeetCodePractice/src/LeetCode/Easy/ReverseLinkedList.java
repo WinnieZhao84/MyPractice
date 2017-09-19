@@ -12,48 +12,25 @@ import LeetCode.Helper.ListNode;
  *
  */
 public class ReverseLinkedList {
-	// iteratively 
-    public ListNode reverseList_iterative(ListNode head) {
-        
-    	if (head == null) return head;
-    	Map<ListNode, ListNode> relation = new HashMap<ListNode, ListNode>();
-    	
-    	ListNode oldHead = head;
-    	ListNode last = null;
-    	while (head.next != null) {
-    		relation.put(head, head.next);
-    		head = head.next;
-    	}
-    	last = head;
-    	
-    	oldHead.next = null;
-    	for (ListNode key : relation.keySet()) {
-    		ListNode node = relation.get(key);
-    		node.next = key;
-    	}
-    	
-    	return last;
-    }
     
-    public ListNode reverseList_iterative2(ListNode head) {
-    	if (head == null) return head;
-    	
-    	ListNode node = head, pre = null, temp = null;
-    	while (node != null) {
-    		
-            temp = node.next;
-            node.next = pre;
-            pre = node;
-            node = temp;
-    	}
-    	
-    	return pre;
-    }
-    
-    // recursively
-    public ListNode reverseList_recursive(ListNode head) {
-        return null;
-    }
+    public ListNode reverseList(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+
+		ListNode cur = head;
+		ListNode pre = null;
+		ListNode next = null;
+
+		while (cur != null) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+
+		return pre;
+	}
     
     public static void main(String[] args) {
     	ReverseLinkedList solution = new ReverseLinkedList();
@@ -69,9 +46,9 @@ public class ReverseLinkedList {
     	three.next = four;
     	four.next = five;
     	
-    	ListNode newHead = solution.reverseList_iterative2(head);
-    	while (newHead.next != null) {
-    		System.out.print(newHead.next.val);
+    	ListNode newHead = solution.reverseList(head);
+    	while (newHead != null) {
+    		System.out.print(newHead.val);
     		newHead = newHead.next;
     	}
     }
