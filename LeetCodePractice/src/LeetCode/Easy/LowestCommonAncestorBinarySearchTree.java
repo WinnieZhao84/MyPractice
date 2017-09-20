@@ -24,22 +24,20 @@ import LeetCode.Helper.TreeNode;
 public class LowestCommonAncestorBinarySearchTree {
 
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-		if (root == null) {
+		if (root == null || p == null || q == null) {
 			return root;
 		}
-		if (root.val == p.val || root.val == q.val) {
+
+		if ((root.val <= p.val && root.val >= q.val) || (root.val <= q.val && root.val >= p.val)) {
 			return root;
 		}
-		if ((root.val > p.val && root.val < q.val) || (root.val < p.val && root.val > q.val)) {
-			return root;
+		else {
+			if (root.val > Math.max(p.val, q.val)) {
+				return this.lowestCommonAncestor(root.left, p, q);
+			}
+			else {
+				return this.lowestCommonAncestor(root.right, p, q);
+			}
 		}
-		else if (root.val > p.val && root.val > q.val) {
-			return this.lowestCommonAncestor(root.left, p, q);
-		}
-		else if (root.val < p.val && root.val < q.val) {
-			return this.lowestCommonAncestor(root.right, p, q);
-		}
-		
-		return null;
 	}
 }

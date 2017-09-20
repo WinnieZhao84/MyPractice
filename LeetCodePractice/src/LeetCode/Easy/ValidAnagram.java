@@ -43,6 +43,42 @@ public class ValidAnagram {
 
     	return s.length() == t.length() && tChars.equals(sChars);
     }
+
+	public boolean isAnagram_better(String s, String t) {
+		if (s == null || t == null) {
+			return s == t;
+		}
+
+		if (s.length() != t.length()) {
+			return false;
+		}
+
+		if (s.isEmpty() || t.isEmpty()) {
+			return s.equals(t);
+		}
+
+		char[] schar = new char[26];
+		char[] tchar = new char[26];
+		for (char ch : s.toCharArray()) {
+			schar[ch-'a']++;
+		}
+
+		for (char ch: t.toCharArray()) {
+			tchar[ch-'a']++;
+		}
+
+		StringBuilder sb1 = new StringBuilder("");
+		StringBuilder sb2 = new StringBuilder("");
+		for (int i = 0; i < 26; i++) {
+			sb1.append('#');
+			sb1.append(schar[i]);
+
+			sb2.append('#');
+			sb2.append(tchar[i]);
+		}
+
+		return sb1.toString().equals(sb2.toString());
+	}
     
     public static void main(String[] args) {
     	ValidAnagram solution = new ValidAnagram();

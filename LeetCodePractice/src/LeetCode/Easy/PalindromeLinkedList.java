@@ -58,7 +58,7 @@ public class PalindromeLinkedList {
     	ListNode l1 = new ListNode(1);
     	ListNode l2 = new ListNode(2);
     	ListNode l3 = new ListNode(3);
-    	ListNode l4 = new ListNode(2);
+    	ListNode l4 = new ListNode(4);
     	ListNode l5 = new ListNode(1);
     	
     	l1.next = l2;
