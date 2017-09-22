@@ -21,28 +21,21 @@ import LeetCode.Helper.TreeNode;
  * @author ASUS-PC
  *
  */
-public class LowestCommonAncestorSearchTree {
+public class LowestCommonAncestorBinaryTree {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        
-    	if (root == null) {
-    		return null;
-    	}
-    	if (root == p) {
-    		return root;
-    	}
-    	if (root == q) {
-    		return root;
-    	}
-    	
-    	TreeNode left = this.lowestCommonAncestor(root.left, p, q);
-    	TreeNode right = this.lowestCommonAncestor(root.right, p, q);
-    	
-    	if (left != null && right != null) {
-    		return root;
-    	}
-    	else {
-    		return left == null? right : left;
-    	}
+
+		if (root == null || root == p || root == q) {
+			return root;
+		}
+
+		TreeNode left = this.lowestCommonAncestor(root.left, p, q);
+		TreeNode right = this.lowestCommonAncestor(root.right, p, q);
+
+		if (left != null && right != null) {
+			return root;
+		}
+
+		return left == null ? right : left;
     }
     
     public static void main(String[] args) {
@@ -71,7 +64,7 @@ public class LowestCommonAncestorSearchTree {
     	p8.left = p7;
     	p8.right = p9;
     	
-    	LowestCommonAncestorSearchTree solution = new LowestCommonAncestorSearchTree();
+    	LowestCommonAncestorBinaryTree solution = new LowestCommonAncestorBinaryTree();
     	
     	TreeNode result = solution.lowestCommonAncestor(root, p0, p7);
     	System.out.print(result.val);
