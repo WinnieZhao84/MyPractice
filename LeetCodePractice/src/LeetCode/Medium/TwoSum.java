@@ -42,47 +42,34 @@ public class TwoSum {
     
     // Use binary search to improve the performance
     public int[] twoSum_Better(int[] numbers, int target) {
-        
         int[] index = new int[2];
-        int length = numbers.length;
-        
-        for (int i=0; i<length; i++) {
-            int newTarget = target - numbers[i];
-            index[0] = i+1;
-            
-            int result = this.binarySearch(0, length-1, newTarget, numbers, i);
-            if (result == -1) {
-                continue;
-            }
-            else {
-                index[1] = result + 1;
+
+        if (numbers == null || numbers.length == 0) {
+            return index;
+        }
+
+        int left=0;
+        int right=numbers.length-1;
+
+        while (left<right) {
+
+            if (numbers[left] + numbers[right] == target) {
+                index[0] = left+1;
+                index[1] = right+1;
+
                 return index;
             }
-        }
-        
-        return null;
-    }
-    
-    private int binarySearch(int start, int end, int target, int[] numbers, int firstIndex) {
-        if (start > end) {
-            return -1;
-        }
-        
-        int middle = (end+start) / 2;
-        if (numbers[middle] == target) {
-            if (firstIndex == middle) {
-                return this.binarySearch(middle+1, end, target, numbers, firstIndex);
+            else if (numbers[left] + numbers[right] < target) {
+                left++;
             }
-            return middle;
+            else {
+                right--;
+            }
         }
-        else if (numbers[middle] > target) {
-            return this.binarySearch(start, middle-1, target, numbers, firstIndex);
-        }
-        else if (numbers[middle] < target) {
-            return this.binarySearch(middle+1, end, target, numbers, firstIndex);
-        }
-        return -1;
+
+        return index;
     }
+
     
     public static void main(String args[]) {
         TwoSum solution = new TwoSum();
