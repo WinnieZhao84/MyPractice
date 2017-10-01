@@ -1,8 +1,10 @@
-package LeetCode.Interview.Amazon;
+package LeetCode.Interview.Amazon.LevelOne;
 
 import java.util.Stack;
 
 /**
+ * Same as LeetCode
+ *
  * Created by WinnieZhao on 9/28/2017.
  */
 public class ValidParentheses {

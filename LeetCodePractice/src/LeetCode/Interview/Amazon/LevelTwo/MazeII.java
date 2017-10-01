@@ -1,6 +1,4 @@
-package LeetCode.Interview.Amazon;
-
-import LeetCode.Medium.TheMazeII;
+package LeetCode.Interview.Amazon.LevelTwo;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -11,7 +9,7 @@ import java.util.Queue;
  *
  * Created by WinnieZhao on 9/28/2017.
  */
-public class Maze {
+public class MazeII {
     public static void main (String[] args){
         int[][] maze = {{0,0,1,0,0},{0,0,0,0,0},{0,0,0,1,0},{1,1,0,1,1},{0,0,0,0,0}};
         int[] start = {0,4};
@@ -46,7 +44,6 @@ public class Maze {
         for(int i = 0; i < m; i++) {
             Arrays.fill(distance[i], Integer.MAX_VALUE);
         }
-
 
         while(!queue.isEmpty()) {
             Pair cur = queue.poll();

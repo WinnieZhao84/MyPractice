@@ -1,8 +1,5 @@
 package LeetCode.Easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import LeetCode.Helper.ListNode;
 
 /**

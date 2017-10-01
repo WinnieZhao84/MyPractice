@@ -1,4 +1,4 @@
-package LeetCode.Interview.Amazon;
+package LeetCode.Interview.Amazon.LevelTwo;
 
 import java.util.ArrayList;
 import java.util.List;

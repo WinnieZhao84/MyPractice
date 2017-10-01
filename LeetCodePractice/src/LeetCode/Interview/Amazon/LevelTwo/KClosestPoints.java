@@ -1,4 +1,4 @@
-package LeetCode.Interview.Amazon;
+package LeetCode.Interview.Amazon.LevelTwo;
 
 import LeetCode.Helper.Point;
 
@@ -6,7 +6,8 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
- * Given some points and a point origin in two dimensional space, find k points out of the some points which are nearest to origin.
+ * Given some points and a point origin in two dimensional space, find k points out of the some points which are nearest
+ * to origin.
  *
  * Return these points sorted by distance, if they are same with distance, sorted by x-axis, otherwise sorted by y-axis.
  *
