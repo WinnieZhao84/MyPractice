@@ -110,14 +110,14 @@ public class CutOffTreesForGolfEvent {
                 }
 
                 for (int[] d : dir) {
-                    int nr = curr[0] + d[0];
-                    int nc = curr[1] + d[1];
+                    int row = curr[0] + d[0];
+                    int col = curr[1] + d[1];
 
-                    if (nr < 0 || nr >= m || nc < 0 || nc >= n || forest.get(nr).get(nc) == 0 || visited[nr][nc]) {
+                    if (row < 0 || row >= m || col < 0 || col >= n || forest.get(row).get(col) == 0 || visited[row][col]) {
                         continue;
                     }
-                    queue.add(new int[] {nr, nc});
-                    visited[nr][nc] = true;
+                    queue.add(new int[] {row, col});
+                    visited[row][col] = true;
                 }
             }
             step++;

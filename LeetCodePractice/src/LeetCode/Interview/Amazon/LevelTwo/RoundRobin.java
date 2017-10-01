@@ -12,7 +12,7 @@ import java.util.Queue;
 
  * Created by WinnieZhao on 9/30/2017.
  */
-public class RourdRobin {
+public class RoundRobin {
     static class Task {
         int arrive;
         int remain;

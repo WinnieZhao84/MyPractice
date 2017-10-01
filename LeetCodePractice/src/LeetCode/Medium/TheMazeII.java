@@ -8,8 +8,10 @@ import java.util.Queue;
 /**
  * 505
  *
- * Given the ball's start position, the destination and the maze, find the shortest distance for the ball to stop at the destination.
- * The distance is defined by the number of empty spaces traveled by the ball from the start position (excluded) to the destination (included).
+ * Given the ball's start position, the destination and the maze, find the shortest distance for the ball to stop
+ * at the destination.
+ * The distance is defined by the number of empty spaces traveled by the ball from the start position (excluded)
+ * to the destination (included).
  * If the ball cannot stop at the destination, return -1.
  *
  * Created by WinnieZhao on 4/10/2017.

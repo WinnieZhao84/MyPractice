@@ -24,9 +24,9 @@ public class OrderDependency {
         }
     }
 
-    public static List<Order> find(List<Dependency> list) {
+    public static List<Order> find(List<Dependency> orderDependencies) {
         List<Order> result = new ArrayList<>();
-        if (list == null || list.size() == 0) {
+        if (orderDependencies == null || orderDependencies.size() == 0) {
             return result;
         }
 
@@ -35,25 +35,20 @@ public class OrderDependency {
         Queue<Order> queue = new LinkedList<>();
 
         // fill indegree and adjList
-        for (Dependency dep : list) {
+        for (Dependency dep : orderDependencies) {
             Order cur = dep.cur;
             Order pre = dep.pre;
+
             // add to adjList
-            if (adjList.containsKey(pre)) {
-                adjList.get(pre).add(cur);
-            } else {
-                adjList.put(pre, new ArrayList<>());
-                adjList.get(pre).add(cur);
-            }
+            List<Order> list = adjList.getOrDefault(pre, new ArrayList<>());
+            list.add(cur);
+            adjList.put(pre, list);
+
             // add to indegree
-            if (indegree.containsKey(cur)) {
-                indegree.put(cur, indegree.get(cur) + 1);
-            } else {
-                indegree.put(cur, 1);
-            }
-            if (!indegree.containsKey(pre)) {
-                indegree.put(pre, 0);
-            }
+            int degree = indegree.getOrDefault(cur, 0);
+            indegree.put(cur, degree+1);
+
+            indegree.putIfAbsent(pre, 0);
         }
 
         for (Order o : indegree.keySet()) {

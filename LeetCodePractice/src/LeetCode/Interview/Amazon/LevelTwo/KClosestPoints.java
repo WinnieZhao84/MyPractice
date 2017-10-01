@@ -2,7 +2,6 @@ package LeetCode.Interview.Amazon.LevelTwo;
 
 import LeetCode.Helper.Point;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**

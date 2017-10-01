@@ -16,7 +16,7 @@ public class MaximumSubtreeOfAverage {
         ArrayList<Node> children;
         public Node(int val){
             this.val = val;
-            children = new ArrayList<Node>();
+            children = new ArrayList<>();
         }
     }
 
@@ -44,7 +44,7 @@ public class MaximumSubtreeOfAverage {
         if (root == null) {
             return new SumCount(0, 0);
         }
-        if (root.children == null || root.children.size() == 0) {
+        if (root.children == null || root.children.isEmpty()) {
             return new SumCount(root.val, 1);
         }
 

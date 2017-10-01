@@ -58,24 +58,25 @@ public class Fruits {
     }
 
     public static int checkWinner (List<List<String>> codeList, List<String> shoppingCart) {
-        int x = 0;
-        int y = 0;
-        int index = 0;
-        while (x < codeList.size()){
-            y = 0;
-            while(y < codeList.get(x).size() && index < shoppingCart.size()){
-                if (codeList.get(x).get(y) == shoppingCart.get(index) || codeList.get(x).get(y) == "*"){
-                    y++;
-                    index++;
+        int codeListIndex = 0;
+        int codeIndex = 0;
+        int shippingCartIndex = 0;
+
+        while (codeListIndex < codeList.size()){
+            codeIndex = 0;
+            while(codeIndex < codeList.get(codeListIndex).size() && shippingCartIndex < shoppingCart.size()){
+                if (codeList.get(codeListIndex).get(codeIndex) == shoppingCart.get(shippingCartIndex) || codeList.get(codeListIndex).get(codeIndex) == "*"){
+                    codeIndex++;
+                    shippingCartIndex++;
                 }
                 else{
-                    index++;
+                    shippingCartIndex++;
                 }
             }
-            if (index == shoppingCart.size() && (x != codeList.size()-1 || y != codeList.get(x).size()-1)){
+            if (shippingCartIndex == shoppingCart.size() && (codeListIndex != codeList.size()-1 || codeIndex != codeList.get(codeListIndex).size()-1)){
                 return 0;
             }
-            x++;
+            codeListIndex++;
         }
         return 1;
     }
