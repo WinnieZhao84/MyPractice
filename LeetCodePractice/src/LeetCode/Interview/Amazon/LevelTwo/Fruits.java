@@ -50,9 +50,11 @@ public class Fruits {
 
     public static void main(String[] args){
         List<List<String>> fruitlist = new ArrayList<>();
-        List<String> chart = Arrays.asList("o","a","a","o","b","o","p","g");
+        List<String> chart = Arrays.asList("o","a","a","b","o","a","b");
+        fruitlist.add(Arrays.asList("o"));
         fruitlist.add(Arrays.asList("a", "a"));
-        fruitlist.add(Arrays.asList("o", "b", "o"));
+        fruitlist.add(Arrays.asList("b", "o", "a"));
+        fruitlist.add(Arrays.asList("b"));
 
         System.out.println(checkWinner(fruitlist, chart));
     }
@@ -65,7 +67,8 @@ public class Fruits {
         while (codeListIndex < codeList.size()){
             codeIndex = 0;
             while(codeIndex < codeList.get(codeListIndex).size() && shippingCartIndex < shoppingCart.size()){
-                if (codeList.get(codeListIndex).get(codeIndex) == shoppingCart.get(shippingCartIndex) || codeList.get(codeListIndex).get(codeIndex) == "*"){
+                if (codeList.get(codeListIndex).get(codeIndex) == shoppingCart.get(shippingCartIndex)
+                        || codeList.get(codeListIndex).get(codeIndex) == "*"){
                     codeIndex++;
                     shippingCartIndex++;
                 }
@@ -73,11 +76,17 @@ public class Fruits {
                     shippingCartIndex++;
                 }
             }
-            if (shippingCartIndex == shoppingCart.size() && (codeListIndex != codeList.size()-1 || codeIndex != codeList.get(codeListIndex).size()-1)){
+/*            if (shippingCartIndex == shoppingCart.size() &&
+                    (codeListIndex != codeList.size() - 1 || codeIndex != codeList.get(codeListIndex).size())) {
                 return 0;
+            }*/
+            if (shippingCartIndex == shoppingCart.size() &&
+                    (codeListIndex == codeList.size() - 1 && codeIndex == codeList.get(codeListIndex).size())) {
+                return 1;
             }
+
             codeListIndex++;
         }
-        return 1;
+        return 0;
     }
 }
