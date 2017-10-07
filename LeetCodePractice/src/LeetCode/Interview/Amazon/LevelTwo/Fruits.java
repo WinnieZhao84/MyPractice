@@ -67,8 +67,8 @@ public class Fruits {
         while (codeListIndex < codeList.size()){
             codeIndex = 0;
             while(codeIndex < codeList.get(codeListIndex).size() && shippingCartIndex < shoppingCart.size()){
-                if (codeList.get(codeListIndex).get(codeIndex) == shoppingCart.get(shippingCartIndex)
-                        || codeList.get(codeListIndex).get(codeIndex) == "*"){
+                if (codeList.get(codeListIndex).get(codeIndex).equals(shoppingCart.get(shippingCartIndex))
+                        || codeList.get(codeListIndex).get(codeIndex).equals("anything")){
                     codeIndex++;
                     shippingCartIndex++;
                 }
@@ -76,17 +76,13 @@ public class Fruits {
                     shippingCartIndex++;
                 }
             }
-/*            if (shippingCartIndex == shoppingCart.size() &&
+            if (shippingCartIndex == shoppingCart.size() &&
                     (codeListIndex != codeList.size() - 1 || codeIndex != codeList.get(codeListIndex).size())) {
                 return 0;
-            }*/
-            if (shippingCartIndex == shoppingCart.size() &&
-                    (codeListIndex == codeList.size() - 1 && codeIndex == codeList.get(codeListIndex).size())) {
-                return 1;
             }
 
             codeListIndex++;
         }
-        return 0;
+        return 1;
     }
 }
