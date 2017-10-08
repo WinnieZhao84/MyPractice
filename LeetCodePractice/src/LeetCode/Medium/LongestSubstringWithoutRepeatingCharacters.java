@@ -33,19 +33,20 @@ public class LongestSubstringWithoutRepeatingCharacters {
             return s.length();
         }
 
-        int res = 0;
         Map<Character, Integer> map = new HashMap<>();
-        int length = s.length();
-        for (int i=0, k=0; i<length; i++) {
-            if (map.containsKey(s.charAt(i))) {
-                k = Math.max(k, map.get(s.charAt(i)));
-            }
+        int max = 1;
+        int j = 0;
+        for (int i=0; i<s.length(); i++) {
+            char ch = s.charAt(i);
 
-            map.put(s.charAt(i), i+1);
-            res = Math.max(res, i-k+1);
+            if (map.containsKey(ch)) {
+                j = Math.max(j, map.get(ch));
+            }
+            map.put(ch, i+1);
+            max = Math.max(max, i-j + 1);
         }
 
-        return res;
+        return max;
     }
 
     public static void main(String[] args) {
