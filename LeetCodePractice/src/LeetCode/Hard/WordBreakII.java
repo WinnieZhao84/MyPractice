@@ -1,6 +1,7 @@
 package LeetCode.Hard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class WordBreakII {
         if (map.containsKey(s)) {
             return map.get(s);
         }
-        List<String> res = new ArrayList<String>();
+        List<String> res = new ArrayList<>();
         if (s.length() == 0) {
             return res;
         }
@@ -72,4 +73,12 @@ public class WordBreakII {
         map.put(s, res);
         return res;
     }
+
+    public static void main(String[] args) {
+        WordBreakII solution = new WordBreakII();
+        List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
+
+        System.out.println(solution.wordBreak("catsanddog", wordDict));
+    }
+
 }
