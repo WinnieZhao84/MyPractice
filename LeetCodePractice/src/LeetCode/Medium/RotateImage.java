@@ -29,33 +29,33 @@ public class RotateImage {
      * 7 8 9     9 8 7     1 4 7
      */
     public void rotate(int[][] matrix) {
-        if (matrix == null || matrix.length == 0) return;
-        
-        int row = matrix.length;
-        int column = matrix[0].length;
-        
-        this.reverse(matrix);
-        for (int i=0; i<row; i++) {
-            for (int j=i+1; j<column; j++) {
-                int temp = matrix[i][j];
+        if (matrix == null || matrix.length == 0) {
+            return;
+        }
+
+        swapRows(matrix);
+
+        for (int i=0; i<matrix.length; i++) {
+            for (int j=i+1; j<matrix[0].length; j++) {
+                int val = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
-                matrix[j][i] = temp;
+                matrix[j][i] = val;
             }
+
         }
     }
-    
-    private void reverse(int[][] matrix) {
+
+    private void swapRows(int[][] matrix) {
+        int row = matrix.length;
+
         int start = 0;
-        int row = matrix.length-1;
-        
-        while (start < row) {
-            int[] array = matrix[row];
-            
-            matrix[row] = matrix[start];
-            matrix[start] = array;
-            
-            row--;
+        int end = row-1;
+        while (start < end) {
+            int[] temp = matrix[start];
+            matrix[start] = matrix[end];
+            matrix[end] = temp;
             start++;
+            end--;
         }
     }
     

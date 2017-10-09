@@ -14,53 +14,49 @@ Notes: It is intended for this problem to be specified vaguely (ie, no given inp
 public class StringToInteger {
 
     public int myAtoi(String str) {
-        int result = 0;
-        
-        if (str == null) {
-        	return result;
+        if (str == null || str.length() == 0) {
+            return 0;
         }
-        str = str.trim();
-        int length = str.length();
-        if (length == 0) {
-        	return result;
+
+        long res = 0;
+        boolean sign = true;
+        char[] chars = str.trim().toCharArray();
+        for (int i=0; i<chars.length; i++) {
+            char ch = chars[i];
+
+            if (i ==0 && ch  == '-') {
+                sign = false;
+                continue;
+            }
+            else if (i == 0 && ch == '+') {
+                continue;
+            }
+            else if (ch < '0' || ch > '9') {
+                break;
+            }
+            res = res * 10 + (ch - '0');
+
+            if (res > Integer.MAX_VALUE) {
+                break;
+            }
         }
-        
-        int sign = 1;
-        if (str.charAt(0) == '-') {
-        	sign = -1;
+
+        if (!sign) {
+            res = res * -1;
         }
-        
-        long resultLong = 0;
-        for (int i=0; i<=length-1; i++) {
-        	char ch = str.charAt(i);
-        	
-        	if (i==0 && (ch == '+' || ch == '-')) {
-        		continue;
-        	}
-        	if (ch < '0' || ch > '9') {
-        		break;
-        	}
-        	resultLong = resultLong * 10 + (ch - '0');
-        	if (resultLong > Integer.MAX_VALUE) {
-        		break;
-        	}
+
+        if (res < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
         }
-        
-        
-        resultLong = resultLong * sign;
-        if (resultLong > Integer.MAX_VALUE) {
-        	return Integer.MAX_VALUE;
+        else if (res > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
         }
-        else if (resultLong < Integer.MIN_VALUE) {
-        	return Integer.MIN_VALUE;
-        }
-        result = (int) resultLong;
-        
-        return result;
+
+        return (int) res;
     }
     
     public static void main(String[] args) {
     	StringToInteger solution = new StringToInteger();
-    	System.out.print(solution.myAtoi("    010"));
+    	System.out.print(solution.myAtoi("+-2"));
     }
 }

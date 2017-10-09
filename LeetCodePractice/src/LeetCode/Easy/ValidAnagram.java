@@ -53,32 +53,27 @@ public class ValidAnagram {
 			return false;
 		}
 
-		if (s.isEmpty() || t.isEmpty()) {
-			return s.equals(t);
+		int[] alphabet = new int[26];
+		for (int i = 0; i < s.length(); i++) {
+			alphabet[s.charAt(i) - 'a']++;
 		}
-
-		char[] schar = new char[26];
-		char[] tchar = new char[26];
-		for (char ch : s.toCharArray()) {
-			schar[ch-'a']++;
+		for (int i = 0; i < t.length(); i++) {
+			alphabet[t.charAt(i) - 'a']--;
 		}
-
-		for (char ch: t.toCharArray()) {
-			tchar[ch-'a']++;
+		for (int i : alphabet) {
+			if (i != 0) {
+				return false;
+			}
 		}
-
-		StringBuilder sb1 = new StringBuilder("");
-		StringBuilder sb2 = new StringBuilder("");
-		for (int i = 0; i < 26; i++) {
-			sb1.append('#');
-			sb1.append(schar[i]);
-
-			sb2.append('#');
-			sb2.append(tchar[i]);
-		}
-
-		return sb1.toString().equals(sb2.toString());
+		return true;
 	}
+
+	/**
+	 * What if the inputs contain unicode characters? How would you adapt your solution to such case?
+	 * Integer.toHexString(char)
+	 *
+	 * @param args
+	 */
     
     public static void main(String[] args) {
     	ValidAnagram solution = new ValidAnagram();

@@ -45,36 +45,42 @@ public class GroupAnagrams {
     }
 
     /**
-     * Time Complexity: O(N * K)O(N∗K), where NN is the length of strs, and KK is the maximum length of a string in strs.
+     * Time Complexity: O(N * K), where N is the length of strs, and K is the maximum length of a string in strs.
      * Counting each string is linear in the size of the string, and we count every string.
      *
      * @param strs
      * @return
      */
     public List<List<String>> groupAnagrams_better(String[] strs) {
-        if (strs.length == 0) return new ArrayList();
-        Map<String, List> ans = new HashMap<>();
-        int[] count = new int[26];
-        for (String s : strs) {
-            Arrays.fill(count, 0);
-            for (char c : s.toCharArray()) {
-                count[c - 'a']++;
+        if (strs == null || strs.length == 0) {
+            return new ArrayList<>();
+        }
+
+        int[] digits = new int[26];
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+
+            char[] chars = str.toCharArray();
+            digits = new int[26];
+
+            for (char ch : chars) {
+                digits[ch - 'a']++;
             }
 
-            StringBuilder sb = new StringBuilder("");
-            for (int i = 0; i < 26; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int i=0; i<26; i++) {
                 sb.append('#');
-                sb.append(count[i]);
+                sb.append(digits[i]);
             }
 
             String key = sb.toString();
-            if (!ans.containsKey(key)) {
-                ans.put(key, new ArrayList());
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
             }
-            ans.get(key).add(s);
+            map.get(key).add(str);
         }
 
-        return new ArrayList(ans.values());
+        return new ArrayList(map.values());
     }
 
     public static void main(String[] args) {
@@ -82,7 +88,7 @@ public class GroupAnagrams {
         
         String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
         
-        List<List<String>> result = solution.groupAnagrams(strs);
+        List<List<String>> result = solution.groupAnagrams_better(strs);
         System.out.println(result);
     }
 }

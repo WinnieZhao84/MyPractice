@@ -33,33 +33,19 @@ import sun.reflect.generics.tree.Tree;
 public class MergeTwoBinaryTrees {
 
     public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-        if (t1 == null) {
+        if (t1 == null && t2 == null) {
+            return null;
+        }
+        else if (t1 == null) {
             return t2;
         }
         else if (t2 == null) {
             return t1;
         }
 
-        TreeNode newTree = this.mergeHelper(t1, t2);
-
-        return newTree;
-
-    }
-
-    private TreeNode mergeHelper(TreeNode t1, TreeNode t2) {
-        if (t1 == null && t2 == null) {
-            return null;
-        }
-        else if (t1==null) {
-            return this.mergeHelper(new TreeNode(0), t2);
-        }
-        else if (t2==null) {
-            return this.mergeHelper(t1, new TreeNode(0));
-        }
-
         TreeNode root = new TreeNode(t1.val + t2.val);
-        root.left = this.mergeHelper(t1.left, t2.left);
-        root.right = this.mergeHelper(t1.right, t2.right);
+        root.left = mergeTrees(t1.left, t2.left);
+        root.right = mergeTrees(t1.right, t2.right);
 
         return root;
     }

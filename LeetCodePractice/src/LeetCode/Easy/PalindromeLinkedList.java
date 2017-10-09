@@ -14,44 +14,45 @@ import LeetCode.Helper.ListNode;
 public class PalindromeLinkedList {
     
     public boolean isPalindrome(ListNode head) {
-        
-    	ListNode slow = head;
-    	ListNode fast = head;
-    	
-    	while (fast != null) {
-    		slow = slow.next;
-    		
-    		// If the linked list count is odd, now slow is in the middle of the list
-    		if (fast.next == null) {
-    		    break;
-    		}
-    		// If the linked list count is even, get the last node of the list
-        	if (fast.next.next == null) {
-        		fast = fast.next;
-        		break;
-        	}
-    		fast = fast.next.next;
-    	}
-    	
-    	// reverse the 2nd half of the linked list
-    	ListNode pre = null;
-    	ListNode temp = null;
-    	while (slow != null) {
-    		temp = slow.next;
-    		slow.next = pre;
-    		pre = slow;
-    		slow = temp;
-    	}
-    	
-    	while (fast != null && head != null) {
-    		if (fast.val != head.val) {
-    			return false;
-    		}
-    		fast = fast.next;
-    		head = head.next;
-    	}
-    	
-    	return true;
+
+		if (head == null) {
+			return true;
+		}
+
+		if (head.next == null) {
+			return true;
+		}
+
+		ListNode slow = head;
+		ListNode fast = head;
+
+		while (fast.next != null && fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		ListNode newHead = slow.next;
+		ListNode pre = null;
+		ListNode cur = newHead;
+		while (cur != null) {
+			ListNode next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+
+		newHead = pre;
+
+		while (head != null && newHead != null) {
+			if (head.val != newHead.val) {
+				return false;
+			}
+
+			head = head.next;
+			newHead = newHead.next;
+		}
+
+		return true;
     }
     
     public static void main(String[] args) {

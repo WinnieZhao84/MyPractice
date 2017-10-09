@@ -70,7 +70,7 @@ public class SetMatrixZeroes {
     
     public static void main(String[] args) {
         SetMatrixZeroes solution = new SetMatrixZeroes();
-        int[][] matrix = {{0,1,1},{1,1,1},{1,1,1}};
+        int[][] matrix = {{1,0,1},{1,1,1},{1,1,1}};
         solution.setZeroes(matrix);
         
         for (int[] nums : matrix) {

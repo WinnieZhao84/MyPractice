@@ -52,7 +52,7 @@ public class WordLadderII {
         dict.add(beginWord);
 
         bfs(beginWord, endWord, dict, nodeNeighbors, distance);
-        dfs(beginWord, endWord, dict, nodeNeighbors, distance, solution, res);
+        dfs(beginWord, endWord, nodeNeighbors, distance, solution, res);
 
         return res;
     }
@@ -68,10 +68,10 @@ public class WordLadderII {
         distance.put(start, 0);
 
         while (!queue.isEmpty()) {
-            int count = queue.size();
+            int size = queue.size();
             boolean foundEnd = false;
 
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < size; i++) {
                 String cur = queue.poll();
                 int curDistance = distance.get(cur);
 
@@ -119,8 +119,8 @@ public class WordLadderII {
     }
 
     // DFS: output all paths with the shortest distance.
-    private void dfs(String cur, String end, Set<String> dict,
-                     Map<String, List<String>> nodeNeighbors, Map<String, Integer> distance, List<String> solution, List<List<String>> res) {
+    private void dfs(String cur, String end, Map<String, List<String>> nodeNeighbors,
+                     Map<String, Integer> distance, List<String> solution, List<List<String>> res) {
         solution.add(cur);
 
         if (end.equals(cur)) {
@@ -129,7 +129,7 @@ public class WordLadderII {
         else {
             for (String next : nodeNeighbors.get(cur)) {
                 if (distance.get(next) == distance.get(cur) + 1) {
-                    dfs(next, end, dict, nodeNeighbors, distance, solution, res);
+                    dfs(next, end, nodeNeighbors, distance, solution, res);
                 }
             }
         }

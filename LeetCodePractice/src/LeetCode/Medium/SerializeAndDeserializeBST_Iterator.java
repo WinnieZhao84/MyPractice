@@ -22,7 +22,7 @@ import LeetCode.Helper.TreeNode;
 //Your Codec object will be instantiated and called as such:
 //Codec codec = new Codec();
 //codec.deserialize(codec.serialize(root));
-public class SerializeAndDeserializeBST {
+public class SerializeAndDeserializeBST_Iterator {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -104,7 +104,7 @@ public class SerializeAndDeserializeBST {
         root.right.left = new TreeNode(4);
         root.right.right = new TreeNode(5);
         
-        SerializeAndDeserializeBST solution = new SerializeAndDeserializeBST();
+        SerializeAndDeserializeBST_Iterator solution = new SerializeAndDeserializeBST_Iterator();
         String data = solution.serialize(root);
         System.out.println(data);
         
