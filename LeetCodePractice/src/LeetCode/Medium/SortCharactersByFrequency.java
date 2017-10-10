@@ -38,34 +38,31 @@ import java.util.PriorityQueue;
 public class SortCharactersByFrequency {
 
     public String frequencySort(String s) {
+        if (s == null || s.length() <=1 ) {
+            return s;
+        }
+
         Map<Character, Integer> map = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            } else {
-                map.put(c, 1);
-            }
+        for (char ch : s.toCharArray()) {
+            Integer count = map.getOrDefault(ch, 0);
+            count++;
+            map.put(ch, count);
         }
-        
-        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>(
-            new Comparator<Map.Entry<Character, Integer>>() {
-                @Override
-                public int compare(Map.Entry<Character, Integer> a, Map.Entry<Character, Integer> b) {
-                    return b.getValue() - a.getValue();
-                }
-            }
-        );
-        
+
+        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+
         pq.addAll(map.entrySet());
-        
+
         StringBuilder sb = new StringBuilder();
-        
         while (!pq.isEmpty()) {
-            Map.Entry<Character, Integer> e = pq.poll();
-            for (int i = 0; i < (int)e.getValue(); i++) {
-                sb.append(e.getKey());
+            Map.Entry<Character, Integer> entry = pq.poll();
+
+            for (int i=0; i<entry.getValue(); i++) {
+                sb.append(entry.getKey());
             }
+
         }
+
         return sb.toString();
     }
 }

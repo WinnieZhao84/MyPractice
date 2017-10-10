@@ -74,25 +74,28 @@ public class RotateFunction {
      * @return
      */
     public int maxRotateFunction_better(int[] A) {
-        if(A.length == 0){
+        if (A == null || A.length ==0) {
             return 0;
         }
-        
-        int sum =0, iteration = 0, len = A.length;
-        
-        for(int i=0; i<len; i++){
+
+        int len = A.length;
+
+        int sum = 0;
+        int iteration = 0;
+        for (int i=0; i<len; i++) {
             sum += A[i];
-            iteration += (A[i] * i);
+            iteration += (i * A[i]);
         }
-        
+
         int max = iteration;
-        for(int j=1; j<len; j++){
-            // for next iteration lets remove one entry value of each entry and the prev 0 * k
-            iteration = iteration - sum + A[j-1]*len;
+
+        for (int i=1; i<len; i++) {
+            iteration = iteration - sum + len * A[i-1];
             max = Math.max(max, iteration);
         }
-        
+
         return max;
+
     }
     
     public static void main(String[] args) {
