@@ -20,30 +20,35 @@ public class LongestPalindromicSubsequence {
     
     // http://algorithms.tutorialhorizon.com/longest-palindromic-subsequence/
     public int longestPalindromeSubseq(String s) {
-        
-        if (s == null) {
+
+        if (s == null || s.length() == 0) {
             return 0;
         }
-        if(s.length() <= 1) {
-            return s.length();
+
+        int len = s.length();
+        if (len == 0) {
+            return 1;
         }
-        int length = s.length();
-        
-        int dp[][] = new int[length][length]; 
-        
-        for(int i=0;i<s.length();i++){
+
+        /**
+         * dp[i][j]: the longest palindromic subsequence length of substring(i, j)
+         *
+         * State transition:
+         * Initialization: dp[i][i] = 1
+         * dp[i][j] = dp[i+1][j-1] + 2 if s.charAt(i) == s.charAt(j)
+         * otherwise, dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1])
+         *
+         */
+        int[][] dp = new int[len][len];
+
+        char[] chs = s.toCharArray();
+
+        for (int i=len-1; i>=0; i--) {
             dp[i][i] = 1;
-        }
-        
-        for (int len=2; len<=s.length(); len++) {
-            
-            for (int i=0; i<s.length() - len +1; i++) {
-                int j = i + len -1;
-                
-                if (s.charAt(i) == s.charAt(j) && len == 2) {
-                    dp[i][j] = 2;
-                }
-                else if (s.charAt(i) == s.charAt(j)) {
+
+            for (int j=i+1; j<len; j++) {
+
+                if (chs[i] == chs[j]) {
                     dp[i][j] = dp[i+1][j-1] + 2;
                 }
                 else {
@@ -51,8 +56,8 @@ public class LongestPalindromicSubsequence {
                 }
             }
         }
-        
-        return dp[0][length-1];
+
+        return dp[0][len-1];
         
     }
     

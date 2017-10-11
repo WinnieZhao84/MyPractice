@@ -56,73 +56,104 @@ public class CutOffTreesForGolfEvent {
      * The worst case time complexity could be O(m^2 * n^2) (m = number of rows, n = number of columns)
      * since there are m * n trees and for each BFS worst case time complexity is O(m * n) too.
      */
-    static int[][] dir = {{0,1}, {0, -1}, {1, 0}, {-1, 0}};
+    static class Tree {
+        int x;
+        int y;
+        int height;
+
+        Tree(int x, int y, int height) {
+            this.x = x;
+            this.y = y;
+            this.height = height;
+        }
+    }
+
+    static int[][] dirs = {{0,1}, {0, -1}, {1, 0}, {-1, 0}};
 
     public int cutOffTree(List<List<Integer>> forest) {
-        if (forest == null || forest.size() == 0) {
+        if (forest == null || forest.isEmpty()) {
             return 0;
         }
+
+        PriorityQueue<Tree> pq = new PriorityQueue<>((a,b) -> a.height - b.height);
+
         int m = forest.size();
         int n = forest.get(0).size();
-
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[2]));
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (forest.get(i).get(j) > 1) {
-                    pq.add(new int[] {i, j, forest.get(i).get(j)});
+        for (int i=0; i<forest.size(); i++) {
+            for (int j=0; j<forest.get(i).size(); j++) {
+                int height = forest.get(i).get(j);
+                if (height > 1) {
+                    pq.offer(new Tree(i, j, height));
                 }
             }
         }
 
-        int[] start = new int[2];
         int sum = 0;
+        Tree start = new Tree(0, 0, 1);
         while (!pq.isEmpty()) {
-            int[] tree = pq.poll();
-            int step = minStep(forest, start, tree, m, n);
+            Tree cur = pq.poll();
 
-            if (step < 0) {
+            int step = this.findMinStep(start, cur, forest, m, n);
+
+            if (step == -1) {
                 return -1;
             }
-            sum += step;
 
-            start[0] = tree[0];
-            start[1] = tree[1];
+            sum += step;
+            start = cur;
         }
 
         return sum;
+
     }
 
-    private int minStep(List<List<Integer>> forest, int[] start, int[] tree, int m, int n) {
-        int step = 0;
-        boolean[][] visited = new boolean[m][n];
-        Queue<int[]> queue = new LinkedList<>();
+    private int findMinStep(Tree start, Tree target, List<List<Integer>> forest, int m, int n) {
+
+        Queue<Tree> queue = new LinkedList<Tree>();
         queue.add(start);
-        visited[start[0]][start[1]] = true;
+        boolean[][] visited = new boolean[m][n];
 
-        while (!queue.isEmpty()) {
+        visited[start.x][start.y] = true;
+        int min = 0;
+        while(!queue.isEmpty()) {
             int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                int[] curr = queue.poll();
 
-                if (curr[0] == tree[0] && curr[1] == tree[1]) {
-                    return step;
+            for (int i=0; i<size; i++) {
+
+                Tree cur = queue.poll();
+
+                if (cur.x == target.x && cur.y == target.y) {
+                    return min;
                 }
 
-                for (int[] d : dir) {
-                    int row = curr[0] + d[0];
-                    int col = curr[1] + d[1];
+                for (int[] dir : dirs) {
+                    int x = dir[0] + cur.x;
+                    int y = dir[1] + cur.y;
 
-                    if (row < 0 || row >= m || col < 0 || col >= n || forest.get(row).get(col) == 0 || visited[row][col]) {
-                        continue;
+                    if (x >=0 && x < m && y >=0 && y< n && !visited[x][y] && forest.get(x).get(y) != 0) {
+                        queue.offer(new Tree(x, y, forest.get(x).get(y)));
+                        visited[x][y] = true;
                     }
-                    queue.add(new int[] {row, col});
-                    visited[row][col] = true;
                 }
             }
-            step++;
-        }
+            min++;
 
+        }
         return -1;
+    }
+
+    public static void main(String[] args) {
+        CutOffTreesForGolfEvent solution = new CutOffTreesForGolfEvent();
+
+        List<Integer> list1 = Arrays.asList(1,2,3);
+        List<Integer> list2 = Arrays.asList(0,0,4);
+        List<Integer> list3 = Arrays.asList(7,6,5);
+
+        List<List<Integer>> forest = new ArrayList<>();
+        forest.add(list1);
+        forest.add(list2);
+        forest.add(list3);
+
+        System.out.println(solution.cutOffTree(forest));
     }
 }
