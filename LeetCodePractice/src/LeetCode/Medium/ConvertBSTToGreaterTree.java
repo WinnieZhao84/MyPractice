@@ -27,22 +27,29 @@ import java.util.Queue;
  */
 public class ConvertBSTToGreaterTree {
 
-    private int sum = 0;
+    int sum = 0;
     public TreeNode convertBST_recursive(TreeNode root) {
+
         if (root == null) {
-            return root;
+            return null;
         }
 
-        convertBST_recursive(root.right);
-
-        int temp = root.val;
-        root.val += sum;
-        sum += temp;
-
-        convertBST_recursive(root.left);
+        helper(root);
 
         return root;
+    }
 
+    private void helper(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        helper(node.right);
+
+        sum += node.val;
+        node.val = sum;
+
+        helper(node.left);
     }
 
     List<Integer> treeList = new ArrayList<>();

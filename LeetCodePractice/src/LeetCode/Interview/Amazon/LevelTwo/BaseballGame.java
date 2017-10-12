@@ -55,7 +55,7 @@ public class BaseballGame {
 
         Stack<Integer> stack = new Stack<>();
 
-        int res = 0;
+        int sum = 0;
         int num = 0;
         for (String op : ops) {
             if (op.equals("C")) {
@@ -66,26 +66,27 @@ public class BaseballGame {
                 stack.push(num);
             }
             else if (op.equals("+")) {
-                int last1 = stack.pop();
-                int last2 = stack.pop();
-                num = last1 + last2;
-                stack.push(last2);
-                stack.push(last1);
+                int num1 = stack.pop();
+                int num2 = stack.pop();
+                num = num1 + num2;
+                stack.push(num1);
+                stack.push(num2);
                 stack.push(num);
             }
             else {
                 num = Integer.valueOf(op);
                 stack.push(num);
             }
-            res += num;
+
+            sum += num;
         }
 
-        return res;
+        return sum;
     }
 
     public static void main(String[] args) {
         BaseballGame solution = new BaseballGame();
-        String[] ops = {"5","-2","4","C","D","9","+","+"};
+        String[] ops = {"5","2","C","D","+"};
         System.out.println(solution.calPoints(ops));
     }
 }

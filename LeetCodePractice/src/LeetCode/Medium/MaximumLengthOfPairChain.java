@@ -24,53 +24,30 @@ public class MaximumLengthOfPairChain {
 
     public int findLongestChain(int[][] pairs) {
 
-        List<Pair> list = new ArrayList<>();
-        for (int[] num : pairs) {
-            Pair pair = new Pair(num);
-            list.add(pair);
+        if (pairs == null || pairs.length == 0) {
+            return 0;
         }
 
-        Collections.sort(list);
+        Arrays.sort(pairs, (a, b) -> (a[0] - b[0]));
 
-        int length = list.size();
-        int dp[] = new int[length];
-        dp[0] = 1;
+        int len = pairs.length;
 
-        for (int i=1; i<length; i++) {
-            Pair pair = list.get(i);
+        int[] dp = new int[len];
+        Arrays.fill(dp, 1);
 
-            dp[i] = dp[i-1];
-            for (int j=i-1; j>=0; j--) {
-                Pair pre = list.get(j);
+        for (int i=0; i<len; i++) {
+            int[] cur = pairs[i];
 
-                if (pair.first > pre.second) {
+            for (int j=0; j<i; j++) {
+                int[] pre = pairs[j];
+
+                if (cur[0] > pre[1]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
-
         }
 
-        return dp[length-1];
-    }
-
-    class Pair implements Comparable<Pair> {
-        int first;
-        int second;
-
-        @Override
-        public int compareTo(Pair o) {
-            if (this.first != o.first) {
-                return this.first - o.first;
-            }
-            else {
-                return this.second - o.second;
-            }
-        }
-
-        Pair(int[] pair) {
-            this.first = pair[0];
-            this.second = pair[1];
-        }
+        return dp[len-1];
     }
 
     public static void main(String[] args) {
