@@ -98,7 +98,7 @@ public class OptimalDivision {
         double max;
         String maxS;
 
-        public pair(double min, String minS, double max, String maxS){
+        public Pair(double min, String minS, double max, String maxS){
             this.min = min;
             this.minS = minS;
             this.max = max;
