@@ -83,24 +83,28 @@ public class ComplexNumberMultiplication {
         return res;
     }
 
-    public String complexNumberMultiply_clean(String a, String b) {
-        String result = "";
+    public String complexNumberMultiply_better(String a, String b) {
+        if (a == null || b == null) {
+            return null;
+        }
+
         String[] A = a.split("\\+");
         String[] B = b.split("\\+");
-        int a1 = Integer.parseInt(A[0]);
-        int b1 = Integer.parseInt(A[1].replace("i",""));
 
-        int a2 = Integer.parseInt(B[0]);
-        int b2 = Integer.parseInt(B[1].replace("i",""));
+        int a1 = Integer.valueOf(A[0]);
+        int b1 = Integer.valueOf(B[0]);
 
-        int a1a2 = a1 * a2;
-        int b1b2 = b1 * b2;
-        int a1b2a2b1 = (a1 * b2) + (b1 * a2);
+        int a2 = Integer.valueOf(A[1].replace("i", ""));
+        int b2 = Integer.valueOf(B[1].replace("i", ""));
 
-        String afinal = (a1a2 + (-1 * b1b2)) + "";
-        String bfinal = a1b2a2b1 + "i";
-        result = afinal+"+"+bfinal;
-        return result;
+        int a1b1 = a1*b1;
+        int a2b2 = -1 * a2*b2;
+        int a1b2 = a1*b2;
+        int a2b1 = a2*b1;
+
+        String res = String.valueOf(a1b1+a2b2) + '+' + String.valueOf(a1b2 + a2b1) + "i";
+
+        return res;
     }
 
     public static void main(String[] args) {
