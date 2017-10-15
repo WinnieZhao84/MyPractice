@@ -40,36 +40,35 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 public class FindAllAnagramsInAString {
 
     public List<Integer> findAnagrams_better(String s, String p) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
 
-        if (s == null || s.length() == 0 || p == null || p.length() == 0) {
-            return list;
+        if (s== null || p == null || s.isEmpty() || p.isEmpty()) {
+            return res;
         }
 
-        int[] hash = new int[256]; //character hash
-        //record each character in p to hash
-        for (char c : p.toCharArray()) {
-            hash[c]++;
+        int[] hash = new int[26];
+        for (int i=0; i<p.length(); i++) {
+            hash[p.charAt(i) - 'a']++;
         }
 
-        //two points, initialize count to p's length
-        int left = 0, right = 0, count = p.length();
+        int count = p.length();
+        int left = 0;
+        int right = 0;
         while (right < s.length()) {
-            //move right every time, if the character exists in p's hash, decrease the count
-            //current hash value >= 1 means the character is existing in p
-            if (hash[s.charAt(right++)]-- >= 1) count--;
 
-            //when the count is down to 0, means we found the right anagram
-            //then add window's left to result list
-            if (count == 0) list.add(left);
+            if (hash[s.charAt(right++) - 'a']-- >= 1) {
+                count--;
+            }
 
-            //if we find the window's size equals to p, then we have to move left (narrow the window) to find the new match window
-            //++ to reset the hash because we kicked out the left
-            //only increase the count if the character is in p
-            //the count >= 0 indicate it was original in the hash, cuz it won't go below 0
-            if (right - left == p.length() && hash[s.charAt(left++)]++ >= 0) count++;
+            if (count == 0) {
+                res.add(left);
+            }
+
+            if (right - left == p.length() &&  hash[s.charAt(left++) - 'a']++ >= 0) {
+                count++;
+            }
         }
-        return list;
+        return res;
     }
     
     public static void main(String[] agrs) {

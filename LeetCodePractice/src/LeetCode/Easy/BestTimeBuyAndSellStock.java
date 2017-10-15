@@ -11,22 +11,22 @@ package LeetCode.Easy;
  */
 public class BestTimeBuyAndSellStock {
     public int maxProfit(int[] prices) {
-    	if (prices == null || prices.length == 0) return 0;
-        int length = prices.length;
-        
-        int low = prices[0];
-        
-        int result = 0;
-        for (int i=1; i<=length-1; i++) {
-        	if (prices[i] < low) {
-        		low = prices[i];
-        	}
-        	else if(prices[i] - low > result) {
-        		result = prices[i] - low;
-        	}
+        if (prices == null || prices.length ==0) {
+            return 0;
         }
-        
-        return result;
+
+        int low = prices[0];
+        int res = 0;
+        for (int i=1; i<prices.length; i++) {
+            if (prices[i] < low) {
+                low = prices[i];
+            }
+            else {
+                res = Math.max(res, prices[i] - low);
+            }
+        }
+
+        return res;
     }
     
     public static void main(String[] args) {
