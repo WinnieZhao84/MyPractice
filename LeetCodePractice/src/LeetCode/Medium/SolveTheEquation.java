@@ -1,6 +1,7 @@
 package LeetCode.Medium;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -91,6 +92,78 @@ public class SolveTheEquation {
         return res;
     }
 
+    public String solveEquation_test(String equation) {
+        if (equation == null || equation.length() == 0) {
+            return "No solution";
+        }
+
+        String[] parts = equation.split("=");
+        String left = parts[0];
+        String right = parts[1];
+
+        int leftWithX = 0;
+        int rightWithX = 0;
+        int leftNoX = 0;
+        int rightNoX = 0;
+
+        for (String s : parse(left)) {
+
+            if (s.contains("x")) {
+                s = s.replace("x", "");
+                s = s.isEmpty()  ? "1" : s;
+                s = s.equals("-") ? "-1" : s;
+                leftWithX += Integer.valueOf(s);
+            }
+            else {
+                leftNoX += Integer.valueOf(s);
+            }
+
+        }
+
+        for (String s : parse(right)) {
+            if (s.contains("x")) {
+                s = s.replace("x", "");
+                s = s.isEmpty()  ? "1" : s;
+                s = s.equals("-") ? "-1" : s;
+                rightWithX += Integer.valueOf(s);
+            }
+            else {
+                rightNoX += Integer.valueOf(s);
+            }
+        }
+
+
+        int countX = leftWithX + -1 * rightWithX;
+        int value = leftNoX * -1 + rightNoX;
+
+        if (countX == 0) {
+            if (value != 0) {
+                return  "No solution";
+            }
+            return "Infinite solutions";
+        }
+
+        return "x=" + value / countX;
+    }
+
+    private List<String> parse(String s) {
+        List<String> res = new ArrayList<>();
+
+        if (s.contains("-")) {
+            s = s.replaceAll("-","+-");
+        }
+
+        String[] s1 = s.split("\\+");
+
+        for (String x : s1) {
+            if (!x.isEmpty()) {
+                res.add(x);
+            }
+        }
+
+        return res;
+    }
+
     private String coeff(String x) {
         if (x.length() > 1 && x.charAt(x.length() - 2) >= '0' && x.charAt(x.length() - 2) <= '9')
             return x.replace("x", "");
@@ -98,9 +171,9 @@ public class SolveTheEquation {
     }
 
     public static void main(String[] args) {
-        String expression = "2x+3x-6x=x+2";
+        String expression = "-x=-1";
 
         SolveTheEquation solution = new SolveTheEquation();
-        System.out.println(solution.solveEquation(expression));
+        System.out.println(solution.solveEquation_test(expression));
     }
 }

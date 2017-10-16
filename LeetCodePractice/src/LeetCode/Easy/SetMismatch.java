@@ -51,11 +51,36 @@ public class SetMismatch {
         return res;
     }
 
+    public int[] findErrorNums_better(int[] nums) {
+
+        int[] res = new int[2];
+
+        int index = 0;
+        for (int num : nums) {
+            index = num;
+
+            if (nums[Math.abs(num) -1] < 0) {
+                res[0] = Math.abs(num);
+            }
+            else {
+                nums[Math.abs(num)-1] = nums[Math.abs(num)-1] * -1;
+            }
+        }
+
+        for (int i=0;i<nums.length;i++) {
+            if (nums[i] > 0) {
+                res[1] = i+1;
+            }
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         SetMismatch solution = new SetMismatch();
 
-        int[] nums = {1,1};
-        int[] res = solution.findErrorNums(nums);
+        int[] nums = {2,2};
+        int[] res = solution.findErrorNums_better(nums);
         System.out.println(res[0]);
         System.out.println(res[1]);
     }

@@ -9,33 +9,33 @@ Input is guaranteed to be within the range from 1 to 3999.
  */
 public class RomanToInteger {
     public int romanToInt(String s) {
-    	int result = 0;
-    	
-    	if (s.length() == 1) {
-    		result = this.getNumbers(s.charAt(0));
-    		return result;
-    	}
-    	int length = s.length();
-        int previousValue = 0;
-        int currentValue = 0;
-        char previousRomainSign = s.charAt(0);
-        
-        for (int i = 1; i < length; i++) {
-    		char current = s.charAt(i);
-    		
-    		currentValue = this.getNumbers(current);
-    		previousValue = this.getNumbers(previousRomainSign);
-    		
-    		if (previousValue >= currentValue) {
-    			result += previousValue;
-    		}
-    		else {
-    			result -= previousValue;
-    		}
-    		previousRomainSign = s.charAt(i);
-    	}
-        result += currentValue;
-    	return result;
+		int result = 0;
+
+		if (s.length() == 1) {
+			result = this.getNumbers(s.charAt(0));
+			return result;
+		}
+
+		int length = s.length();
+
+		for (int i=1; i<length; i++) {
+			char pre = s.charAt(i-1);
+			char cur = s.charAt(i);
+
+			int current = this.getNumbers(cur);
+			int previous = this.getNumbers(pre);
+
+			if (previous < current) {
+				result -= previous;
+			}
+			else {
+				result += previous;
+			}
+		}
+
+		result += this.getNumbers(s.charAt(length-1));
+
+		return result;
     }
     
     // I(1) V(5) X(10) L(50) (100) D(500) M(1000)
