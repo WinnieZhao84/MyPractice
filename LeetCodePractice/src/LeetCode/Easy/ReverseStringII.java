@@ -37,4 +37,12 @@ public class ReverseStringII {
             arr[r--] = temp;
         }
     }
+
+    public static void main(String[] args) {
+        String s = "abcdefghijk";
+
+        ReverseStringII solution = new ReverseStringII();
+        // dcbaefghkji
+        System.out.println(solution.reverseStr(s, 4));
+    }
 }
