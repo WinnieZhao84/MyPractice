@@ -47,7 +47,8 @@ public class KnightProbabilityInChessboard {
                     for(int[] move : moves) {
                         int row = i + move[0];
                         int col = j + move[1];
-                        if(isLegal(row, col, len)) {
+
+                        if(isValid(row, col, len)) {
                             dp1[i][j] += dp0[row][col];
                         }
                     }
@@ -58,7 +59,7 @@ public class KnightProbabilityInChessboard {
         return dp0[r][c] / Math.pow(8, K);
     }
 
-    private boolean isLegal(int r, int c, int len) {
+    private boolean isValid(int r, int c, int len) {
         return r >= 0 && r < len && c >= 0 && c < len;
     }
 

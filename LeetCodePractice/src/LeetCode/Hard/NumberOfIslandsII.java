@@ -75,7 +75,7 @@ public class NumberOfIslandsII {
                 int nb = n * x + y;
                 if(x < 0 || x >= m || y < 0 || y >= n || roots[nb] == -1) continue;
 
-                int rootNb = findIsland_better(roots, nb);
+                int rootNb = findIsland(roots, nb);
                 if (root != rootNb) {        // if neighbor is in another island
                     roots[root] = rootNb;   // union two islands
                     root = rootNb;          // current tree root = joined tree root
