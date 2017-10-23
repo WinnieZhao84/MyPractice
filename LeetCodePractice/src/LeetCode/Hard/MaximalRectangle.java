@@ -1,6 +1,7 @@
 package LeetCode.Hard;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
@@ -89,5 +90,77 @@ public class MaximalRectangle {
 
         return res;
 
+    }
+
+    /**
+     * Use the same logic as Largest Rectangle In Histogram
+     *
+     */
+    class Solution {
+
+        public int maximalRectangle(char[][] matrix) {
+            if (matrix == null || matrix.length == 0) {
+                return 0;
+            }
+
+            int res = 0;
+            int row = matrix.length;
+            int col = matrix[0].length;
+
+            int[] heights = new int[col];
+
+            // For the first line, get the height for each col
+            for (int i=0; i<col; i++) {
+                if (matrix[0][i] == '1') {
+                    heights[i]++;
+                }
+            }
+
+            res = this.getMaxRectangle(heights);
+
+            for (int i=1; i<row; i++) {
+                this.getNewHeights(heights, matrix, i);
+
+                res = Math.max(res, this.getMaxRectangle(heights));
+            }
+
+            return res;
+        }
+
+        // For each new row, reset the heights array
+        private void getNewHeights(int[] heights, char[][] matrix, int row) {
+            for (int i=0; i<heights.length; i++) {
+                if (matrix[row][i] == '1') {
+                    heights[i] = heights[i] + 1;
+                }
+                else {
+                    heights[i] = 0;
+                }
+            }
+        }
+
+        // Same logic as Largest Rectangle in Histogram
+        private int getMaxRectangle(int[] heights) {
+            int i=0;
+            Stack<Integer> stack = new Stack<>();
+
+            int max = 0;
+            while (i <= heights.length) {
+                int height = i < heights.length ? heights[i] : 0;
+
+                if (stack.isEmpty() || height >= heights[stack.peek()] ) {
+                    stack.push(i);
+                    i++;
+                }
+                else {
+                    int h = heights[stack.pop()];
+                    int w = stack.isEmpty() ? i : i - stack.peek() - 1;
+
+                    max = Math.max(max, h*w);
+                }
+            }
+
+            return max;
+        }
     }
 }

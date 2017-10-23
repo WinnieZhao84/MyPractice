@@ -33,34 +33,57 @@ public class LongestIncreasingPathInAMatrix {
 
     // it is simply a dfs traversal on each node, while traversing, remember the longest distance from each node.
 
-    int[][] neighbor = {{-1,0}, {0, -1}, {1, 0}, {0,1}};
+    private static int[][] dirs = {{-1,0}, {0, -1}, {1, 0}, {0,1}};
 
     public int longestIncreasingPath(int[][] matrix) {
-        if(matrix.length == 0) return 0;
-        int[][] dis = new int[matrix.length][matrix[0].length];
-        int res = 0;
+        if (matrix == null || matrix.length == 0) {
+            return 0;
+        }
 
-        for(int i=0; i< matrix.length; i++) {
-            for(int j=0; j< matrix[0].length; j++){
-                res = Math.max(res, dfs(matrix, i, j, dis));
+        int row = matrix.length;
+        int col = matrix[0].length;
+
+        int[][] memo = new int[row][col];
+
+        int res = 1;
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                res = Math.max(res, this.dfs(matrix, i, j, row, col, memo));
             }
         }
 
         return res;
     }
 
-    private int dfs(int[][] matrix, int x, int y, int[][] dis){
-        if(dis[x][y] != 0) return dis[x][y];
+    private int dfs(int[][] matrix, int x, int y, int row, int col, int[][] memo) {
 
-        for (int i=0; i<4; i++) {
-            int k = x + neighbor[i][0];
-            int l = y + neighbor[i][1];
+        if (memo[x][y] != 0) {
+            return memo[x][y];
+        }
 
-            if(k >=0 && k<matrix.length && l >=0 && l < matrix[0].length && matrix[x][y] < matrix[k][l]){
-                dis[x][y] = Math.max(dis[x][y], dfs(matrix, k, l, dis));
+        int max = 1;
+
+        for (int[] dir : dirs) {
+            int m = x + dir[0];
+            int n = y + dir[1];
+
+            if (m >=0 && m < row && n >= 0 && n < col && matrix[x][y] < matrix[m][n]) {
+                int len = 1 + dfs(matrix, m, n, row, col, memo);
+                max = Math.max(max, len);
+
             }
         }
 
-        return ++dis[x][y];
+        memo[x][y] = max;
+
+        return max;
+    }
+
+    public static void main(String[] args) {
+        LongestIncreasingPathInAMatrix solution = new LongestIncreasingPathInAMatrix();
+
+        int[][] matrix = {{9,9,4},{6,6,8},{2,1,1}};
+
+        System.out.println(solution.longestIncreasingPath(matrix));
     }
 }
