@@ -34,39 +34,38 @@ import LeetCode.Helper.TreeNode;
  */
 public class MostFrequentSubtreeSum {
 
-    public int[] findFrequentTreeSum(TreeNode root) {
-        if (root == null) return new int[0];
-        
-        Map<Integer, Integer> frequent = new HashMap<>();
+    Map<Integer, Integer> sumMap = new HashMap<>();
 
-        this.getSum(root, frequent);
-        
+    public int[] findFrequentTreeSum(TreeNode root) {
+
+        if (root == null) {
+            return new int[0];
+        }
+
+        this.getSum(root);
+
         int max = 0;
-        for (Map.Entry<Integer, Integer> item : frequent.entrySet()) {
+        for (Map.Entry<Integer, Integer> item : sumMap.entrySet()) {
             max = Math.max(max, item.getValue());
         }
         int check = max;
-        int[] result = frequent.entrySet().stream()
+        int[] result = sumMap.entrySet().stream()
                 .filter(entry -> entry.getValue().equals(check))
                 .mapToInt(entry -> entry.getKey()).toArray();
 
         return result;
     }
-    
-    private int getSum(TreeNode root, Map<Integer, Integer> frequent) {
-        if (root == null) {
+
+    private int getSum(TreeNode node) {
+
+        if (node == null) {
             return 0;
         }
-        
-        int sum = root.val + this.getSum(root.left, frequent) + this.getSum(root.right, frequent);
-        
-        if (frequent.containsKey(sum)) {
-            frequent.put(sum, frequent.get(sum) + 1);
-        }
-        else {
-            frequent.put(sum, 1);
-        }
-        
+
+        int sum = node.val + this.getSum(node.left) + this.getSum(node.right);
+
+        sumMap.put(sum, sumMap.getOrDefault(sum, 0) + 1);
+
         return sum;
     }
     
