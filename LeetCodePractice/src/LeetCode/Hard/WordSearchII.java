@@ -142,4 +142,13 @@ public class WordSearchII {
         }
     }
 
+    public static void main(String[] args) {
+        WordSearchII solution = new WordSearchII();
+
+        String[] words = {"oath","pea","eat","rain"};
+        char[][] board = {{'o','a','a','n'},{'e','t','a','e'},{'i','h','k','r'},{'i','f','l','v'}};
+
+        List<String> res = solution.findWords(board, words);
+        System.out.println(res.toString());
+    }
 }
