@@ -23,23 +23,9 @@ public class MeetingRoomsII {
         if(intervals == null || intervals.length == 0) return 0;
         if(intervals.length == 1) return 1;
 
-        Comparator<Interval> comp = new Comparator<Interval>(){
-            @Override
-            public int compare(Interval a, Interval b){
-                if(a.start == b.start) return a.end - b.end;
-                return a.start - b.start;
-            }
-        };
+        Arrays.sort(intervals, (a,b) -> a.start == b.start ? a.end - b.end : a.start - b.start);
 
-        Arrays.sort(intervals, comp);
-
-        Comparator<Interval> comp2 = new Comparator<Interval>(){
-            @Override
-            public int compare(Interval a, Interval b){
-
-                return a.end - b.end;
-            }
-        };
+        Comparator<Interval> comp2 = Comparator.comparingInt(a -> a.end);
 
         PriorityQueue<Interval> queue = new PriorityQueue<>(comp2);
 
@@ -60,5 +46,38 @@ public class MeetingRoomsII {
         }
 
         return count;
+    }
+
+    public int minMeetingRooms_better(Interval[] intervals) {
+        if (intervals == null || intervals.length == 0)
+            return 0;
+
+        // Sort the intervals by start time
+        Arrays.sort(intervals, (a, b) -> a.start - b.start);
+
+        // Use a min heap to track the minimum end time of merged intervals
+        PriorityQueue<Interval> heap = new PriorityQueue<>(intervals.length, (a, b) -> a.end - b.end);
+
+        // start with the first meeting, put it to a meeting room
+        heap.offer(intervals[0]);
+
+        for (int i = 1; i < intervals.length; i++) {
+            // get the meeting room that finishes earliest
+            Interval interval = heap.poll();
+
+            if (intervals[i].start >= interval.end) {
+                // if the current meeting starts right after
+                // there's no need for a new room, merge the interval
+                interval.end = intervals[i].end;
+            } else {
+                // otherwise, this meeting needs a new room
+                heap.offer(intervals[i]);
+            }
+
+            // don't forget to put the meeting room back
+            heap.offer(interval);
+        }
+
+        return heap.size();
     }
 }
