@@ -60,7 +60,7 @@ public class PermutationsII {
         PermutationsII solution = new PermutationsII();
         
         int[] nums = {1,1,2};
-        System.out.println(solution.permuteUnique(nums).size());
+        System.out.println(solution.permuteUnique(nums).toString());
     }
     
 }

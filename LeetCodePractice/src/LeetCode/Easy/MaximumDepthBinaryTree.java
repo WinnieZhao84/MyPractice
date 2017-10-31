@@ -23,4 +23,20 @@ public class MaximumDepthBinaryTree {
         
         return Math.max(left, right);
     }
+
+    public int maxDepth_better(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        return getDepth(root);
+    }
+
+    private int getDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        return 1 + Math.max(getDepth(root.left), getDepth(root.right));
+    }
 }

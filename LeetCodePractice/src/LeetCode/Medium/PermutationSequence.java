@@ -50,36 +50,28 @@ public class PermutationSequence {
     }
     
     public String getPermutation_better(int n, int k) {
-        
-        // Get n!, the possibilities of the permutation of n and put it to the array
-        int sum = 1;
-        int[] factors = new int[n];
-        factors[0] = 1;
-        for (int i=1; i<n; i++) {
-            sum = sum * i;
-            factors[i] = sum;
+
+        int mod = 1;
+        List<Integer> candidates = new ArrayList<>();
+        // 先得到n!和候选数字列表
+        for(int i = 1; i <= n; i++){
+            mod = mod * i;
+            candidates.add(i);
         }
-        
-        StringBuilder builder = new StringBuilder();
-        
-        k = k-1;
-        
-        // Create a list of numbers to get indices
-        List<Integer> numbers = new ArrayList<Integer>();
-        for(int i=1; i<=n; i++){
-            numbers.add(i);
+        // 将k先减1方便整除
+        k--;
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < n ; i++){
+            mod = mod / (n - i);
+            // 得到当前应选数字的序数
+            int first = k / mod;
+            // 得到用于计算下一位的k
+            k = k % mod;
+            sb.append(candidates.get(first));
+            // 在列表中移出该数字
+            candidates.remove(first);
         }
-        
-        for (int i=1; i<=n; i++) {
-            int index = k / factors[n-i];
-            Integer letter = numbers.get(index);
-            builder.append(letter);
-            
-            numbers.remove(index);
-            k = k - (index * factors[n-i]);
-        }
-        
-        return builder.toString();
+        return sb.toString();
     }
     
     public static void main(String[] args) {
