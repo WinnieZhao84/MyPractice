@@ -59,11 +59,11 @@ public class LFUCache {
             min = count + 1;
         }
 
+        // lists.compute(count+1, (k, v) -> k == null? new LinkedHashSet<>() : lists.get(count+1)).add(key);
         if (!lists.containsKey(count+1)) {
             lists.put(count+1, new LinkedHashSet<>());
         }
-        lists.compute(count+1, (k, v) -> k == null? new LinkedHashSet<>() : lists.get(count+1)).add(key);
-
+        lists.get(count+1).add(key);
 
         return vals.get(key);
 

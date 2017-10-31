@@ -22,7 +22,7 @@ public class IntegerToRoman {
                 result.append(strs[i]);
                 num = num - vals[i];
             }
-            if (i<=vals.length-2) {
+            if (i < vals.length-1) {
                 i++;
             }
         }
