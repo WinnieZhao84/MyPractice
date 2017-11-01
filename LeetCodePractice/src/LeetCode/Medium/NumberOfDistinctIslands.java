@@ -89,7 +89,6 @@ public class NumberOfDistinctIslands {
             explore(r-1, c, r0, c0);
             explore(r, c+1, r0, c0);
             explore(r, c-1, r0, c0);
-            shape.add(0);
         }
     }
 
