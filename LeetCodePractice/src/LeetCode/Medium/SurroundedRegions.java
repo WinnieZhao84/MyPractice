@@ -77,6 +77,55 @@ public class SurroundedRegions {
             }
         }
     }
+
+    /**
+     * DFS solution
+     */
+    class Solution {
+        public void solve(char[][] board) {
+            if (board == null || board.length == 0) {
+                return;
+            }
+
+            int m = board.length;
+            int n = board[0].length;
+
+            boolean[][] visited = new boolean[m][n];
+            for (int i=0; i<m; i++) {
+                for (int j=0; j<n; j++) {
+
+                    if ((i == 0 || j ==0 || i==m-1 || j== n-1) && board[i][j] == 'O') {
+                        dfs(board, i, j, m, n, visited);
+                    }
+                }
+            }
+
+            for (int i=0; i<m; i++) {
+                for (int j=0; j<n; j++) {
+                    if (board[i][j] == 'B') {
+                        board[i][j] = 'O';
+                    }
+                    else if (board[i][j] == 'O') {
+                        board[i][j] = 'X';
+                    }
+                }
+            }
+        }
+
+        private void dfs(char[][] board, int x, int y, int m, int n, boolean[][] visited) {
+            if (x < 0 || y < 0 || x >= m || y >=n || board[x][y] == 'X' || visited[x][y]) {
+                return;
+            }
+
+            board[x][y] = 'B';
+            visited[x][y] = true;
+
+            dfs(board, x+1, y, m, n, visited);
+            dfs(board, x-1, y, m, n, visited);
+            dfs(board, x, y+1, m, n, visited);
+            dfs(board, x, y-1, m, n, visited);
+        }
+    }
     
     public static void main(String[] args) {
         char[][] board = new char[][]{{'X','X','X','X'},{'X', 'O', 'O', 'X'},{'X', 'X', 'O', 'X'},{'X', 'O', 'X', 'X'}};
