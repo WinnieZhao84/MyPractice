@@ -43,7 +43,7 @@ public class MinStack {
     public void pop() {
         // if pop operation could result in the changing of the current minimum value,
         // pop twice and change the current minimum value to the last minimum value.
-        if (stack.pop() == min) {
+        if (stack.pop() <= min) {
         	min = stack.pop();
         }
     }
