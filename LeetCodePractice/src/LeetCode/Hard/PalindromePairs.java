@@ -68,4 +68,12 @@ public class PalindromePairs {
 
         return true;
     }
+
+    public static void main(String[] args) {
+        PalindromePairs solution = new PalindromePairs();
+
+        String[] words = {"abcd", "dcba", "lls", "s", "sssll"};
+
+        System.out.println(solution.palindromePairs(words));
+    }
 }

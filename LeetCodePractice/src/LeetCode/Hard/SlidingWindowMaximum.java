@@ -54,15 +54,15 @@ public class SlidingWindowMaximum {
         int[] res = new int[nums.length + 1 - k];
 
         for(int i = 0; i < nums.length; i++){
-            // Remove numbers out of range k
-            while (!queue.isEmpty() && queue.peek() < i - k + 1) {
-                queue.poll();
-            }
             // Remove smaller numbers in k range as they are useless
             while (!queue.isEmpty() && nums[queue.peekLast()] < nums[i]) {
                 queue.removeLast();
             }
 
+            // Remove numbers out of range k
+            while (!queue.isEmpty() && i - queue.peek() >= k) {
+                queue.poll();
+            }
             queue.offerLast(i);
             // The first item in the deque will be the greatest
             if (i-k + 1 >=0) {
