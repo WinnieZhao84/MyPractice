@@ -22,7 +22,7 @@ public class KthLargestElementInAnArray {
         for(int val : nums) {
             pq.offer(val);
 
-            if(pq.size() > k) {
+             while (pq.size() > k) {
                 pq.poll();
             }
         }

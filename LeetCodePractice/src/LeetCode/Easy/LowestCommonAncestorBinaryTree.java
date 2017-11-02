@@ -66,7 +66,7 @@ public class LowestCommonAncestorBinaryTree {
     	
     	LowestCommonAncestorBinaryTree solution = new LowestCommonAncestorBinaryTree();
     	
-    	TreeNode result = solution.lowestCommonAncestor(root, p0, p7);
+    	TreeNode result = solution.lowestCommonAncestor(root, p0, p3);
     	System.out.print(result.val);
     }
 }
