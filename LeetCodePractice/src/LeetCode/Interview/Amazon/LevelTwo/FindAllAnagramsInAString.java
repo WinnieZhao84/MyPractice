@@ -40,33 +40,44 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 public class FindAllAnagramsInAString {
 
     public List<Integer> findAnagrams_better(String s, String p) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
 
         if (s == null || s.length() == 0 || p == null || p.length() == 0) {
-            return list;
+            return res;
         }
 
-        int[] hash = new int[256]; //character hash
-        //record each character in p to hash
-        for (char c : p.toCharArray()) {
-            hash[c]++;
+        int[] count = new int[26];
+        for (int i=0; i<p.length(); i++) {
+            char ch = p.charAt(i);
+            count[ch - 'a']++;
         }
 
-        //two points, initialize count to p's length
-        int left = 0, right = 0, count = p.length();
-        while (right < s.length()) {
-            if (hash[s.charAt(right++)]-- >= 1) count--;
+        int start = 0;
+        int end = 0;
+        int length = p.length();
 
-            if (count == 0) list.add(left);
+        while (end < s.length()) {
+            char ch = s.charAt(end++);
 
-            if (right - left == p.length() && hash[s.charAt(left++)]++ >= 0) count++;
+            if (count[ch - 'a']-- >= 1) {
+                length--;
+            }
+
+            if (length == 0) {
+                res.add(start);
+            }
+
+            if (end-start == p.length() && count[s.charAt(start++) - 'a']++ >=0) {
+                length++;
+            }
         }
-        return list;
+
+        return res;
     }
     
-    public static void main(String[] agrs) {
+    public static void main(String[] args) {
         FindAllAnagramsInAString solution = new FindAllAnagramsInAString();
         
-        System.out.println(solution.findAnagrams_better("bbacbabacd", "abc"));
+        System.out.println(solution.findAnagrams_better("cbaebabacd", "abc"));
     }
 }

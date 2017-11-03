@@ -29,17 +29,17 @@ import java.util.PriorityQueue;
  */
 public class FindMedianFromDataStream {
 
-    PriorityQueue<Integer> highPriorityQueue  = new PriorityQueue<>(Collections.reverseOrder());
-    PriorityQueue<Integer> lowPriorityQueue = new PriorityQueue<>();
-
     public FindMedianFromDataStream() {}
 
-    public void addNum(int num) {
-        highPriorityQueue.offer(num);
-        lowPriorityQueue.offer(highPriorityQueue.poll());
+    PriorityQueue<Integer> highPriorityQueue  = new PriorityQueue<>();
+    PriorityQueue<Integer> lowPriorityQueue = new PriorityQueue<>(Collections.reverseOrder());
 
-        if (lowPriorityQueue.size() > highPriorityQueue.size()) {
-            highPriorityQueue.offer(lowPriorityQueue.poll());
+    public void addNum(int num) {
+        lowPriorityQueue.offer(num);
+        highPriorityQueue.offer(lowPriorityQueue.poll());
+
+        while (highPriorityQueue.size() > lowPriorityQueue.size()) {
+            lowPriorityQueue.offer(highPriorityQueue.poll());
         }
     }
 
@@ -48,7 +48,7 @@ public class FindMedianFromDataStream {
             return (highPriorityQueue.peek() + lowPriorityQueue.peek()) * 0.5;
         }
         else {
-            return highPriorityQueue.peek();
+            return lowPriorityQueue.peek();
         }
     }
 }

@@ -43,6 +43,11 @@ public class RangeSumQueryMutable {
      * Segment tree is a very flexible data structure, because it is used to solve numerous range query problems
      * like finding minimum, maximum, sum, greatest common divisor, least common denominator in array in logarithmic time.
      *
+     * Representation of Segment trees:
+     * Leaf Nodes are the elements of the input array.
+     * Each internal node represents some merging of the leaf nodes. The merging may be different for different problems.
+     * For this problem, merging is sum of leaves under a node
+     *
      */
     SegmentTreeNode root = null;
     
