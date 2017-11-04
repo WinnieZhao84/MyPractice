@@ -99,8 +99,8 @@ public class Minesweeper {
         Minesweeper solution = new Minesweeper();
         char[][] board = {{'E', 'E', 'E', 'E', 'E'},
                           {'E', 'E', 'M', 'E', 'E'},
-                          {'E', 'E', 'E', 'E', 'E'},
-                          {'E', 'E', 'E', 'E', 'E'}};
+                          {'E', 'M', 'E', 'E', 'E'},
+                          {'E', 'M', 'E', 'E', 'E'}};
         int[] click = {3,0};
         
         char[][] result = solution.updateBoard(board, click);

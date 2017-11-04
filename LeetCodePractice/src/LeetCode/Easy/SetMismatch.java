@@ -55,10 +55,7 @@ public class SetMismatch {
 
         int[] res = new int[2];
 
-        int index = 0;
         for (int num : nums) {
-            index = num;
-
             if (nums[Math.abs(num) -1] < 0) {
                 res[0] = Math.abs(num);
             }

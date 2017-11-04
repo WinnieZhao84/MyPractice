@@ -27,26 +27,39 @@ import LeetCode.Helper.TreeNode;
  *
  */
 public class MinimumAbsoluteDifferenceInBST {
-    
+
+    /**
+     * Since this is a BST, the inorder traversal of its nodes results in a sorted list of values.
+     * Thus, the minimum absolute difference must occur in any adjacently traversed nodes.
+     * Use the global variable "prev" to keep track of each node's inorder predecessor.
+     *
+     */
+    int min = Integer.MAX_VALUE;
+    TreeNode pre = null;
+
     public int getMinimumDifference(TreeNode root) {
-        
-        int min = Integer.MAX_VALUE;
-        Stack<TreeNode> stack = new Stack<>();
-        
-        TreeNode cur = root, pre = null;
-        while (cur != null || !stack.empty()) {
-            while (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
-            } 
-            cur = stack.pop(); 
-            if (pre != null) {
-                min = Math.min(min, cur.val - pre.val);
-            }
-            pre = cur; 
-            cur = cur.right; 
+        if (root == null) {
+            return 0;
         }
+
+        inorder(root);
         return min;
+    }
+
+    private void inorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inorder(root.left);
+
+        if (pre != null) {
+            min = Math.min(min, Math.abs(root.val - pre.val));
+        }
+
+        pre = root;
+
+        inorder(root.right);
     }
     
 
