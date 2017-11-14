@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
  */
 public class LetterCombinationsOfPhoneNumber {
 
-    private String[] letters = {"", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv","wxyz"}; 
-    
     public List<String> letterCombinations_better(String digits) {
         LinkedList<String> res = new LinkedList<>();
         if (digits == null || digits.isEmpty()) {
@@ -48,46 +46,31 @@ public class LetterCombinationsOfPhoneNumber {
 
         return res;
     }
-    
+
+    private static final String[] KEYS = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
     public List<String> letterCombinations(String digits) {
-        List<String> result = new ArrayList<>();
-        
-        int length = digits.length();
-        for (int i=0; i<length; i++) {
-            int number = Integer.valueOf(digits.substring(i, i+1));
-            
-            String str = letters[number-1];
-            
-            this.letterCombinationHelper(result, str);
-        }
-        
-        return result;
+        List<String> res = new LinkedList<>();
+        combination("", digits, 0, res);
+        return res;
     }
-    
-    private void letterCombinationHelper(List<String> result, String str) {
-        if (result.size() == 0) {
-            for (int i=0; i<str.length(); i++) {
-                result.add(String.valueOf(str.charAt(i)));
-            }
+
+    private void combination(String prefix, String digits, int offset, List<String> res) {
+        if (offset >= digits.length()) {
+            res.add(prefix);
+            return;
         }
-        else {
-            List<String> temp = new ArrayList<>(result);
-            for (int i=0; i<temp.size(); i++) {
-                String r = temp.get(i);
-                
-                for (int j=0; j<str.length(); j++) {
-                    String combination = r.concat(String.valueOf(str.charAt(j)));
-                    result.add(combination);
-                }
-            }
-            result.removeAll(temp);
+
+        String letters = KEYS[(digits.charAt(offset) - '0')];
+        for (int i = 0; i < letters.length(); i++) {
+            combination(prefix + letters.charAt(i), digits, offset + 1, res);
         }
     }
     
     public static void main(String[] args) {
         LetterCombinationsOfPhoneNumber solution = new LetterCombinationsOfPhoneNumber();
         
-        List<String> result = solution.letterCombinations("234");
+        List<String> result = solution.letterCombinations("23");
         
         System.out.println(result.stream().collect(Collectors.joining(",")));
     }

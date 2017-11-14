@@ -15,36 +15,41 @@ import java.util.Arrays;
 public class ThreeSumClosest {
 
     public int threeSumClosest(int[] nums, int target) {
-        if(nums.length < 3) return 0;
         Arrays.sort(nums);
-        
-        int res = nums[0] + nums[1] + nums[2];
-        
-        for(int i=0; i<nums.length - 2; i++){
-            int left = i + 1;
-            int right = nums.length - 1;
-            while(left < right) {
-                
-                int sum = nums[left] + nums[right] + nums[i];
-                if (Math.abs(res - target) > Math.abs(sum - target)) {
-                    res = sum;
-                }
-                
-                if (sum == target){
+
+        int closet = nums[0] + nums[1] + nums[2] ;
+
+        for (int i=0; i<nums.length-2; i++) {
+            int num = nums[i];
+
+            int left = i+1;
+            int right = nums.length-1;
+
+            while (left < right) {
+                int sum = nums[left] + nums[right] + num;
+
+                if (sum == target) {
                     return target;
                 }
-                else if (sum > target){
-                    right--;
-                }
-                else{
-                    left++;
+                else {
+                    if (Math.abs(sum-target) < Math.abs(closet-target)) {
+                        closet = sum;
+                    }
+                    if (sum < target) {
+                        while (left<right && nums[left] == nums[left+1]) left++;
+                        left++;
+                    }
+                    else if (sum > target) {
+                        while (left<right && nums[right] == nums[right-1]) right--;
+                        right--;
+                    }
                 }
             }
-            while(i + 1 < nums.length - 2 && nums[i] == nums[i + 1]) {
-                i++;
-            }
+
+            while (i<nums.length-3 && nums[i] == nums[i+1]) i++;
         }
-        return res;
+
+        return closet;
     }
     
     public static void main(String[] args) {
