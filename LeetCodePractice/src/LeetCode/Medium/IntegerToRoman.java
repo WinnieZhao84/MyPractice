@@ -14,20 +14,22 @@ import java.util.Map;
 public class IntegerToRoman {
 
     public String intToRoman(int num) {
-        StringBuffer result = new StringBuffer();
-        
-        int i=0;
-        while (num > 0) {
-            while (num >= vals[i]) {
-                result.append(strs[i]);
-                num = num - vals[i];
-            }
-            if (i < vals.length-1) {
-                i++;
-            }
+        if (num == 0) {
+            return "";
         }
 
-        return result.toString();
+        StringBuilder sb = new StringBuilder();
+
+        int i=0;
+        while (num > 0) {
+            while (i<vals.length && num >= vals[i]) {
+                sb.append(strs[i]);
+                num = num - vals[i];
+            }
+            i++;
+        }
+
+        return sb.toString();
     }
     
     private static final int[] vals =      new int[] { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
@@ -36,6 +38,6 @@ public class IntegerToRoman {
     
     public static void main(String args[]) {
         IntegerToRoman solution = new IntegerToRoman();
-        System.out.println(solution.intToRoman(4208));
+        System.out.println(solution.intToRoman(1));
     }
 }

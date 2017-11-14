@@ -14,41 +14,39 @@ Notes: It is intended for this problem to be specified vaguely (ie, no given inp
 public class StringToInteger {
 
     public int myAtoi(String str) {
-        if (str == null || str.length() == 0) {
+        if (str == null) {
+            return 0;
+        }
+        str = str.trim();
+        int length = str.length();
+        if (length == 0) {
             return 0;
         }
 
         long res = 0;
-        boolean sign = true;
-        char[] chars = str.trim().toCharArray();
-        for (int i=0; i<chars.length; i++) {
-            char ch = chars[i];
-
-            if (i ==0 && ch  == '-') {
-                sign = false;
+        int sign = str.charAt(0) == '-' ? -1 : 1;
+        for (int i=0; i<length; i++) {
+            if (i == 0 && (str.charAt(i) == '-' || str.charAt(i) == '+')) {
                 continue;
             }
-            else if (i == 0 && ch == '+') {
-                continue;
-            }
-            else if (ch < '0' || ch > '9') {
+            else if (str.charAt(i) < '0' || str.charAt(i) > '9') {
                 break;
             }
-            res = res * 10 + (ch - '0');
 
-            if (res > Integer.MAX_VALUE) {
+            res = res * 10 + (str.charAt(i) - '0');
+
+            if (res >= Integer.MAX_VALUE) {
                 break;
             }
+
         }
 
-        if (!sign) {
-            res = res * -1;
-        }
+        res = res * sign;
 
-        if (res < Integer.MIN_VALUE) {
+        if (res <= Integer.MIN_VALUE) {
             return Integer.MIN_VALUE;
         }
-        else if (res > Integer.MAX_VALUE) {
+        else if (res >= Integer.MAX_VALUE) {
             return Integer.MAX_VALUE;
         }
 
@@ -57,6 +55,6 @@ public class StringToInteger {
     
     public static void main(String[] args) {
     	StringToInteger solution = new StringToInteger();
-    	System.out.print(solution.myAtoi("+-2"));
+    	System.out.print(solution.myAtoi("+1"));
     }
 }
