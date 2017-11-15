@@ -11,31 +11,33 @@ package LeetCode.Medium;
 public class DivideTwoIntegers {
 
     public int divide(int dividend, int divisor) {
+        if (dividend == 0) {
+            return 0;
+        }
+
         int sign = 1;
-        
+
         long lDividend = (long)dividend;
         long lDivisor = (long)divisor;
-        
-        if(lDividend<0){
-            lDividend = -lDividend;
-            sign = -sign;
+
+        if (divisor < 0 || dividend < 0) {
+            sign = -1;
+
+            if (lDividend < 0 && lDivisor < 0) sign = 1;
+            if (lDividend < 0) lDividend = -lDividend;
+            if (lDivisor < 0) lDivisor = -lDivisor;
         }
-        
-        if(lDivisor<0){
-            lDivisor = -lDivisor;
-            sign = -sign;
-        }
-        
-        long cnt = helper(lDividend, lDivisor);
-        
-        cnt = sign>0?cnt:-cnt;
-        
-        if (cnt>Integer.MAX_VALUE) 
+
+        long count = this.helper(lDividend, lDivisor);
+
+        count = sign > 0 ? count : -count;
+
+        if (count > Integer.MAX_VALUE)
             return Integer.MAX_VALUE;
-        else if(cnt< Integer.MIN_VALUE) 
+        else if(count < Integer.MIN_VALUE)
             return Integer.MIN_VALUE;
         else
-            return (int)cnt;
+            return (int)count;
     }
     
     private long helper(long dividend, long divisor){
@@ -55,7 +57,7 @@ public class DivideTwoIntegers {
     
     public static void main(String[] args) {
         DivideTwoIntegers solution = new DivideTwoIntegers();
-        System.out.println(solution.divide(15, 3));
+        System.out.println(solution.divide(5, 2));
         System.out.println(solution.divide(8, 5));
     }
 }
