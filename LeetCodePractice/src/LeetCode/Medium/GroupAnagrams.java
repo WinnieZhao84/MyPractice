@@ -19,7 +19,8 @@ import java.util.*;
  *
  */
 public class GroupAnagrams {
-    
+
+    // O(N * KlogK). N is the number of string in strs array and K is the maximum length of string in the strs array
     public List<List<String>> groupAnagrams(String[] strs) {
         
         if(strs==null || strs.length == 0){

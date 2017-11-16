@@ -22,59 +22,40 @@ public class SearchForARange {
         int[] res = new int[2];
         res[0] = -1;
         res[1] = -1;
-        
-        if (nums == null || nums.length  == 0 || target < nums[0] || target > nums[nums.length-1]) {
+
+        if (nums == null ||  nums.length == 0 || (nums.length == 1 && target != nums[0])) {
             return res;
         }
-        else if (nums[0] == target && nums[0] == nums[nums.length-1]) {
-            res[0] = 0;
-            res[1] = nums.length-1;
-            return res;
-        }
-        else {
-            int start = 0;
-            int end = nums.length;
-            while (start <= end) {
-                int mid = start + (end- start) / 2;
-                
-                if (nums[mid] > target) {
-                    end = mid - 1;
+
+        int start = 0;
+        int end = nums.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (target == nums[mid]) {
+                int i = mid;
+                int j = mid;
+                while (i >=0 && nums[i] == target) {
+                    i--;
                 }
-                else if (nums[mid] < target) {
+                while (j<=nums.length-1 && nums[j] == target) {
+                    j++;
+                }
+                res[0] = i+1;
+                res[1] = j-1;
+                return res;
+            }
+            else {
+                if (target > nums[mid]) {
                     start = mid + 1;
                 }
-                else {
-                    start = mid - 1;
-                    end = mid + 1;
-                    res[0] = mid;
-                    res[1] = mid;
-                    while (start >= 0) {
-                        if (nums[start] == target) {
-                            res[0] = start;
-                            start--;
-                        }
-                        else {
-                            break;
-                        }
-
-                    }
-                    while (end <= nums.length-1) {
-                        if (nums[end] == target) {
-                            res[1] = end;
-                            end++;
-                        }
-                        else {
-                            break;
-                        }
-                    }
-                    break;
-                }
-                if (start > end) {
-                    break;
+                else if (target < nums[mid]) {
+                    end = mid - 1;
                 }
             }
         }
-        
+
         return res;
     }
     

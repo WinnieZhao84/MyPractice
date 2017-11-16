@@ -35,15 +35,16 @@ public class MultiplyStrings {
                 res[p2] = (sum) % 10;
             }
         }
-        
-        StringBuilder builder = new StringBuilder();
-        for (int num : res) {
-            if(!(builder.length() == 0 && num == 0)) {
-                builder.append(String.valueOf(num));
+
+        StringBuilder sb = new StringBuilder();
+        for (int n : res) {
+            if (!(sb.length() == 0 && n == 0)) {
+                sb.append(n);
             }
         }
         
-        return builder.toString();
+        return sb
+                .toString();
     }
     
     public static void main(String[] args) {

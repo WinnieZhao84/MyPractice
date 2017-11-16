@@ -19,31 +19,47 @@ public class SearchInRotatedSortedArray {
         if (nums == null || nums.length == 0) {
             return -1;
         }
+
         if (nums.length == 1) {
             return nums[0] == target ? 0 : -1;
         }
-        
-        int start = 0, end = nums.length - 1;
+
+        int start = 0;
+        int end = nums.length-1;
         while (start < end) {
-            int mid = start + (end-start) / 2;
-            if (nums[mid] > nums[end]) {  // eg. 3,4,5,6,1,2
-                if (target > nums[mid] || target <= nums[end]) {
-                    start = mid + 1;
-                } 
-                else {
-                    end = mid;
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            }
+            else {
+                // Eg: 2,4,5,6,7,0,1
+                if (nums[mid] > nums[end]) {
+                    // Left is sorted
+                    if (target < nums[mid] && target >= nums[start]) {
+                        end = mid-1;
+                    }
+                    else {
+                        start = mid + 1;
+                    }
                 }
-            } 
-            else {  // eg. 5,6,1,2,3,4
-                if (target > nums[mid] && target <= nums[end]) {
-                    start = mid + 1;
-                } 
+                // Eg: 6,7,0,1,2,4,5
                 else {
-                    end = mid;
+                    // Right is sorted
+                    if (target > nums[mid] && target <= nums[end]) {
+                        start = mid + 1;
+                    }
+                    else {
+                        end = mid - 1;
+                    }
                 }
             }
         }
-        if (start == end && target != nums[start]) return -1;
+
+        if (start >= end && target != nums[start]) {
+            return -1;
+        }
+
         return start;
     }
     

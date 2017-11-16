@@ -16,28 +16,38 @@ package LeetCode.Medium;
  */
 public class JumpGame {
 
+
     /**
-        public class Solution {
-            public boolean canJumpFromPosition(int position, int[] nums) {
-                if (position == nums.length - 1) {
+     * Time Limit Exceeded
+     * Time complexity : O(2^n) There are 2^n (upper bound) ways of jumping from the first position to the last,
+     * where n is the length of array nums. For a complete proof, please refer to Appendix A.
+     *
+     * Space complexity : O(n). Recursion requires additional memory for the stack frames.
+
+     */
+    public class Solution {
+
+        public boolean canJumpFromPosition(int position, int[] nums) {
+            if (position == nums.length - 1) {
+                return true;
+            }
+
+            int furthestJump = Math.min(position + nums[position], nums.length - 1);
+
+            for (int nextPosition = position + 1; nextPosition <= furthestJump; nextPosition++) {
+                if (canJumpFromPosition(nextPosition, nums)) {
                     return true;
                 }
-
-                int furthestJump = Math.min(position + nums[position], nums.length - 1);
-                for (int nextPosition = position + 1; nextPosition <= furthestJump; nextPosition++) {
-                    if (canJumpFromPosition(nextPosition, nums)) {
-                        return true;
-                    }
-                }
-
-                return false;
             }
 
-            public boolean canJump(int[] nums) {
-                return canJumpFromPosition(0, nums);
-            }
+            return false;
         }
-    **/
+
+        public boolean canJump(int[] nums) {
+            return canJumpFromPosition(0, nums);
+        }
+    }
+
     public boolean canJump(int[] nums) {
         int reachable = 0;
         for (int i=0; i<nums.length; ++i) {
