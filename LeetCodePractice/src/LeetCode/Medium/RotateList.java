@@ -32,24 +32,33 @@ public class RotateList {
      * @return
      */
     public ListNode rotateRight(ListNode head, int k) {
-        if (head==null||head.next==null) return head;
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
 
         ListNode dummy=new ListNode(0);
         dummy.next=head;
-        ListNode fast=dummy, slow=dummy;
 
-        int i;
-        for (i=0;fast.next!=null;i++) //Get the total length
-            fast=fast.next;
+        ListNode slow = dummy;
+        ListNode fast = dummy;
 
-        for (int j=i-k%i;j>0;j--) //Get the i-k%i th node
-            slow=slow.next;
+        int len = 0;
+        while (fast.next != null) {
+            fast = fast.next;
+            len++;
+        }
 
-        fast.next=dummy.next; //Do the rotation
-        dummy.next=slow.next;
-        slow.next=null;
+        k = len - k % len;
+        while(k>0) {
+            slow = slow.next;
+            k--;
+        }
 
-        return dummy.next;
+        ListNode newHead = slow.next == null ? head : slow.next;
+        fast.next = head;
+        slow.next = null;
+
+        return newHead;
     }
     
     public static void main(String[] args) {
@@ -65,7 +74,7 @@ public class RotateList {
         fourth.next = fifth;
         
         RotateList solution = new RotateList();
-        ListNode head = solution.rotateRight(first, 2);
+        ListNode head = solution.rotateRight(first, 5);
         while (head != null) {
             System.out.println(head.val);
             head = head.next;
@@ -75,7 +84,7 @@ public class RotateList {
         ListNode node1 = new ListNode(2);
         node.next = node1;
         
-        ListNode head1 = solution.rotateRight(node, 3);
+        ListNode head1 = solution.rotateRight(node, 2);
         while (head1 != null) {
             System.out.println(head1.val);
             head1 = head1.next;
