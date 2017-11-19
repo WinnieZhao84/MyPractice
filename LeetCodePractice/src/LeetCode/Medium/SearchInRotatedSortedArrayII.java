@@ -15,39 +15,53 @@ public class SearchInRotatedSortedArrayII {
         if (nums == null || nums.length == 0) {
             return false;
         }
+
         if (nums.length == 1) {
-            return nums[0] == target;
+            return nums[0] == target ? true : false;
         }
-        int start = 0, end = nums.length - 1;
-        while (start <= end) {
-            int mid = start + (end-start) / 2;
-            
+
+        int start = 0;
+        int end = nums.length-1;
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
             if (nums[mid] == target) {
                 return true;
             }
-            if (nums[mid] > nums[start]) { // nums[start..mid] is sorted
-                // check if target in left half
-                if (target < nums[mid] && target >= nums[start]) {
-                    end = mid;
+            else {
+                // Eg: 2,4,5,6,7,0,1
+                if (nums[mid] > nums[start]) {
+                    // Left is sorted
+                    if (target < nums[mid] && target >= nums[start]) {
+                        end = mid-1;
+                    }
+                    else {
+                        start = mid + 1;
+                    }
                 }
+                // Eg: 6,7,0,1,2,4,5
+                else if (nums[mid] < nums[start]) {
+                    // Right is sorted
+                    if (target > nums[mid] && target <= nums[end]) {
+                        start = mid + 1;
+                    }
+                    else {
+                        end = mid - 1;
+                    }
+                }
+                // have no idea about the array, but we can exclude nums[start] because nums[start] == nums[mid]
                 else {
-                    start = mid + 1;
+                    start++;
                 }
-            } 
-            else if (nums[mid] < nums[start]) { // nums[mid..end] is sorted
-                // check if target in right half
-                if (target > nums[mid] && target < nums[start]) {
-                    start = mid + 1;
-                }
-                else {
-                    end = mid;
-                }
-            } 
-            else { // have no idea about the array, but we can exclude nums[start] because nums[start] == nums[mid]
-                start++;
             }
         }
-        return false;
+
+        if (start >= end && target != nums[start]) {
+            return false;
+        }
+
+        return true;
+
     }
     
     public static void main(String[] args) {
