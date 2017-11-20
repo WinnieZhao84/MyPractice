@@ -29,24 +29,22 @@ public class BinaryTreeLevelOrderTraversal_DFS {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         
-        this.levelOrder(root, 0, result);
+        this.levelOrder(result, root, 0);
         
         return result;
     }
 
-    private void levelOrder(TreeNode root, int depth, List<List<Integer>> result) {
-        if (root != null) {
-            if (result.size() == 0 || result.size() <= depth) {
-                List<Integer> sameLevelList = new ArrayList<Integer>();
-                sameLevelList.add(root.val);
-                result.add(sameLevelList);
-            }
-            else {
-                result.get(depth).add(root.val);
-            }
-            
-            levelOrder(root.left, depth+1, result);
-            levelOrder(root.right, depth+1, result);
+    private void levelOrder(List<List<Integer>> res, TreeNode root, int height) {
+        if (root == null) {
+            return;
         }
+
+        if (height >= res.size()) {
+            res.add(new ArrayList<>());
+        }
+
+        res.get(height).add(root.val);
+        this.levelOrder(res, root.left, height+1);
+        this.levelOrder(res, root.right, height+1);
     }
 }

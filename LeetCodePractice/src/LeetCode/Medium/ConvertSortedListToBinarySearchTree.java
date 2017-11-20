@@ -31,12 +31,11 @@ public class ConvertSortedListToBinarySearchTree {
         }
         
         pre.next = null;
-        
-        ListNode middle = slow;
+
         ListNode left = head;
         ListNode right = slow.next;
-        
-        TreeNode root = new TreeNode(middle.val);
+
+        TreeNode root = new TreeNode(slow.val);
         root.left = this.sortedListToBST(left);
         root.right = this.sortedListToBST(right);
         

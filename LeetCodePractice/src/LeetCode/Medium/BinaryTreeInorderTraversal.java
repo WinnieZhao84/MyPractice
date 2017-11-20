@@ -98,6 +98,6 @@ public class BinaryTreeInorderTraversal {
         
         BinaryTreeInorderTraversal solution = new BinaryTreeInorderTraversal();
         
-        System.out.println(solution.inorderTraversal_iterate(root));
+        System.out.println(solution.inorderTraversal(root));
     }
 }

@@ -35,75 +35,55 @@ public class PopulatingNextRightPointersInEachNodeII {
         if (root == null) {
             return;
         }
-        
+
         Queue<TreeLinkNode> queue = new LinkedList<>();
         queue.add(root);
-        while (!queue.isEmpty()) {
+
+        while(!queue.isEmpty()) {
             int size = queue.size();
 
-            TreeLinkNode node = null;
-            
-            for (int i=0; i<size; i++) {
-                node = queue.poll();
-                
-                if (node != null) {
-                    while(queue.peek() == null) {
-                        queue.poll();
-                        i++;
-                        if (i >= size - 1) {
-                            break;
-                        }
-                    }
-                    if (i >= size - 1) {
-                        node.next = null;
-                    }
-                    else {
-                        node.next = queue.peek();
-                    }
-                    
-                    queue.add(node.left);
-                    queue.add(node.right);
+            TreeLinkNode next = null;
+            for (int i = 0; i < size; i++) {
+                TreeLinkNode node = queue.poll();
+
+                node.next = next;
+                next = node;
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
                 }
             }
         }
     }
     
     public void connect_constantSpace(TreeLinkNode root) {
-        TreeLinkNode head = null; //head of the next level
-        TreeLinkNode prev = null; //the leading node on the next level
-        TreeLinkNode cur = root;  //current node of current level
+        if (root == null) {
+            return;
+        }
 
-        while (cur != null) {
+        TreeLinkNode dummyHead = new TreeLinkNode(0);
+        TreeLinkNode pre = dummyHead;
 
-            while (cur != null) { //iterate on the current level
-                //left child
-                if (cur.left != null) {
-                    if (prev != null) {
-                        prev.next = cur.left;
-                    }
-                    else {
-                        head = cur.left;
-                    }
-                    prev = cur.left;
-                }
-                //right child
-                if (cur.right != null) {
-                    if (prev != null) {
-                        prev.next = cur.right;
-                    }
-                    else {
-                        head = cur.right;
-                    }
-                    prev = cur.right;
-                }
-                //move to next node
-                cur = cur.next;
+        while (root != null) {
+            if (root.left != null) {
+                pre.next = root.left;
+                pre = pre.next;
+            }
+            if (root.right != null) {
+                pre.next = root.right;
+                pre = pre.next;
             }
 
-            //move to next level
-            cur = head;
-            head = null;
-            prev = null;
+            root = root.next;
+
+            if (root == null) {
+                pre = dummyHead;
+                root = pre.next;
+                dummyHead.next = null;
+            }
         }
     }
     

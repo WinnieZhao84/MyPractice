@@ -27,9 +27,9 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
         if (postIndex < 0 || inStart > inEnd) {
             return null;
         }
-        
+
         TreeNode root = new TreeNode(postorder[postIndex]);
-        
+
         int inIndex = 0;
         for (int i= inStart; i<=inEnd; i++) {
             if (root.val == inorder[i]) {
@@ -37,10 +37,10 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
                 break;
             }
         }
-        
+
         root.left = this.buildTreeHelper(inorder, postorder, postIndex-1+inIndex-inEnd, inStart, inIndex-1);
         root.right = this.buildTreeHelper(inorder, postorder, postIndex-1, inIndex+1, inEnd);
-        
+
         return root;
     }
     

@@ -45,40 +45,34 @@ import LeetCode.Helper.TreeLinkNode;
 public class PopulatingNextRightPointersInEachNode {
 
     public void connect(TreeLinkNode root) {
-        
         if (root == null) {
             return;
         }
-        
-        Queue<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
+
+        Queue<TreeLinkNode> queue = new LinkedList<>();
         queue.add(root);
-        
+
         while(!queue.isEmpty()) {
             int size = queue.size();
-            
-            TreeLinkNode pre = null;
-            TreeLinkNode node = null;
-            
-            for (int i=0; i<=size-1; i++) {
-                node = queue.poll();
-                if (pre != null) {
-                    pre.next = node;
+
+            TreeLinkNode next = null;
+            for (int i=0; i<size; i++) {
+                TreeLinkNode node = queue.poll();
+
+                node.next = next;
+                next = node;
+
+                if (node.right != null) {
+                    queue.offer(node.right);
                 }
-                
-                if (node != null && queue.isEmpty()) {
-                    node.next = null;
+                if (node.left != null) {
+                    queue.offer(node.left);
                 }
-                
-                if (node != null) {
-                    queue.add(node.left);
-                    queue.add(node.right);
-                }
-                pre = node;
             }
         }
     }
     
-    public void connect_better(TreeLinkNode root) {
+    public void connect_constantSpace(TreeLinkNode root) {
         if (root == null) {
             return;
         }
@@ -107,7 +101,7 @@ public class PopulatingNextRightPointersInEachNode {
         
         PopulatingNextRightPointersInEachNode solution = new PopulatingNextRightPointersInEachNode();
         
-        solution.connect_better(root);
+        solution.connect_constantSpace(root);
         
         System.out.println(root.val + "->" + root.next);
         
