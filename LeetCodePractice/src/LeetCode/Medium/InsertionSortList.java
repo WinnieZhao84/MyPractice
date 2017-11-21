@@ -35,9 +35,9 @@ public class InsertionSortList {
     }
     
     public static void main(String[] args) {
-        ListNode first = new ListNode(6);
-        ListNode second = new ListNode(4);
-        ListNode third= new ListNode(3);
+        ListNode first = new ListNode(4);
+        ListNode second = new ListNode(6);
+        ListNode third= new ListNode(5);
         ListNode fourth = new ListNode(2);
         ListNode fifth = new ListNode(5);
         ListNode sixth = new ListNode(2);

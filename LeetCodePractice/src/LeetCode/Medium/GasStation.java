@@ -15,6 +15,14 @@ package LeetCode.Medium;
  */
 public class GasStation {
 
+    /**
+     * If the total gas is greater than the total cost, i.e., gas(1) + gas(2) + … + gas(n) > cost(1) + cost(2) + … + cost(n),
+     * there must be a way to travel around the circuit once.
+     *
+     * @param gas
+     * @param cost
+     * @return
+     */
     public int canCompleteCircuit(int[] gas, int[] cost) {
         int sumGas = 0;
         int sumCost = 0;
@@ -31,10 +39,10 @@ public class GasStation {
                 tank = 0;
             }
         }
+
         if (sumGas < sumCost) {
             return -1;
-        } else {
-            return start;
         }
+        return start;
     }
 }
