@@ -26,43 +26,49 @@ public class FractionToRecurringDecimal {
         if (numerator == 0) {
             return "0";
         }
-        
-        StringBuffer res = new StringBuffer();
-        
-        String sign = (numerator > 0) ^ (denominator > 0) ? "-" : "";
-        res.append(sign);
-        
+        if (denominator == 1) {
+            return String.valueOf(numerator);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String sign = (numerator > 0 && denominator > 0)
+                || (numerator < 0 && denominator < 0) ? "" : "-";
+        sb.append(sign);
+
         long num = Math.abs((long)numerator);
         long den = Math.abs((long)denominator);
-        
-        // Integer part
-        res.append(num/den);
-        num = num % den;
-        if (num == 0) {
-            return res.toString();
+
+        long intVal = num / den;
+        long remain = num % den;
+
+        // Only Integer exists
+        if (remain == 0) {
+            return String.valueOf(intVal);
         }
-        
-        res.append(".");
-        
-        Map<Long, Integer> map = new HashMap<Long, Integer>();
-        map.put(num, res.length());
-        while (num != 0) {
-            num *= 10;
-            res.append(num / den);
-            num %= den;
-            
-            if (map.containsKey(num)) {
-                int index = map.get(num);
-                res.insert(index, "(");
-                res.append(")");
+
+        sb.append(intVal);
+        sb.append(".");
+
+        Map<Long, Integer> map = new HashMap<>();
+        map.put(remain, sb.length());
+
+        while(remain != 0) {
+            remain = remain * 10;
+            sb.append(remain / den);
+            remain = remain % den;
+
+            if (map.containsKey(remain)) {
+                int index = map.get(remain);
+                sb.insert(index, "(");
+                sb.append(")");
                 break;
             }
             else {
-                map.put(num, res.length());
+                map.put(remain, sb.length());
             }
         }
-        
-        return res.toString();
+
+        return sb.toString();
     }
     
     public static void main(String[] args) {
