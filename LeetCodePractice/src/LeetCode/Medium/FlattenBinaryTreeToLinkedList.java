@@ -2,6 +2,7 @@ package LeetCode.Medium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import LeetCode.Helper.TreeNode;
 
@@ -37,55 +38,52 @@ import LeetCode.Helper.TreeNode;
  */
 public class FlattenBinaryTreeToLinkedList {
 
-   private TreeNode lastNode = null;
-    
-   public void flatten_inplace(TreeNode root) {
-       if (root == null) {
-           return;
-       }
+    private TreeNode prev = null;
 
-       if (lastNode != null) {
-           lastNode.left = null;
-           lastNode.right = root;
-       }
+    public void flatten(TreeNode root) {
+        if (root == null)
+            return;
 
-       lastNode = root;
-       TreeNode right = root.right;
-       flatten(root.left);
-       flatten(right);
-    }
-   
-   private List<TreeNode> list = new ArrayList<TreeNode>();
-   
-   public void flatten(TreeNode root) {
-       if (root == null) {
-           return;
-       }
-       
-       this.preOrderTraversal(root, list);
-       
-       TreeNode pre = null;
-       for (TreeNode node : list) {
-           if (pre != null) {
-               pre.right = node;
-               pre.left = null;
-           }
-           pre = node;
-       }
+        flatten(root.right);
+        flatten(root.left);
+
+        root.right = prev;
+        root.left = null;
+        prev = root;
     }
 
-   private void preOrderTraversal(TreeNode root, List<TreeNode> list) {
-       if (root == null) {
-           return;
-       }
-       
-       list.add(root);
-       
-       if (root != null) {
-           this.preOrderTraversal(root.left, list);
-           this.preOrderTraversal(root.right, list);
-       }
-   }
+    public class Solution {
+        /**
+         * @param root: a TreeNode, the root of the binary tree
+         * @return: nothing
+         */
+        public void flatten(TreeNode root) {
+            if (root == null) {
+                return;
+            }
+
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+
+            while (!stack.empty()) {
+                TreeNode node = stack.pop();
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+                if (node.left != null) {
+                    stack.push(node.left);
+                }
+
+                // connect
+                node.left = null;
+                if (stack.empty()) {
+                    node.right = null;
+                } else {
+                    node.right = stack.peek();
+                }
+            }
+        }
+    }
     
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);

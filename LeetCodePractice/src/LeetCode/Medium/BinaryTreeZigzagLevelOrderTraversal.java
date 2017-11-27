@@ -29,7 +29,7 @@ import LeetCode.Helper.TreeNode;
  */
 public class BinaryTreeZigzagLevelOrderTraversal {
 
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    public List<List<Integer>> zigzagLevelOrder_BFS(TreeNode root) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         
         if (root == null) {
@@ -70,6 +70,37 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         
         return result;
     }
+
+    public List<List<Integer>> zigzagLevelOrder_DFS(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        this.helper(res, root, 0);
+        return res;
+    }
+
+    private void helper(List<List<Integer>> res, TreeNode root, int height) {
+        if (root == null) {
+            return;
+        }
+
+        if (height >= res.size()) {
+            res.add(new ArrayList<>());
+        }
+
+        if (height % 2 == 0) {
+            res.get(height).add(root.val);
+        }
+        else {
+            res.get(height).add(0, root.val);
+        }
+
+        this.helper(res, root.left, height+1);
+        this.helper(res, root.right, height+1);
+    }
     
     public static void main(String[] args) {
         BinaryTreeZigzagLevelOrderTraversal solution = new BinaryTreeZigzagLevelOrderTraversal();
@@ -82,7 +113,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
         
-        List<List<Integer>> result = solution.zigzagLevelOrder(root);
+        List<List<Integer>> result = solution.zigzagLevelOrder_DFS(root);
         System.out.println(result);
     }
 }

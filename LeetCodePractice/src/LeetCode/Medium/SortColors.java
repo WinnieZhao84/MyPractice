@@ -23,41 +23,20 @@ import java.util.Arrays;
 public class SortColors {
 
     public void sortColors(int[] nums) {
-        int redCount=0;
-        int whiteCount=0;
-        int blueCount=0;
-        
-        for (int n : nums) {
-            if (n==0) {
-                redCount++;
-            }
-            else if (n==1) {
-                whiteCount++;
-            }
-            else if (n==2) {
-                blueCount++;
-            }
+        if (nums == null || nums.length == 0) {
+            return;
         }
-        
-        int length = nums.length;
-        int i=0;
-        int red=0;
-        int white=0;
-        int blue=0;
-        while (i<length) {
-            while (red < redCount) {
-                nums[i++] = 0;
-                red++;
-            }
-            while (white < whiteCount) {
-                nums[i++] = 1;
-                white++;
-            }
-            while (blue < blueCount) {
-                nums[i++] = 2;
-                blue++;
-            }
+        int num0 = 0, num1 = 0, num2 = 0;
+
+        for(int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) ++num0;
+            else if (nums[i] == 1) ++num1;
+            else if (nums[i] == 2) ++num2;
         }
+
+        for(int i = 0; i < num0; ++i) nums[i] = 0;
+        for(int i = 0; i < num1; ++i) nums[num0+i] = 1;
+        for(int i = 0; i < num2; ++i) nums[num0+num1+i] = 2;
     }
     
     // Insert Sort
@@ -79,6 +58,33 @@ public class SortColors {
             }
             nums[position] = currentValue;
         }
+    }
+
+    // One pass solution
+    public void sortColors_onePass2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+
+        int m=0;
+        int n=nums.length-1;
+        for (int i=0; i<=n; i++) {
+            if (nums[i] == 0 && i != m) {
+                this.swap(nums, i, m);
+                m++;
+            }
+            else if (nums[i] == 2 && i != n) {
+                this.swap(nums, i, n);
+                i--;
+                n--;
+            }
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
     
     public static void main(String[] args) {

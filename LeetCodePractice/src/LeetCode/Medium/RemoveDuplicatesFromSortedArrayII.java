@@ -17,17 +17,22 @@ package LeetCode.Medium;
 public class RemoveDuplicatesFromSortedArrayII {
 
     public int removeDuplicates(int[] nums) {
+        if (nums == null) {
+            return 0;
+        }
+
         if (nums.length <= 1) {
             return nums.length;
         }
-        
-        int i = 0;
-        for (int n : nums) {
-            if (i < 2 || n > nums[i-2]) {
-                nums[i++] = n;
+
+        int length = 1;
+        for (int i=2; i<nums.length; i++ ) {
+            if (nums[i] != nums[length-1]) {
+                nums[++length] = nums[i];
             }
         }
-        return i;
+
+        return length+1;
     }
     
     public static void main(String[] args) {

@@ -18,6 +18,11 @@ public class RestoreIPAddresses {
     
     public List<String> restoreIpAddresses(String s) {
         List<String> res = new ArrayList<String>();
+
+        if (s == null || s.length() < 4 || s.length() > 12) {
+            return res;
+        }
+
         int len = s.length();
         
         for(int i = 1; i<4 && i<len-2; i++) {
@@ -48,6 +53,11 @@ public class RestoreIPAddresses {
     
     public List<String> restoreIpAddresses_backtracking(String s) {
         List<String> result = new ArrayList<>();
+
+        if (s == null || s.length() < 4 || s.length() > 12) {
+            return result;
+        }
+
         doRestore(result, "", s, 0);
         return result;
     }

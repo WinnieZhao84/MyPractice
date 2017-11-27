@@ -25,17 +25,28 @@ Bonus point if you are able to do this using only O(n) extra space, where n is t
 public class Triangle {
 
     public int minimumTotal(List<List<Integer>> triangle) {
-        if (triangle == null || triangle.isEmpty()) return 0;
-        
+        if (triangle == null || triangle.size() == 0) {
+            return 0;
+        }
+
         int height = triangle.size();
-        int[] sum = new int[height+1];
-        
-        for (int i=height-1; i>=0; i--) {
+        if (height == 1) {
+            return triangle.get(0).get(0);
+        }
+
+        int[] sum = new int[height];
+
+        // Bottom up solution
+        for (int i=0; i<height; i++) {
+            sum[i] = triangle.get(height-1).get(i);
+        }
+
+        for (int i=height-2; i>=0; i--) {
             for (int j=0; j<=i; j++) {
                 sum[j] = Math.min(sum[j], sum[j+1]) + triangle.get(i).get(j);
             }
         }
-        
+
         return sum[0];
     }
     

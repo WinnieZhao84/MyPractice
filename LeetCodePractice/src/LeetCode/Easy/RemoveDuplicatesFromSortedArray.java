@@ -23,7 +23,7 @@ public class RemoveDuplicatesFromSortedArray {
     	
     	int length = 0;
     	for (int i=0; i<=nums.length-1; i++ ) {
-    		if (nums[i] != nums[length]) {	
+    		if (nums[i] != nums[length]) {
     			nums[++length] = nums[i];
     		}
     	}
@@ -34,7 +34,7 @@ public class RemoveDuplicatesFromSortedArray {
     public static void main(String[] args) {
     	RemoveDuplicatesFromSortedArray solution = new RemoveDuplicatesFromSortedArray();
         
-    	int[] array = {1, 2, 2, 3, 3};
+    	int[] array = {1, 2, 3, 4, 5};
         System.out.println(solution.removeDuplicates(array));
         for (int a: array) {
         	System.out.print(a);

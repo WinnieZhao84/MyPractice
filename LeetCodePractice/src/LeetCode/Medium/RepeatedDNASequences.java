@@ -65,7 +65,7 @@ public class RepeatedDNASequences {
      *
      * Note that since there 10 letters and each letter requires only 2 bits,
      * we will need only 10 * 2= 20 bits to code the string (which is less then
-     * size of integer in java (as well as in all othere popular languages),
+     * size of integer in java (as well as in all other popular languages),
      * which is 4 bytes = 32 bits).
      *
      * For example, this is how "AACCTCCGGT" string will be coded:
@@ -88,9 +88,19 @@ public class RepeatedDNASequences {
         for(int i = 0; i < s.length() - 9; i++) {
             int v = 0;
             for(int j = i; j < i + 10; j++) {
+                char ch = s.charAt(j);
                 v <<= 2;
-                v |= map[s.charAt(j) - 'A'];
+                v = v | map[ch - 'A'];
             }
+            /**
+             * doubleWords there to make sure when the pattern duplicated more than three times, we don't add it to the result again.
+             * Specifically, about !words.add(v) && doubleWords.add(v)
+             * (1)when the pattern occurs the 1st time, !words.add(v) return false, and && operator short-circuits
+             * doubleWords.add(v) (won't be evaluated).
+             * (2)when the pattern occurs the 2nd time, !words.add(v) return true, and doubleWords.add(v) return true.
+             * The pattern is added to the result.
+             * (3)when the pattern occurs more than three times, doubleWords.add(v) always return false.
+             */
             if(!words.add(v) && doubleWords.add(v)) {
                 rv.add(s.substring(i, i + 10));
             }
