@@ -15,6 +15,13 @@ package LeetCode.Medium;
  */
 public class MinimumSizeSubarraySum {
 
+    /**
+     * O(n) solution: Keep a moving window expand until sum>=s, then shrink util sum<s. Each time after shrinking, update length
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
     public int minSubArrayLen(int s, int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
@@ -34,17 +41,64 @@ public class MinimumSizeSubarraySum {
                 sum -= nums[pt2++];
             }
         }
-        if (minLength == Integer.MAX_VALUE) {
+
+        return minLength == Integer.MAX_VALUE ? 0 : minLength;
+    }
+
+    /**
+     * O(nlogn) solution
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen_2(int s, int[] nums) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
-        return minLength;
+
+        int[] sum = new int[nums.length];
+
+        int left=1;
+        int right=nums.length;
+        int min = 0;
+
+        while (left <= right) {
+            int mid = left + (right-left)/2;
+            if (windowExist(nums, mid, s)) {
+                right = mid - 1;
+                min = mid;
+            }
+            else {
+                left = mid + 1;
+            }
+        }
+
+        return min;
+    }
+
+    private boolean windowExist(int[] nums, int size, int s) {
+        int sum = 0;
+
+        for (int i=0; i<nums.length; i++) {
+            if (i>=size) {
+                sum -= nums[i-size];
+            }
+
+            sum += nums[i];
+            if (sum >= s) {
+                return true;
+            }
+
+        }
+        return false;
     }
     
     public static void main(String[] args) {
         MinimumSizeSubarraySum solution = new MinimumSizeSubarraySum();
         
         int[] nums = {2,3,1,2,4,3};
-        System.out.println(solution.minSubArrayLen(7, nums));
+        System.out.println(solution.minSubArrayLen_2(7, nums));
         
     }
 }
