@@ -31,16 +31,22 @@ public class HouseRobberII {
     }
     
     private int rob(int[] nums, int start, int end) {
-        
-        int previous = 0;
-        int current = 0;
+
+        int preNotRob=0;
+        int preRob=0;
+
+        int notRob=0;
+        int rob=0;
+
         for (int i=start; i<=end; i++) {
-            int temp = Math.max(previous+nums[i], current);
-            previous = current;
-            current = temp;
+            rob = preNotRob + nums[i];
+            notRob = Math.max(preRob, preNotRob);
+
+            preNotRob = notRob;
+            preRob = rob;
         }
-        
-        return current;
+
+        return Math.max(rob, notRob);
     }
     
     public static void main(String[] args) {

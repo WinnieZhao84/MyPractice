@@ -21,34 +21,36 @@ import java.util.Stack;
 public class BasicCalculatorII {
 
     public int calculate(String s) {
-        if (s == null || s.length()==0) {
+        if (s == null || s.isEmpty()) {
             return 0;
         }
-        
-        Stack<Integer> stack = new Stack<Integer>();
+
+        Stack<Integer> stack = new Stack<>();
+        char[] chars = s.toCharArray();
+
         int num = 0;
         char sign = '+';
-        
-        for(int i=0;i<s.length();i++){
-            if (Character.isDigit(s.charAt(i))){
+        for (int i=0; i<chars.length; i++) {
+            char ch = chars[i];
+            if (Character.isDigit(ch)){
                 num = num*10 + s.charAt(i) -'0';
             }
-            
-            if((!Character.isDigit(s.charAt(i)) && ' ' != s.charAt(i)) || i==s.length()-1){
-                if (sign=='-'){
-                    stack.push(-num);
-                }
-                if(sign=='+'){
-                    stack.push(num);
-                }
-                if(sign=='*'){
+
+            if ((!Character.isDigit(ch) && ch != ' ' )|| i==chars.length-1) {
+                if (sign == '*') {
                     stack.push(stack.pop()*num);
                 }
-                if(sign=='/'){
+                else if (sign == '/') {
                     stack.push(stack.pop()/num);
                 }
-                sign = s.charAt(i);
+                else if (sign == '-') {
+                    stack.push(-num);
+                }
+                else if (sign == '+') {
+                    stack.push(num);
+                }
                 num = 0;
+                sign = chars[i];
             }
         }
 
@@ -57,5 +59,10 @@ public class BasicCalculatorII {
             res += i;
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        BasicCalculatorII solution = new BasicCalculatorII();
+        System.out.println(solution.calculate("3    "));
     }
 }

@@ -26,9 +26,15 @@ public class CountCompleteTreeNodes {
         return root == null ? -1 : 1 + height(root.left);
     }
 
-    public int countNodes_lognSulution(TreeNode root) {
+    /**
+     * O(log(n)^2) solution
+     * @param root
+     * @return
+     */
+    public int countNodes_better(TreeNode root) {
         int nodes = 0;
         int h = height(root);
+
         while (root != null) {
             if (height(root.right) == h - 1) {
                 nodes += 1 << h;
@@ -52,6 +58,6 @@ public class CountCompleteTreeNodes {
         root.right = new TreeNode(8);
 
         CountCompleteTreeNodes solution = new CountCompleteTreeNodes();
-        System.out.println(solution.countNodes_lognSulution(root));
+        System.out.println(solution.countNodes_better(root));
     }
 }
