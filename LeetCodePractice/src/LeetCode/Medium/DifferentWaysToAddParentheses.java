@@ -36,55 +36,58 @@ import java.util.stream.Collectors;
  *
  */
 public class DifferentWaysToAddParentheses {
-    
-    Map<String, List<Integer>> map = new HashMap<>();
-    
+
+    Map<String, List<Integer>> cache = new HashMap<>();
+
     public List<Integer> diffWaysToCompute(String input) {
-        if (input == null || input.length() == 0) {
+        if (input == null || input.isEmpty()) {
             return null;
         }
-        
-        if (map.containsKey(input)) {
-            return map.get(input);
+        if (cache.containsKey(input)) {
+            return cache.get(input);
+        }
+
+        List<Integer> res = new ArrayList<>();
+
+        if (input.indexOf('+') < 0 && input.indexOf('-') < 0 && input.indexOf('*') < 0) {
+            res.add(Integer.valueOf(input));
         }
         
-        List<Integer> result = new ArrayList<>();
-        
         for (int i=0; i<input.length(); i++) {
+
             if (input.charAt(i) == '+' || input.charAt(i) == '-' || input.charAt(i) == '*') {
+
                 String part1 = input.substring(0, i);
                 String part2 = input.substring(i+1, input.length());
-                
-                char operator = input.charAt(i); 
-                
-                List<Integer> leftResult = this.diffWaysToCompute(part1);
-                List<Integer> rightResult = this.diffWaysToCompute(part2);
-                
-                Integer res = null;
-                for (Integer left : leftResult) {
-                    for (Integer right : rightResult) {
+
+                char operator = input.charAt(i);
+
+                List<Integer> left = diffWaysToCompute(part1);
+                List<Integer> right = diffWaysToCompute(part2);
+
+                if (left == null || right == null) {
+                    continue;
+                }
+
+                for (Integer num1 : left) {
+                    for (Integer num2 : right) {
                         if (operator == '+') {
-                            res = left + right;
+                            res.add(num1 + num2);
                         }
                         else if (operator == '-') {
-                            res = left - right;
+                            res.add(num1 - num2);
                         }
                         else if (operator == '*') {
-                            res = left * right;
+                            res.add(num1 * num2);
                         }
-                        
-                        result.add(res);
                     }
                 }
             }
         }
-        if (input.indexOf('+') < 0 && input.indexOf('-') < 0 && input.indexOf('*') < 0) {
-            result.add(Integer.valueOf(input));
-        }
-        
-        map.put(input, result);
-        
-        return result;
+
+        cache.put(input, res);
+
+        return res;
     }
     
     public static void main(String[] args) {

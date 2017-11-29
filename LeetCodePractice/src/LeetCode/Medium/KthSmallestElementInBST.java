@@ -67,7 +67,7 @@ public class KthSmallestElementInBST {
             return kthSmallest_binarySearch(root.left, k);
         } 
         else if (k > count + 1) {
-            return kthSmallest_binarySearch(root.right, k-1-count); // 1 is counted as current node
+            return kthSmallest_binarySearch(root.right, k-1-count); // 1 is counted as root node
         }
         
         return root.val;

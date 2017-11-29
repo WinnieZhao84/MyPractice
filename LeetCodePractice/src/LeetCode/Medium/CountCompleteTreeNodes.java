@@ -22,8 +22,12 @@ public class CountCompleteTreeNodes {
         return 1 + this.countNodes(root.left) + this.countNodes(root.right);
     }
 
-    int height(TreeNode root) {
-        return root == null ? -1 : 1 + height(root.left);
+    private int rightHeight(TreeNode root) {
+        return root == null ? 0 : 1 + rightHeight(root.right);
+    }
+
+    private int leftHeight(TreeNode root) {
+        return root == null ? 0 : 1 + leftHeight(root.left);
     }
 
     /**
@@ -32,21 +36,16 @@ public class CountCompleteTreeNodes {
      * @return
      */
     public int countNodes_better(TreeNode root) {
-        int nodes = 0;
-        int h = height(root);
 
-        while (root != null) {
-            if (height(root.right) == h - 1) {
-                nodes += 1 << h;
-                root = root.right;
-            }
-            else {
-                nodes += 1 << h-1;
-                root = root.left;
-            }
-            h--;
+        int leftHeight = this.leftHeight(root);
+        int rightHeight = this.rightHeight(root);
+
+        if (leftHeight == rightHeight) {
+            return (1 << leftHeight) - 1;
         }
-        return nodes;
+        else {
+            return 1 + countNodes_better(root.left) + countNodes_better(root.right);
+        }
     }
     
     public static void main(String[] args) {
@@ -56,6 +55,7 @@ public class CountCompleteTreeNodes {
         root.left.right = new TreeNode(7);
         
         root.right = new TreeNode(8);
+        root.right.left = new TreeNode(4);
 
         CountCompleteTreeNodes solution = new CountCompleteTreeNodes();
         System.out.println(solution.countNodes_better(root));
