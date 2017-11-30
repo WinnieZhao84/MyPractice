@@ -26,35 +26,37 @@ import java.util.List;
 public class UglyNumberII {
 
     public int nthUglyNumber(int n) {
-        if(n<=0)
+        if (n<=0) {
             return 0;
+        }
 
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
+        int[] res = new int[n];
+        res[0] = 1;
+
+        int factor2=2;
+        int factor3=3;
+        int factor5=5;
 
         int i=0;
         int j=0;
         int k=0;
 
-        while(list.size()<n){
-            int m2 = list.get(i)*2;
-            int m3 = list.get(j)*3;
-            int m5 = list.get(k)*5;
+        for (int m=1; m<n; m++) {
+            int min = Math.min(Math.min(factor2, factor3), factor5);
+            res[m] = min;
 
-            int min = Math.min(m2, Math.min(m3, m5));
-            list.add(min);
-
-            if(min==m2)
-                i++;
-
-            if(min==m3)
-                j++;
-
-            if(min==m5)
-                k++;
+            if (min == factor2) {
+                factor2 = res[++i] * 2;
+            }
+            if (min == factor3) {
+                factor3 = res[++j] * 3;
+            }
+            if (min == factor5) {
+                factor5 = res[++k] * 5;
+            }
         }
 
-        return list.get(list.size()-1);
+        return res[n-1];
     }
     
     public static void main(String[] args) {
