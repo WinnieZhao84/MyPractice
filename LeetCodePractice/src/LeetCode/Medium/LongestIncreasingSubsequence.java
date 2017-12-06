@@ -19,23 +19,50 @@ import java.util.Arrays;
  */
 public class LongestIncreasingSubsequence {
 
-    public int lengthOfLIS(int[] nums) {
-        
-        int[] dp = new int[nums.length];
-        int len = 0;
+    /**
+     * Binary search O(nlogn)
+     *
+     * tails is an array storing the smallest tail of all increasing subsequences with length i+1 in tails[i].
+     * We can easily prove that tails is a increasing array. Therefore it is possible to do a binary search in tails array
+     * to find the one needs update.
+     *
+     * Each time we only do one of the two:
+     * (1) if x is larger than all tails, append it, increase the size by 1
+     * (2) if tails[i-1] < x <= tails[i], update tails[i]
+     * Doing so will maintain the tails invariant. The the final answer is just the size.
 
-        for(int x : nums) {
-            int i = Arrays.binarySearch(dp, 0, len, x);
-            if(i < 0) i = -(i + 1);
-            dp[i] = x;
-            if(i == len) {
-                len++;
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS(int[] nums) {
+
+        int[] tails = new int[nums.length];
+        int size = 0;
+        for (int x : nums) {
+            int i = 0, j = size;
+
+            while (i != j) {
+                int m = (i + j) / 2;
+                if (tails[m] < x)
+                    i = m + 1;
+                else
+                    j = m;
+            }
+
+            tails[i] = x;
+
+            if (i == size) {
+                ++size;
             }
         }
-
-        return len;
+        return size;
     }
-    
+
+    /**
+     * Time Complexity: O(n^2)
+     * @param nums
+     * @return
+     */
     public int lengthOfLIS_DP(int[] nums) {
         
         if (nums == null || nums.length <= 1) return nums.length;
@@ -58,7 +85,7 @@ public class LongestIncreasingSubsequence {
     }
     
     public static void main(String[] args) {
-        int[] nums = {4,10,4,3,8,9};
+        int[] nums = {4,10,5,3,8,9};
         
         LongestIncreasingSubsequence solution = new LongestIncreasingSubsequence();
         System.out.println(solution.lengthOfLIS(nums));

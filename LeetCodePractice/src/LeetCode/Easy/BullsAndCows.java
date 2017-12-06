@@ -32,32 +32,30 @@ package LeetCode.Easy;
  */
 public class BullsAndCows {
     public String getHint(String secret, String guess) {
+        if (secret == null || guess == null || secret.isEmpty() || guess.isEmpty()) {
+            return "";
+        }
+
         int bull = 0;
         int cow = 0;
-        int [] result = new int [10];
+        int[] numbers = new int[10];
 
-        for(int i = 0;i<secret.length();i++)
-        {
-            int x = secret.charAt(i) - '0';
-            int y = guess.charAt(i) - '0';
+        for (int i = 0; i<secret.length(); i++) {
 
-            if (x == y) {
+            if (secret.charAt(i) == guess.charAt(i)) {
                 bull++;
             }
             else {
-                if(result[x] < 0) {
-                	cow++;
+                if (numbers[secret.charAt(i)-'0']++< 0) {
+                    cow++;
                 }
-                result[x]++;
-
-                if(result[y] > 0){
-                	cow++;
+                if (numbers[guess.charAt(i)-'0']-- > 0) {
+                    cow++;
                 }
-                result[y]--;
             }
         }
 
-        return bull+"A"+cow+"B";
+        return bull + "A" + cow + "B";
     }
 	
     public static void main(String[] args) {
