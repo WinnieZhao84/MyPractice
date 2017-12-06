@@ -30,31 +30,47 @@ public class LongestIncreasingSubsequence {
      * (1) if x is larger than all tails, append it, increase the size by 1
      * (2) if tails[i-1] < x <= tails[i], update tails[i]
      * Doing so will maintain the tails invariant. The the final answer is just the size.
+     *
+     * The key idea is to keep each Increasing subsequence as long as possible. This means two things:
+     * 1) When we find a smaller number than my tail. I need to update my tail. This makes it possible to append more
+     * data to this sequence.
+     * 2) If we find that the number is smaller than all the subsequence's tail, this means we could create a new subsequence
+     * with bigger size with this number as the tail
 
      * @param nums
      * @return
      */
     public int lengthOfLIS(int[] nums) {
 
-        int[] tails = new int[nums.length];
-        int size = 0;
-        for (int x : nums) {
-            int i = 0, j = size;
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
 
-            while (i != j) {
-                int m = (i + j) / 2;
-                if (tails[m] < x)
-                    i = m + 1;
-                else
-                    j = m;
+        int len = nums.length;
+        int[] tails = new int[len];
+
+        int size = 0;
+        for (int num : nums) {
+            int i=0;
+            int j=size;
+
+            while (i < j) {
+                int mid = i + (j-i)/2;
+
+                if (tails[mid] < num) {
+                    i = mid+1;
+                }
+                else {
+                    j = mid;
+                }
             }
 
-            tails[i] = x;
-
+            tails[i] = num;
             if (i == size) {
-                ++size;
+                size++;
             }
         }
+
         return size;
     }
 
