@@ -48,7 +48,7 @@ public class AdditiveNumber {
             if(num.charAt(0) == '0' && i>=2) break; //previous code: continue;
 
             // choose the second number B
-            for(int j=i+1; L-j>=j-i && L-j>=i; j++) {
+            for(int j=i+1; j-i<=L-j && i<=L-j; j++) {
                 // B cannot start with a 0 if its length is more than 1
                 if(num.charAt(i) == '0' && j-i>=2) break; // previous: continue;
 

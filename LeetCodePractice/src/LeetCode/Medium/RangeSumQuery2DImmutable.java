@@ -34,7 +34,12 @@ public class RangeSumQuery2DImmutable {
     // numMatrix.sumRegion(0, 1, 2, 3);
     // numMatrix.sumRegion(1, 2, 3, 4);
     private int[][] dp;
-    
+
+    /**
+     * Time complexity : O(1) time per query, O(mn) time pre-computation
+     * Space complexity : O(mn). The algorithm uses O(mn)O(mn) space to store the cumulative region sum
+     * @param matrix
+     */
     public RangeSumQuery2DImmutable(int[][] matrix) {
         if (matrix == null || matrix.length  == 0 || matrix[0].length == 0) {
             return;   

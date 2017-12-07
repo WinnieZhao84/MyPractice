@@ -40,6 +40,14 @@ public class RangeSumQueryMutable {
     }
 
     /**
+     * Time Complexity for tree construction is O(n). There are total 2n-1 nodes, and value of every node is calculated
+     * only once in tree construction.
+     *
+     * Time complexity to query is O(Logn).
+     *
+     * The time complexity of update is also O(Logn). To update a leaf value, we process one node at every level and number
+     * of levels is O(Logn).
+
      * Segment tree is a very flexible data structure, because it is used to solve numerous range query problems
      * like finding minimum, maximum, sum, greatest common divisor, least common denominator in array in logarithmic time.
      *
