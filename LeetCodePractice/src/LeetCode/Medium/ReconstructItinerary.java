@@ -37,8 +37,7 @@ import java.util.Map;
  */
 public class ReconstructItinerary {
 
-    List<String> result = new ArrayList<String>();
-    int numTicketsUsed;
+    List<String> result = new ArrayList<>();
     int numTickets;
     
     public List<String> findItinerary(String[][] tickets) {
@@ -47,21 +46,12 @@ public class ReconstructItinerary {
         }
         
         numTickets = tickets.length;
-        numTicketsUsed = 0;
         
         Map<String, List<String>> ticketsMap = new HashMap<>();
-        
-        for (String[] s : tickets) {
-            List<String> list = new ArrayList<>();
-            if (ticketsMap.containsKey(s[0])) {
-                list = ticketsMap.get(s[0]);
-                list.add(s[1]);
-                ticketsMap.put(s[0], list);
-            }
-            else {
-                list.add(s[1]);
-                ticketsMap.put(s[0], list);
-            }
+
+        Map<String, List<String>> ticketMap = new HashMap<>();
+        for (String[] ticket : tickets) {
+            ticketMap.compute(ticket[0], (k, v) -> v == null ? new ArrayList<>() : v).add(ticket[1]);
         }
 
         for (Map.Entry<String, List<String>> entry : ticketsMap.entrySet()) {
@@ -76,7 +66,9 @@ public class ReconstructItinerary {
     }
     
     private void dfs(Map<String, List<String>> ticketsMap, String from) {
-        
+        if (result.size() == numTickets+1) {
+            return;
+        }
         if (!ticketsMap.containsKey(from)) {
             return;
         }
@@ -88,17 +80,15 @@ public class ReconstructItinerary {
             
             list.remove(i);
             result.add(neighbor);
-            numTicketsUsed++;
             
             this.dfs(ticketsMap, neighbor);
-            
-            if (numTickets == numTicketsUsed) {
+
+            if (result.size() == numTickets+1) {
                 return;
             }
             
             list.add(i, neighbor);
             result.remove(result.size()-1);
-            numTicketsUsed--;
         }
     }
     
