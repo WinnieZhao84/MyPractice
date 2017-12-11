@@ -44,6 +44,40 @@ public class CoinChange {
         }
         return dp[amount] > amount ? -1 : dp[amount];
     }
+
+    /**
+     * Top down solution
+     */
+    public class Solution {
+
+        public int coinChange(int[] coins, int amount) {
+            if (amount < 1) return 0;
+            return coinChange(coins, amount, new int[amount]);
+        }
+
+        /**
+         * rem: remaining coins after the last step; count[rem]: minimum number of coins to sum up to rem
+         *
+         * @param coins
+         * @param rem
+         * @param count
+         * @return
+         */
+        private int coinChange(int[] coins, int rem, int[] count) {
+            if (rem < 0) return -1;
+            if (rem == 0) return 0;
+            if (count[rem - 1] != 0) return count[rem - 1];
+
+            int min = Integer.MAX_VALUE;
+            for (int coin : coins) {
+                int res = coinChange(coins, rem - coin, count);
+                if (res >= 0 && res < min)
+                    min = 1 + res;
+            }
+            count[rem - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
+            return count[rem - 1];
+        }
+    }
     
     public static void main(String[] args) {
         CoinChange solution = new CoinChange();
