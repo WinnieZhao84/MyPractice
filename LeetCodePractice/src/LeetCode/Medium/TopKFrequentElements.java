@@ -21,9 +21,9 @@ import java.util.Map;
  *
  */
 public class TopKFrequentElements {
-    @SuppressWarnings("unchecked")
-	public List<Integer> topKFrequent(int[] nums, int k) {
-    	Map<Integer, Integer> frequencyMap = new HashMap<Integer, Integer>();
+
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
 
         for (int n : nums) {
             frequencyMap.put(n, frequencyMap.getOrDefault(n, 0) + 1);
