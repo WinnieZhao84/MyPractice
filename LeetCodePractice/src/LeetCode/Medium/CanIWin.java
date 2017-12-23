@@ -34,41 +34,51 @@ public class CanIWin {
     Map<Integer, Boolean> map;
     boolean[] used;
     public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
-        if (maxChoosableInteger >= desiredTotal) return true;
+        if(desiredTotal <= 0) {
+            return true;
+        }
+        if (maxChoosableInteger > desiredTotal) {
+            return true;
+        }
+
         int sum = (1+maxChoosableInteger)*maxChoosableInteger/2;
         if (sum < desiredTotal) {
             return false;
         }
-        if(desiredTotal <= 0) {
-            return true;
-        }
-        
-        map = new HashMap<>();
+
         used = new boolean[maxChoosableInteger+1];
+        map = new HashMap<>();
+
         return helper(desiredTotal);
     }
     
     private boolean helper(int desiredTotal){
-        if(desiredTotal <= 0) return false;
-        int key = format(used);
-        
-        if(!map.containsKey(key)) {
-            // try every unchosen number as next step
-            for(int i=1; i<used.length; i++) {
-                if(!used[i]) {
-                    used[i] = true;
-                    // check whether this lead to a win (i.e. the other player lose)
-                    if(!helper(desiredTotal-i)){
-                        map.put(key, true);
-                        used[i] = false;
-                        return true;
-                    }
-                    used[i] = false;
-                }
-            }
-            map.put(key, false);
+        if (desiredTotal <= 0) {
+            return false;
         }
-        return map.get(key);
+
+        int key = format(used);
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+
+        for (int i=1; i<used.length; i++) {
+            // try every unchosen number as next step
+            if (!used[i]) {
+                used[i] = true;
+
+                // check whether this lead to a win (i.e. the other player lose)
+                if (!helper(desiredTotal-i)) {
+                    map.put(key, true);
+                    used[i] = false;
+                    return true;
+                }
+
+                used[i] = false;
+            }
+        }
+        map.put(key, false);
+        return false;
     }
 
     // Transfer boolean[] to an Integer

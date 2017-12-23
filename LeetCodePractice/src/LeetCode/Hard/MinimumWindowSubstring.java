@@ -78,4 +78,51 @@ public class MinimumWindowSubstring {
 
         return minLen==Integer.MAX_VALUE ? "": s.substring(minLeft, minLeft+minLen);
     }
+
+    public String minWindow_better(String s, String t) {
+        if (s == null || s.isEmpty() || t == null || s.length() < t.length()) {
+            return "";
+        }
+
+        if (s.equals(t)) {
+            return s;
+        }
+
+        int[] map = new int[128];
+        for (char ch : t.toCharArray()) {
+            map[ch]++;
+        }
+
+        int start=0, end=0;
+        int count = t.length();
+
+        int minStart = 0;
+        int minLength = Integer.MAX_VALUE;
+
+        while (end < s.length()) {
+            if (map[s.charAt(end++)]-- > 0) {
+                count--;
+            }
+
+            while (count == 0) {
+                int len = end - start;
+                if (len < minLength) {
+                    minStart = start;
+                    minLength = len;
+                }
+
+                if (map[s.charAt(start++)]++ == 0) {
+                    count++;
+                }
+            }
+        }
+
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minLength + minStart);
+    }
+
+    public static void main(String[] args) {
+        MinimumWindowSubstring solution = new MinimumWindowSubstring();
+
+        System.out.println(solution.minWindow_better("ADOBECODEBANC", "ABC"));
+    }
 }
