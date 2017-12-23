@@ -29,33 +29,43 @@ public class ValidNumber {
      * @return
      */
     public boolean isNumber(String s) {
+        if (s == null) {
+            return false;
+        }
+
         s = s.trim();
+
+        if (s.isEmpty()) {
+            return false;
+        }
 
         boolean pointSeen = false;
         boolean eSeen = false;
         boolean numberSeen = false;
         boolean numberAfterE = true;
 
-        for(int i=0; i<s.length(); i++) {
-            if('0' <= s.charAt(i) && s.charAt(i) <= '9') {
+        for (int i=0; i<s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if (ch >= '0' && ch <= '9') {
                 numberSeen = true;
                 numberAfterE = true;
             }
-            else if(s.charAt(i) == '.') {
-                if(eSeen || pointSeen) {
+            else if (ch  == '.') {
+                if (pointSeen || eSeen) {
                     return false;
                 }
                 pointSeen = true;
             }
-            else if(s.charAt(i) == 'e') {
-                if(eSeen || !numberSeen) {
+            else if (ch == 'e') {
+                if (eSeen || !numberSeen) {
                     return false;
                 }
                 numberAfterE = false;
                 eSeen = true;
             }
-            else if(s.charAt(i) == '-' || s.charAt(i) == '+') {
-                if(i != 0 && s.charAt(i-1) != 'e') {
+            else if (ch == '+' || ch == '-') {
+                if (i != 0 && s.charAt(i-1) != 'e') {
                     return false;
                 }
             }

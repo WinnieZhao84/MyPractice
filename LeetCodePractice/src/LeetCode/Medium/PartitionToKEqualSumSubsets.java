@@ -1,7 +1,5 @@
 package LeetCode.Medium;
 
-import java.util.Arrays;
-
 /**
  * Given an array of integers nums and a positive integer k, find whether it's possible to divide
  * this array into k non-empty subsets whose sums are all equal.
@@ -49,7 +47,7 @@ public class PartitionToKEqualSumSubsets {
     }
 
     private boolean helper(int[] nums, int k, int target, boolean[] visited, int start, int sum) {
-        if (k==1) {
+        if (k==0) {
             return true;
         }
 

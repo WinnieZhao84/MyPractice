@@ -22,35 +22,27 @@ import java.util.Set;
 public class RepeatedDNASequences {
 
     public List<String> findRepeatedDnaSequences(String s) {
-        List<String> res = new ArrayList<String>();
+        List<String> res = new ArrayList<>();
+
         if (s == null || s.isEmpty()) {
             return res;
         }
-        
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        for (int i=0; i<s.length(); i++) {
-            if (i+10 > s.length()) {
-                break;
-            }
-            
+
+        Map<String, Integer> counts = new HashMap<>();
+        for (int i=0; i<=s.length() - 10; i++) {
             String subStr = s.substring(i, i+10);
-            
-            if (map.containsKey(subStr)) {
-                map.put(subStr, map.get(subStr) + 1);
-            }
-            else {
-                map.put(subStr, 1);
-            }
+
+            counts.put(subStr, counts.getOrDefault(subStr, 0) + 1);
         }
-        
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+
+        for (Map.Entry<String, Integer> entry : counts.entrySet()) {
             String key = entry.getKey();
             Integer count = entry.getValue();
             if (count > 1) {
                 res.add(key);
             }
         }
-        
+
         return res;
     }
 

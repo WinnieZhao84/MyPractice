@@ -36,7 +36,7 @@ public class MaxPointsOnALine {
                 BigDecimal dx = new BigDecimal(points[j].x - points[i].x);
                 BigDecimal slope = dy.divide(dx, MathContext.DECIMAL128);
 
-                lines.put(slope, lines.containsKey(slope) ? lines.get(slope) + 1 : 1);
+                lines.put(slope, lines.getOrDefault(slope, 0) + 1);
                 currMax = Math.max(currMax, lines.get(slope));
             }
 

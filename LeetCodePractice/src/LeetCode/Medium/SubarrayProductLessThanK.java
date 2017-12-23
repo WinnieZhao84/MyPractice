@@ -24,6 +24,13 @@ package LeetCode.Medium;
  */
 public class SubarrayProductLessThanK {
 
+    /**
+     * Time Complexity: O(n^2)
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
     public int numSubarrayProductLessThanK(int[] nums, int k) {
         int result = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -42,6 +49,47 @@ public class SubarrayProductLessThanK {
             }
         }
         return result;
+    }
+
+    /**
+     * Time Complexity: O(n)
+     *
+     * Slide window solution:
+     * Our loop invariant is that left is the smallest value so that the product in the window
+     * prod = nums[left] * nums[left + 1] * ... * nums[right] is less than k.
+     * For every right, we update left and prod to maintain this invariant. Then, the number of intervals
+     * with subarray product less than k and with right-most coordinate right, is right - left + 1.
+     * We'll count all of these for each value of right.
+     *
+     * When we decide the window size, we can calculate the sub array count, the sub array count for the
+     * window size is just (right-left+1).
+     * For example: [5 2 6], when the right most is at position of 6, the count of the sub array is the
+     * window size which includes the right most num 6 => the sub array count is [6], [2,6], [5,2,6]
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int numSubarrayProductLessThanK_better(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k <= 1) {
+            return 0;
+        }
+
+        int left = 0;
+        int res = 0;
+        int product = 1;
+
+        for (int right=0; right<nums.length; right++) {
+            product *= nums[right];
+
+            while (product >= k) {
+                product /= nums[left++];
+            }
+
+            res += right-left+1;
+        }
+
+        return res;
     }
 
 }

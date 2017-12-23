@@ -1,6 +1,7 @@
 package LeetCode.Medium;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import LeetCode.Helper.Interval;
@@ -22,13 +23,14 @@ public class MergeIntervals {
         if (intervals == null || intervals.isEmpty()) {
             return result;
         }
-        intervals.sort((a, b) -> a.start - b.start);
+        intervals.sort(Comparator.comparingInt(a -> a.start));
         
         int start = intervals.get(0).start;
         int end = intervals.get(0).end;
         for (Interval interval : intervals) {
             // Overlapping
             if (interval.start <= end) {
+                //start = Math.min(start, interval.start);
                 end = Math.max(end, interval.end);
             }
             else {
