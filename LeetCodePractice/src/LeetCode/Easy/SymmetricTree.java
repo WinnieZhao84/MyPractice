@@ -45,57 +45,61 @@ public class SymmetricTree {
     	return this.isSymmetricHelper(root.left, root.right);
     	
     }
-    
+
     private boolean isSymmetricHelper(TreeNode left, TreeNode right) {
-    	if (left == null && right == null) {
-    		return true;
-    	}
-    	else if (left == null || right == null) {
-    		return false;
-    	}
-    	else {
-    		if (left.val != right.val) {
-    			return false;
-    		}
-    		else {
-    			return this.isSymmetricHelper(left.left, right.right) && this.isSymmetricHelper(left.right, right.left);
-    		}
-    	}
-    }
+		if (left == null || right == null) {
+			return left == right;
+		}
+
+		if (left.val != right.val ) {
+			return false;
+		}
+
+		return this.isSymmetricHelper(left.left, right.right) && this.isSymmetricHelper(left.right, right.left);
+	}
     
     public boolean isSymmetric_Iteratively(TreeNode root) {
-    	if (root == null) {
-    		return true;
-    	}
-    	
-    	Queue<TreeNode> q1=new LinkedList<>();
-    	Queue<TreeNode> q2=new LinkedList<>();
-    	
-        q1.add(root.left); 
-        q2.add(root.right);
-        
-        while(!q1.isEmpty() && !q2.isEmpty()) {
-            int size1=q1.size();
-            int size2=q2.size();
-            if(size1!=size2) return false;
-            
-            for(int i=0; i<size1; i++) {
-                TreeNode current1=q1.remove();
-                TreeNode current2=q2.remove();
-                
-                if(current1==null && current2==null) 
-                	continue;
-                if(current1==null || current2==null) 
-                	return false; 
-                if(current1.val!=current2.val) 
-                	return false;
-                
-                q1.add(current1.left);
-                q1.add(current1.right);
-                q2.add(current2.right);
-                q2.add(current2.left);
-            }
-        }
-        return q1.isEmpty() && q2.isEmpty();
+		if (root == null) {
+			return true;
+		}
+
+		Queue<TreeNode> leftQueue = new LinkedList<>();
+		Queue<TreeNode> rightQueue = new LinkedList<>();
+
+		leftQueue.add(root.left);
+		rightQueue.add(root.right);
+
+		while (!leftQueue.isEmpty() && !rightQueue.isEmpty()) {
+			int leftSize = leftQueue.size();
+			int rightSize = rightQueue.size();
+
+			if (leftSize != rightSize) {
+				return false;
+			}
+
+			for (int i= 0; i<leftSize; i++) {
+				TreeNode left = leftQueue.poll();
+				TreeNode right = rightQueue.poll();
+
+				if (left == null && right == null) {
+					continue;
+				}
+				else if (left == null || right == null) {
+					return false;
+				}
+
+				if (left.val != right.val) {
+					return false;
+				}
+
+				leftQueue.add(left.left);
+				leftQueue.add(left.right);
+
+				rightQueue.add(right.right);
+				rightQueue.add(right.left);
+			}
+		}
+
+		return leftQueue.isEmpty() && rightQueue.isEmpty();
     }
 }

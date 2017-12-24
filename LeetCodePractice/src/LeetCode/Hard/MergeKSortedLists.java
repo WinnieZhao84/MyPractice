@@ -14,12 +14,20 @@ import java.util.PriorityQueue;
  */
 public class MergeKSortedLists {
 
+    /**
+     * Suppose the total number of nodes is n The total time complexity if (n * log k).
+     * For a priority queue, insertion takes logK time.
+     * n means the total elements and k means the size of list
+     *
+     * @param lists
+     * @return
+     */
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) {
             return null;
         }
 
-        PriorityQueue<ListNode> queue = new PriorityQueue<>((l1, l2) -> l1.val - l2.val);
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(Comparator.comparingInt(l -> l.val));
 
         for (ListNode node : lists) {
             if (node != null) {

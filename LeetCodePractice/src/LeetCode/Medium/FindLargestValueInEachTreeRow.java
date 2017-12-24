@@ -26,38 +26,36 @@ import LeetCode.Helper.TreeNode;
 public class FindLargestValueInEachTreeRow {
 
     public List<Integer> largestValues(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+
         if (root == null) {
-            return result;
+            return res;
         }
-        
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
-        
         while (!queue.isEmpty()) {
             int size = queue.size();
-            
+
             int max = Integer.MIN_VALUE;
             for (int i=0; i<size; i++) {
-                TreeNode node = queue.poll();
-                
-                if (node != null) {
-                    if (node.val >= max) {
-                        max = node.val;
-                    }
-                    
-                    queue.add(node.left);
-                    queue.add(node.right);
-                }
-            }
-            if (!queue.isEmpty()) {
-                result.add(max);
-            }
+                TreeNode cur = queue.poll();
 
+                max = Math.max(max, cur.val);
+
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+
+            }
+            res.add(max);
         }
-        
-        return result;
+
+        return res;
     }
     
     public static void main(String[] args) {

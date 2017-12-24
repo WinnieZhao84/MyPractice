@@ -21,8 +21,6 @@ package LeetCode.Medium;
 public class ValidPerfectSquare {
 
     /*
-     * Another option:
-     * 
      * This is a math problem:
      * 1 = 1
      * 4 = 1 + 3
@@ -33,30 +31,40 @@ public class ValidPerfectSquare {
      * ....
      * so 1+3+...+(2n-1) = (2n-1 + 1)n/2 = nn
      * 
-     * 
+     * Time complexity is O(sqrt(n))
      */
     public boolean isPerfectSquare(int num) {
+        int i = 1;
+        while (num > 0) {
+            num -= i;
+            i += 2;
+        }
+        return num == 0;
+    }
+
+    /**
+     * More efficient one using binary search
+     * Time complexity is O(log(n)):
+     *
+     * @param num
+     * @return
+     */
+    public boolean isPerfectSquare_better(int num) {
         if (num == 1) return true;
-        
-        int start = 0;
-        int end = num/2;
-        
-        while (start <= end) {
-            int mid = start + (end - start)/2;
-            
-            if (mid  > num/mid) {
-                end = mid -1;
+
+        int low = 1;
+        int high = num;
+        while (low <= high) {
+            long mid = (low + high) >>> 1;
+
+            if (mid * mid == num) {
+                return true;
             }
-            else if (mid  < num/mid) {
-                start = mid + 1;
+            else if (mid * mid < num) {
+                low = (int) mid + 1;
             }
             else {
-                if (num % mid == 0) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                high = (int) mid - 1;
             }
         }
         

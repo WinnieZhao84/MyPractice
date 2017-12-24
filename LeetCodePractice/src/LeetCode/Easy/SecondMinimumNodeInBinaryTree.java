@@ -42,17 +42,21 @@ public class SecondMinimumNodeInBinaryTree {
             return -1;
         }
 
+        if (root.left == null && root.right == null) {
+            return -1;
+        }
+
         int rootVal = root.val;
-        int secondSmall = Integer.MAX_VALUE;
+        int secondMin = Integer.MAX_VALUE;
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
-        while (!queue.isEmpty()) {
+        while(!queue.isEmpty()) {
             TreeNode cur = queue.poll();
 
-            if (cur != null && cur.val != rootVal && cur.val < secondSmall) {
-                secondSmall = cur.val;
+            if (cur != null && cur.val != rootVal) {
+                secondMin = Math.min(secondMin, cur.val);
             }
 
             if (cur != null) {
@@ -61,7 +65,7 @@ public class SecondMinimumNodeInBinaryTree {
             }
         }
 
-        return (secondSmall == Integer.MAX_VALUE) ? -1 : secondSmall;
+        return secondMin == Integer.MAX_VALUE ? -1 : secondMin;
 
     }
 

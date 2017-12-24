@@ -25,4 +25,32 @@ public class SumOfSquareNumbers {
         }
         return false;
     }
+
+    public boolean judgeSquareSum_better(int c) {
+        if (c < 0) {
+            return false;
+        }
+        if (c == 0) {
+            return true;
+        }
+
+        int start = 0;
+        int end = (int) Math.sqrt(c);
+
+        while (start<=end) {
+            int cur = start*start + end*end;
+
+            if (cur == c) {
+                return true;
+            }
+            else if (cur < c) {
+                start++;
+            }
+            else if (cur > c) {
+                end--;
+            }
+        }
+
+        return false;
+    }
 }

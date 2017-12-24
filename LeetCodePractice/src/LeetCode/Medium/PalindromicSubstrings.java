@@ -63,6 +63,11 @@ public class PalindromicSubstrings {
         return true;
     }
 
+    /**
+     * WORST CASE O(n^2), AVERAGE much less than that
+     * @param s
+     * @return
+     */
     public int countSubstrings_better(String s) {
         int sum = 0;
         // Loop across different middle points.
@@ -79,8 +84,9 @@ public class PalindromicSubstrings {
     private int findPalindromic(String s, int left, int right) {
         int count = 0;
         // Increase count if the substring is a validate palindrome.
-        while (left >= 0 && right < s.length() && s.charAt(left--) == s.charAt(right++))
+        while (left >= 0 && right < s.length() && s.charAt(left--) == s.charAt(right++)) {
             count++;
+        }
         return count;
     }
 

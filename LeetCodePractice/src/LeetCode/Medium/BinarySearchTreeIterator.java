@@ -44,7 +44,11 @@ public class BinarySearchTreeIterator {
     /** @return the next smallest number */
     public int next() {
         TreeNode minNode = stack.pop();
-        constructStack(minNode.right);
+
+        if (minNode != null) {
+            constructStack(minNode.right);
+        }
+
         return minNode.val;
     }
     
