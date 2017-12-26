@@ -42,7 +42,7 @@ public class PalindromePairs {
                         result.add(Arrays.asList(map.get(rightReverse), i));
                     }
                 }
-                if (isPalindrome(right) && right.length() != 0) {
+                if (isPalindrome(right) && !right.isEmpty()) {
                     String leftReverse = new StringBuilder(left).reverse().toString();
                     // check "str.length() != 0" to avoid duplicates
 
