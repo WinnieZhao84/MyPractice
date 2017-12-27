@@ -63,6 +63,6 @@ public class BasicCalculatorII {
 
     public static void main(String[] args) {
         BasicCalculatorII solution = new BasicCalculatorII();
-        System.out.println(solution.calculate("3    "));
+        System.out.println(solution.calculate("3+2*2"));
     }
 }

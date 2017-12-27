@@ -50,7 +50,11 @@ public class ContainsDuplicateIII {
     }
 
     /**
+     * 桶的方法 O(n)
+     * 思想是分成t+1个桶，对于一个数，将其分到第key = num / (t + 1) 个桶中，我们只需要查找相同的和相邻的桶的元素就可以判断有无重复
+     *
      * O(N) solution
+     *
      * @param nums
      * @param k
      * @param t
@@ -73,7 +77,7 @@ public class ContainsDuplicateIII {
                     || (map.containsKey(bucket - 1) && remappedNum - map.get(bucket - 1) <= t)
                     || (map.containsKey(bucket + 1) && map.get(bucket + 1) - remappedNum <= t))
                 return true; // the same reason for -1
-            if (map.entrySet().size() >= k) {
+            if (i >= k) {
                 long lastBucket = ((long) nums[i - k] - Integer.MIN_VALUE) / ((long) t + 1);
                 map.remove(lastBucket);
             }

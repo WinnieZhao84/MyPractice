@@ -42,10 +42,11 @@ public class SingleNumberII {
 				 * be the single number!!
 				 */
 				int bit = (num >> i) & 1;
-        		sum = sum + bit;
+				sum += bit;
     		}
-    		
-    		result += (sum % 3) << i;
+
+			sum = sum % 3;
+			result += sum << i;
     	}
     	
 		return result;

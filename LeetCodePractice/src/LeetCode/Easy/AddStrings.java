@@ -18,30 +18,24 @@ public class AddStrings {
         if ((num1 == null && num2 == null) || (num1.equals("") && num2.equals(""))) {
             return "";
         }
-        
-        int len1 = num1.length();
-        int len2 = num2.length();
-        
-        int i=len1-1;
-        int j=len2-1;
-        
-        int addon = 0;
-        StringBuilder build = new StringBuilder();
-        while (i>=0 || j>=0 || addon == 1) {
-            int a = i>=0 ? (num1.charAt(i--) - '0') : 0;
-            int b = j>=0 ? (num2.charAt(j--) - '0') : 0;
-            int sum = addon + a + b;
-            addon = 0;
-            if (sum >= 10) {
-                addon = 1;
-                build.insert(0, String.valueOf(sum - 10));
-            }
-            else {
-                build.insert(0, String.valueOf(sum));
-            }
+
+        int len1 = num1.length()-1;
+        int len2 = num2.length()-1;
+
+        int carry = 0;
+        StringBuilder sb = new StringBuilder();
+        while (len1 >= 0 || len2 >=0 || carry > 0) {
+            int a = len1>=0 ? (num1.charAt(len1--) - '0') : 0;
+            int b = len2>=0 ? (num2.charAt(len2--) - '0') : 0;
+
+            int sum = a + b + carry;
+            carry = sum/10;
+            sum = sum%10;
+
+            sb.insert(0, String.valueOf(sum));
         }
-        
-        return build.toString();
+
+        return sb.toString();
     }
     
     public static void main(String[] args) {

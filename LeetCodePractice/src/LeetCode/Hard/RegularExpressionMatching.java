@@ -93,4 +93,10 @@ public class RegularExpressionMatching {
         }
 
     }
+
+    public static void main(String[] args) {
+        RegularExpressionMatching solution = new RegularExpressionMatching();
+
+        System.out.println(solution.isMatch("ab", ".*"));
+    }
 }

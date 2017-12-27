@@ -49,9 +49,36 @@ public class HappyNumber {
     		return this.isHappy(result);
     	}
     }
+
+	public boolean isHappy_better(int n) {
+		if (n <= 0) {
+			return false;
+		}
+
+		Set<Integer> set = new HashSet<>();
+
+		while(set.add(n)) {
+			int squareNum = 0;
+
+			while(n > 0) {
+				int val = n % 10;
+				squareNum += val * val;
+				n = n/10;
+			}
+
+			if (squareNum == 1) {
+				return true;
+			}
+			else {
+				n = squareNum;
+			}
+		}
+		return false;
+
+	}
     
     public static void main(String[] args) {
     	HappyNumber solution = new HappyNumber();
-    	System.out.print(solution.isHappy(109));
+    	System.out.print(solution.isHappy_better(1));
     }
 }
