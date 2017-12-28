@@ -1,5 +1,8 @@
 package LeetCode.Hard;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Given an integer n, find the closest integer (not including itself), which is a palindrome.
  *
@@ -132,8 +135,105 @@ public class FindTheClosestPalindrome {
             return c;
     }
 
+    /**
+     * Easier understanding algorithm:
+     *
+     * Build a list of candidate answers for which the final answer must be one of those candidates.
+     * Afterwards, choosing from these candidates is straightforward.
+     *
+     * If the final answer has the same number of digits as the input string S,
+     * then the answer must be the middle digits + (-1, 0, or 1) flipped into a palindrome.
+     * For example, 23456 had middle part 234, and 233, 234, 235 flipped into a palindrome yields 23332, 23432, 23532.
+     * Given that we know the number of digits, the prefix 235 (for example) uniquely determines the corresponding
+     * palindrome 23532, so all palindromes with larger prefix like 23732 are strictly farther away from S than 23532 >= S.
+     *
+     * If the final answer has a different number of digits, it must be of the form 999....999 or 1000...0001,
+     * as any palindrome smaller than 99....99 or bigger than 100....001 will be farther away from S.
+     *
+     *
+     * @param n
+     * @return
+     */
+    public String nearestPalindromic_easy(String n) {
+        if (n == null || n.isEmpty()) {
+            return null;
+        }
+
+        int mid = (n.length()-1)/2;
+        String halfStr = n.substring(0, mid+1);
+
+        Set<Long> candidates = new HashSet<>();
+
+        candidates.addAll(this.getCandidate(halfStr, n.length()));
+        candidates.add(this.getAllNines(n.length()));
+        candidates.add(this.getOneZero(n.length()));
+
+        if (n.length()-1 > 0) {
+            candidates.add(this.getAllNines(n.length()-1));
+            candidates.add(this.getOneZero(n.length()-1));
+        }
+
+        long diff = Long.MAX_VALUE;
+        long num = Long.parseLong(n);
+
+        long res = Long.MAX_VALUE;
+        for (Long l : candidates) {
+            if (l == num) {
+                continue;
+            }
+            if (diff > Math.abs(l-num)) {
+                diff = Math.abs(l-num);
+                res = l;
+            }
+            else if (diff == Math.abs(l-num)) {
+                res = Math.min(res, l);
+            }
+        }
+
+        return String.valueOf(res);
+    }
+
+    private Set<Long> getCandidate(String halfStr, int len) {
+        Set<Long> res = new HashSet<>();
+
+        Long num = Long.parseLong(halfStr);
+
+        Set<Long> set = new HashSet<>();
+        set.add(num);
+        set.add(num-1);
+        set.add(num+1);
+
+        for (Long n : set) {
+            String str = String.valueOf(n);
+
+            String reverse = "";
+            if (len % 2 == 0) {
+                reverse = new StringBuilder(str).reverse().toString();
+            }
+            else {
+                reverse = new StringBuilder(str.substring(0, str.length()-1)).reverse().toString();
+            }
+            str += reverse;
+            res.add(Long.parseLong(str));
+        }
+
+        return res;
+    }
+
+    private Long getAllNines(int len) {
+        String str="";
+        for(int i=0;i<len;i++){
+            str+='9';
+        }
+        return Long.parseLong(str);
+    }
+
+    public Long getOneZero(int len){
+        return (long) Math.pow(10, len)+1;
+    }
+
     public static void main(String[] args) {
         FindTheClosestPalindrome solution = new FindTheClosestPalindrome();
-        System.out.println(solution.nearestPalindromic_good("10000"));
+        System.out.println(solution.nearestPalindromic_easy("10"));
     }
 }

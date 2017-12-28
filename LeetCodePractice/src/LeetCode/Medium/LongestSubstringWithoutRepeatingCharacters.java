@@ -49,6 +49,31 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return max;
     }
 
+    /**
+     * Commonly used tables are:
+     *
+     * int[26] for Letters 'a' - 'z' or 'A' - 'Z'
+     * int[128] for ASCII
+     * int[256] for Extended ASCII
+
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring_better(String s) {
+        int n = s.length();
+        int ans = 0;
+        int[] index = new int[128]; // current index of character
+        // try to extend the range [i, j]
+
+        for (int j = 0, i = 0; j < n; j++) {
+            i = Math.max(index[s.charAt(j)], i);
+            ans = Math.max(ans, j - i + 1);
+            index[s.charAt(j)] = j + 1;
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
         LongestSubstringWithoutRepeatingCharacters solution = new LongestSubstringWithoutRepeatingCharacters();
 

@@ -45,12 +45,40 @@ public class LongestCommonPrefix {
 
         return buffer.toString();
     }
+
+    public String longestCommonPrefix_better(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+
+        if (strs.length == 1) {
+            return strs[0];
+        }
+
+        String prefix = strs[0];
+        int i=1;
+        while (i<strs.length) {
+            if (strs[i] == null || strs[i].isEmpty()) {
+                return "";
+            }
+            if (strs[i].indexOf(prefix) != 0) {
+                prefix = prefix.substring(0, prefix.length()-1);
+                i=1;
+            }
+            else {
+                i++;
+            }
+
+        }
+
+        return prefix;
+    }
     
     public static void main(String[] args) {
         LongestCommonPrefix solution = new LongestCommonPrefix();
         
-        String[] strs = {"aca", "cba"};
+        String[] strs = {"c","acc","ccc"};
         
-        System.out.println(solution.longestCommonPrefix(strs));
+        System.out.println(solution.longestCommonPrefix_better(strs));
     }
 }
