@@ -37,35 +37,35 @@ public class WordLadderII {
      *
      * 2). Use DFS to output paths with the same distance as the shortest distance from distance HashMap:
      * compare if the distance of the next level node equals the distance of the current node + 1.
-
      */
+
+    Map<String, List<String>> nodeNeighbors = new HashMap<>();// Neighbors for every node
+    Map<String, Integer> distanceMap = new HashMap<>();// Distance of every node from the start node
+
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
 
         Set<String> dict = new HashSet<>(wordList);
         List<List<String>> res = new ArrayList<>();
 
-        Map<String, List<String>> nodeNeighbors = new HashMap<>();// Neighbors for every node
-        Map<String, Integer> distance = new HashMap<>();// Distance of every node from the start node
-
         List<String> solution = new ArrayList<>();
 
         dict.add(beginWord);
 
-        bfs(beginWord, endWord, dict, nodeNeighbors, distance);
-        dfs(beginWord, endWord, nodeNeighbors, distance, solution, res);
+        bfs(beginWord, endWord, dict);
+        dfs(beginWord, endWord, solution, res);
 
         return res;
     }
 
     // BFS: Trace every node's distance from the start node (level by level).
-    private void bfs(String start, String end, Set<String> dict, Map<String, List<String>> nodeNeighbors, Map<String, Integer> distance) {
+    private void bfs(String start, String end, Set<String> dict) {
         for (String str : dict) {
             nodeNeighbors.put(str, new ArrayList<>());
         }
 
         Queue<String> queue = new LinkedList<>();
         queue.offer(start);
-        distance.put(start, 0);
+        distanceMap.put(start, 0);
 
         while (!queue.isEmpty()) {
             int size = queue.size();
@@ -73,15 +73,15 @@ public class WordLadderII {
 
             for (int i = 0; i < size; i++) {
                 String cur = queue.poll();
-                int curDistance = distance.get(cur);
+                int curDistance = distanceMap.get(cur);
 
                 List<String> neighbors = getNeighbors(cur, dict);
 
                 for (String neighbor : neighbors) {
                     nodeNeighbors.get(cur).add(neighbor);
 
-                    if (!distance.containsKey(neighbor)) {// Check if visited
-                        distance.put(neighbor, curDistance + 1);
+                    if (!distanceMap.containsKey(neighbor)) {// Check if visited
+                        distanceMap.put(neighbor, curDistance + 1);
 
                         if (end.equals(neighbor)) // Found the shortest path
                             foundEnd = true;
@@ -119,8 +119,7 @@ public class WordLadderII {
     }
 
     // DFS: output all paths with the shortest distance.
-    private void dfs(String cur, String end, Map<String, List<String>> nodeNeighbors,
-                     Map<String, Integer> distance, List<String> solution, List<List<String>> res) {
+    private void dfs(String cur, String end, List<String> solution, List<List<String>> res) {
         solution.add(cur);
 
         if (end.equals(cur)) {
@@ -128,8 +127,8 @@ public class WordLadderII {
         }
         else {
             for (String next : nodeNeighbors.get(cur)) {
-                if (distance.get(next) == distance.get(cur) + 1) {
-                    dfs(next, end, nodeNeighbors, distance, solution, res);
+                if (distanceMap.get(next) == distanceMap.get(cur) + 1) {
+                    dfs(next, end, solution, res);
                 }
             }
         }

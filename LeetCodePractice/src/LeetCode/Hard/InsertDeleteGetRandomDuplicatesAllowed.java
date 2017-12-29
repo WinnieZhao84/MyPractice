@@ -42,6 +42,19 @@ import java.util.*;
 public class InsertDeleteGetRandomDuplicatesAllowed {
 
     /**
+     * According to Javadoc
+     *
+     * Iterating over this set requires time proportional to the sum of the HashSet instance's size (the number of elements)
+     * plus the "capacity" of the backing HashMap instance (the number of buckets).
+     *
+     * Therefore, we can consider replacing the HashSet with a LinkedHashSet which should have a constant time of getting
+     * the first element because the order of all elements is maintained during each operation.
+     *
+     * Iteration over a LinkedHashSet requires time proportional to the <i>size</i> of the set, regardless of its capacity.
+     * Iteration over a HashSet is likely to be more expensive, requiring time proportional to its capacity.
+     */
+
+    /**
      * Your RandomizedCollection object will be instantiated and called as such:
      * RandomizedCollection obj = new RandomizedCollection();
      * boolean param_1 = obj.insert(val);
@@ -73,26 +86,29 @@ public class InsertDeleteGetRandomDuplicatesAllowed {
 
     /** Removes a value from the collection. Returns true if the collection contained the specified element. */
     public boolean remove(int val) {
-        boolean contain = locs.containsKey(val);
-        if (!contain) {
-            return false;
+        boolean existed = locs.containsKey(val);
+
+        if (existed) {
+            Integer pos = locs.get(val).iterator().next();
+            locs.get(val).remove(pos);
+
+            Integer size = nums.size();
+            if (pos < size-1) {
+                Integer lastNum = nums.get(size-1);
+
+                nums.set(pos, lastNum);
+                locs.get(lastNum).add(pos);
+                locs.get(lastNum).remove(size-1);
+            }
+
+            nums.remove(size-1);
+
+            if (locs.get(val).isEmpty()) {
+                locs.remove(val);
+            }
         }
 
-        int loc = locs.get(val).iterator().next();
-        locs.get(val).remove(loc);
-
-        if (loc < nums.size() - 1 ) {
-            int lastone = nums.get(nums.size() - 1);
-            nums.set(loc, lastone);
-            locs.get(lastone).remove(nums.size()-1);
-            locs.get(lastone).add(loc);
-        }
-        nums.remove(nums.size() - 1);
-
-        if (locs.get(val).isEmpty()) {
-            locs.remove(val);
-        }
-        return true;
+        return existed;
     }
 
     /** Get a random element from the collection. */

@@ -66,7 +66,7 @@ public class TheSkylineProblem {
         Collections.sort(heights, (a, b) -> (a[0] == b[0]) ? a[1] - b[1] : a[0] - b[0]);
 
         // Sort the priority queue in descending order
-        Queue<Integer> pq = new PriorityQueue<>((a, b) -> (b - a));
+        Queue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 
         pq.offer(0);
         int prev = 0;
