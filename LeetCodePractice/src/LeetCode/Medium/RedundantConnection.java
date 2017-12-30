@@ -32,8 +32,8 @@ import java.util.Set;
  * Output: [1,4]
  * Explanation: The given undirected graph will be like this:
  * 5 - 1 - 2
- * |   |
- * 4 - 3
+ *     |   |
+ *     4 - 3
  *
  * Note:
  * The size of the input 2D-array will be between 3 and 1000.
