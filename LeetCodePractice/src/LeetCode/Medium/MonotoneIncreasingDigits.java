@@ -34,8 +34,8 @@ public class MonotoneIncreasingDigits {
      * and replace the rest of the characters with 9s.
      *
      * When does that strategy fail? If N = 333222, then our strategy would give us the candidate answer of 332999 -
-     * but this isn't monotone increasing. However, since we are looking at all indexes before the original
-     * first occurrence of a cliff, the only place where a cliff could exist, is next to where we just decremented a digit.
+     * but this isn't monotone increasing. However, since we are looking at all indexes before the original first
+     * occurrence of a cliff, the only place where a cliff could exist, is next to where we just decremented a digit.
      *
      * Thus, we can repair our strategy, by successfully morphing our answer 332999 -> 329999 -> 299999 with a linear scan.
      *
