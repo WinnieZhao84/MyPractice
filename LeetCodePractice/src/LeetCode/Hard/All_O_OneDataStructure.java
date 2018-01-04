@@ -1,9 +1,6 @@
 package LeetCode.Hard;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implement a data structure supporting the following operations:
@@ -49,12 +46,12 @@ public class All_O_OneDataStructure {
     // each Bucket contains all the keys with the same count
     private class Bucket {
         int count;
-        Set<String> keySet;
+        LinkedHashSet<String> keySet;
         Bucket next;
         Bucket pre;
         public Bucket(int cnt) {
             count = cnt;
-            keySet = new HashSet<>();
+            keySet = new LinkedHashSet<>();
         }
     }
 

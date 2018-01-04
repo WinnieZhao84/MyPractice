@@ -26,40 +26,41 @@ public class SpiralMatrix {
         if (matrix == null || matrix.length == 0) {
             return res;
         }
+
+        int rowEnd=matrix.length-1;
+        int colEnd=matrix[0].length-1;
+
+        int rowStart=0;
+        int colStart=0;
         
-        int rowStart = 0;
-        int rowEnd = matrix.length-1;
-        int columnStart = 0;
-        int columnEnd = matrix[0].length-1;
-        
-        while(rowStart <= rowEnd && columnStart <= columnEnd) {
+        while(rowStart <= rowEnd && colStart <= colEnd) {
             // Traverse Right
-            for (int i= columnStart; i<=columnEnd; i++) {
+            for (int i=colStart; i<=colEnd; i++) {
                 res.add(matrix[rowStart][i]);
             }
             rowStart++;
             
             // Traverse down
             for (int i=rowStart; i<=rowEnd; i++) {
-                res.add(matrix[i][columnEnd]);
+                res.add(matrix[i][colEnd]);
             }
-            columnEnd--;
+            colEnd--;
             
             // Traverse left
             if (rowStart <= rowEnd) {
-                for (int i=columnEnd; i>=columnStart; i--) {
+                for (int i=colEnd; i>=colStart; i--) {
                     res.add(matrix[rowEnd][i]);
                 }
             }
             rowEnd--;
             
             // Traverse up
-            if (columnStart <= columnEnd) {
+            if (colStart <= colEnd) {
                 for (int i=rowEnd; i>=rowStart; i--) {
-                    res.add(matrix[i][columnStart]);
+                    res.add(matrix[i][colStart]);
                 }
             }
-            columnStart++;
+            colStart++;
         }
         
         return res;

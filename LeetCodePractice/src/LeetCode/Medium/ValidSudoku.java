@@ -20,7 +20,6 @@ public class ValidSudoku {
             Set<Character> rows = new HashSet<>();
             Set<Character> columns = new HashSet<>();
             Set<Character> cube = new HashSet<>();
-
             for (int j = 0; j < 9;j++){
                 if (board[i][j]!='.' && !rows.add(board[i][j])) {
                     return false;
