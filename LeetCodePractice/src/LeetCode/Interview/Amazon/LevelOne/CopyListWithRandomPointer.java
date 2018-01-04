@@ -35,4 +35,26 @@ public class CopyListWithRandomPointer {
 
         return map.get(head);
     }
+
+    public class Solution {
+        Map<Integer, RandomListNode> map = new HashMap<>();
+
+        public RandomListNode copyRandomList(RandomListNode head) {
+            if (head == null) {
+                return null;
+            }
+
+            if (map.containsKey(head.label)) {
+                return map.get(head.label);
+            }
+
+            RandomListNode clone = new RandomListNode(head.label);
+            map.put(head.label, clone);
+
+            clone.next = this.copyRandomList(head.next);
+            clone.random = this.copyRandomList(head.random);
+
+            return clone;
+        }
+    }
 }
