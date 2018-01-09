@@ -64,55 +64,41 @@ public class ReplaceWords {
      * with the getShortestPrefix(word) in the trie.
      */
     public String replaceWords_better(List<String> dict, String sentence) {
-        Trie trie = new Trie(256);
-        dict.forEach(s -> trie.insert(s));
-        List<String> res = new ArrayList<>();
-        Arrays.stream(sentence.split(" ")).forEach(str -> res.add(trie.getShortestPrefix(str)));
-        return res.stream().collect(Collectors.joining(" "));
+        TrieNode root = new TrieNode();
+        for (String word : dict) {
+            TrieNode cur = root;
+            for (char letter: word.toCharArray()) {
+                if (cur.children[letter - 'a'] == null)
+                    cur.children[letter - 'a'] = new TrieNode();
+                cur = cur.children[letter - 'a'];
+            }
+            cur.word = word;
+        }
+
+        StringBuilder ans = new StringBuilder();
+
+        for (String word: sentence.split("\\s+")) {
+            if (ans.length() > 0)
+                ans.append(" ");
+
+            TrieNode cur = root;
+            for (char letter: word.toCharArray()) {
+                if (cur.children[letter - 'a'] == null || cur.word != null)
+                    break;
+                cur = cur.children[letter - 'a'];
+            }
+            ans.append(cur.word != null ? cur.word : word);
+        }
+        return ans.toString();
     }
 
 
-    class Trie {
-        private int R;
-        private TrieNode root;
+    class TrieNode {
+        TrieNode[] children;
+        String word;
 
-        public Trie(int R) {
-            this.R = R;
-            root = new TrieNode();
-        }
-
-        // Returns the shortest prefix of the word that is there in the trie
-        // If no such prefix exists, return the original word
-        public String getShortestPrefix(String word) {
-            int len =  getShortestPrefix(root, word, -1);
-            return (len < 1) ? word : word.substring(0, len);
-        }
-
-        private int getShortestPrefix(TrieNode root, String word, int res) {
-            if(root == null || word.isEmpty()) return 0;
-            if(root.isWord) return res + 1;
-            return getShortestPrefix(root.next[word.charAt(0)], word.substring(1), res+1);
-        }
-
-        // Inserts a word into the trie.
-        public void insert(String word) {
-            insert(root, word);
-        }
-
-        private void insert(TrieNode root, String word) {
-            if(word.isEmpty()) {
-                root.isWord = true;
-                return;
-            }
-            if(root.next[word.charAt(0)] == null) {
-                root.next[word.charAt(0)] = new TrieNode();
-            }
-            insert(root.next[word.charAt(0)], word.substring(1));
-        }
-
-        private class TrieNode {
-            private TrieNode[] next = new TrieNode[R];
-            private boolean isWord;
+        TrieNode() {
+            children = new TrieNode[26];
         }
     }
 

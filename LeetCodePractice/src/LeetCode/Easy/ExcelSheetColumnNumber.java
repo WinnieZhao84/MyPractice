@@ -16,7 +16,7 @@ For example:
  * @author WinnieZhao
  *
  */
-public class ExceelSheetColumnNumber {
+public class ExcelSheetColumnNumber {
     
     public int titleToNumber(String s) {
         
@@ -32,7 +32,7 @@ public class ExceelSheetColumnNumber {
     }
     
     public static void main(String[] args) {
-        ExceelSheetColumnNumber solution = new ExceelSheetColumnNumber();
+        ExcelSheetColumnNumber solution = new ExcelSheetColumnNumber();
         
         System.out.println(solution.titleToNumber("ABA"));
     }

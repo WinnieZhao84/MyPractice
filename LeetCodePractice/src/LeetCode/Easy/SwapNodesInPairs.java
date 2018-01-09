@@ -25,6 +25,29 @@ public class SwapNodesInPairs {
 
         return second;
     }
+
+	class Solution {
+		public ListNode swapPairs(ListNode head) {
+			if (head == null || head.next == null) {
+				return head;
+			}
+
+			ListNode cur = head;
+			ListNode next = head.next;
+
+			if (next != null) {
+				cur.next = this.swapPairs(next.next);
+			}
+			else {
+				cur.next = null;
+			}
+
+			next.next = cur;
+
+
+			return next;
+		}
+	}
     
     public static void main(String[] args) {
     	SwapNodesInPairs solution = new SwapNodesInPairs();

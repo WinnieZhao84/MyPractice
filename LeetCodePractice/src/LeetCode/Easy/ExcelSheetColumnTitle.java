@@ -15,7 +15,7 @@ For example:
  * @author WinnieZhao
  *
  */
-public class ExceelSheetColumnTitle {
+public class ExcelSheetColumnTitle {
     
     public String convertToTitle(int n) {
        
@@ -30,7 +30,7 @@ public class ExceelSheetColumnTitle {
     }
     
     public static void main(String[] args) {
-        ExceelSheetColumnTitle solution = new ExceelSheetColumnTitle();
+        ExcelSheetColumnTitle solution = new ExcelSheetColumnTitle();
         
         System.out.println(solution.convertToTitle(53));
     }

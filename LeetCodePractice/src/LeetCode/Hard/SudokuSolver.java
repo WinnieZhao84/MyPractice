@@ -49,12 +49,18 @@ public class SudokuSolver {
     }
 
     private boolean isValid(char[][] board, int row, int col, char c){
-        for (int i = 0; i < 9; i++) {
-            if (board[i][col] != '.' && board[i][col] == c) return false; //check row
-            if (board[row][i] != '.' && board[row][i] == c) return false; //check column
-            if (board[3 * (row / 3) + i / 3][ 3 * (col / 3) + i % 3] != '.' &&
-                    board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) return false; //check 3*3 block
+        for (int i=0; i<9; i++) {
+            if (board[row][i] != '.' && board[row][i] == c) {
+                return false;
+            }
+            if (board[i][col] != '.' && board[i][col] == c) {
+                return false;
+            }
+            if (board[3 * (row/3) + i/3][3 * (col/3) + i % 3] != '.' && board[3 * (row/3) + i/3][3 * (col/3) + i % 3] == c) {
+                return false;
+            }
         }
+
         return true;
     }
 }
