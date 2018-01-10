@@ -1,4 +1,4 @@
-package LeetCode.Medium;
+package LeetCode.Interview.Uber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
