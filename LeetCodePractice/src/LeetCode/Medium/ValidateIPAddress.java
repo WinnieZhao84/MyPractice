@@ -102,4 +102,10 @@ public class ValidateIPAddress {
         }
         return true;
     }
+
+    public static void main(String[] args) {
+        ValidateIPAddress solution = new ValidateIPAddress();
+
+        System.out.println(solution.validIPAddress("172.16.254.1"));
+    }
 }
