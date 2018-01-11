@@ -1,6 +1,7 @@
 package LeetCode.Medium;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -54,5 +55,45 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
             }
         }
         return false;
+    }
+
+    class solution {
+        public class NestedIterator implements Iterator<Integer> {
+
+            List<NestedInteger> nestedList = null;
+            LinkedList<Integer> queue = new LinkedList<>();
+
+            public NestedIterator(List<NestedInteger> nestedList) {
+                this.nestedList = nestedList;
+
+                for (NestedInteger ni : nestedList) {
+                    this.addNestedInteger(ni);
+                }
+            }
+
+            private void addNestedInteger(NestedInteger ni) {
+                if (ni.isInteger()) {
+                    queue.add(ni.getInteger());
+                }
+                else {
+                    List<NestedInteger> nis = ni.getList();
+                    if (nis != null) {
+                        for (NestedInteger n : nis) {
+                            this.addNestedInteger(n);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public Integer next() {
+                return queue.poll();
+            }
+
+            @Override
+            public boolean hasNext() {
+                return !queue.isEmpty();
+            }
+        }
     }
 }

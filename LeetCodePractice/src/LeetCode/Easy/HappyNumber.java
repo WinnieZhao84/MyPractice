@@ -58,20 +58,17 @@ public class HappyNumber {
 		Set<Integer> set = new HashSet<>();
 
 		while(set.add(n)) {
-			int squareNum = 0;
+			int num = 0;
 
-			while(n > 0) {
+			while (n > 0) {
 				int val = n % 10;
-				squareNum += val * val;
-				n = n/10;
+				n = n / 10;
+				num += val * val;
 			}
-
-			if (squareNum == 1) {
+			if (num == 1) {
 				return true;
 			}
-			else {
-				n = squareNum;
-			}
+			n = num;
 		}
 		return false;
 
