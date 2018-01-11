@@ -45,4 +45,26 @@ public class MaxPointsOnALine {
         }
         return max;
     }
+
+    /**
+     * Use String for storing the slope. "generateGcd" is used to get get the greatest common divider of the two numbers
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public String getSlope(int x, int y) {
+        int gcd = generateGcd(x, y);
+        x /= gcd;
+        y /= gcd;
+
+        String slope = String.valueOf(x) + String.valueOf(y);
+
+        return slope;
+    }
+
+    public int generateGcd(int x, int y) {
+        if (y == 0) return x;
+        return generateGcd(y, x % y);
+    }
 }

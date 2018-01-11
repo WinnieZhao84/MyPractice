@@ -69,22 +69,25 @@ public class TheSkylineProblem {
         Queue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 
         pq.offer(0);
-        int prev = 0;
 
-        for(int[] h : heights) {
-            if(h[1] < 0) {
-                // a left point, add height
-                pq.offer(-h[1]);
+        int highest = 0;
+        for (int[] height : heights) {
+            int h = height[1];
+            int left = height[0];
+
+            // Left point, add to queue
+            if (h < 0) {
+                pq.offer(-h);
             }
+            // Right point, one sky line box ended, remove that height
             else {
-                // a right point, remove height (current skyline box ended)
-                pq.remove(h[1]);
+                pq.remove(h);
             }
 
-            int cur = pq.peek();
-            if(prev != cur) {
-                result.add(new int[]{h[0], cur});
-                prev = cur;
+            int curHeight = pq.peek();
+            if (highest != curHeight) {
+                result.add(new int[] {left, curHeight});
+                highest = curHeight;
             }
         }
         return result;
@@ -95,7 +98,8 @@ public class TheSkylineProblem {
 
         int[][] buildings = {{2,9,10},{3,7,15},{5,12,12},{15,20,10},{19,24,8}};
 
-        solution.getSkyline(buildings);
+        List<int[]> res = solution.getSkyline(buildings);
+        System.out.println(res);
     }
 
     /**
