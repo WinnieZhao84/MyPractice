@@ -27,12 +27,14 @@ public class MultiplyStrings {
         int[] res = new int[len1+len2];
         for (int i = len1 - 1; i >= 0; i--) {
             for (int j = len2 - 1; j >= 0; j--) {
-                int result = (num1.charAt(i) - '0') * (num2.charAt(j)- '0');
-                int p1 = i + j, p2 = i + j + 1;
-                int sum = result + res[p2];
+                int val1 = num1.charAt(i) - '0';
+                int val2 = num2.charAt(j) - '0';
 
-                res[p1] += sum / 10;
-                res[p2] = (sum) % 10;
+                int muliply = val1 * val2;
+
+                int sum = res[i+j+1] + (muliply % 10);
+                res[i+j+1] = sum % 10;
+                res[i+j] += (sum / 10) + (muliply / 10);
             }
         }
 
@@ -43,12 +45,11 @@ public class MultiplyStrings {
             }
         }
         
-        return sb
-                .toString();
+        return sb.toString();
     }
     
     public static void main(String[] args) {
         MultiplyStrings solution = new MultiplyStrings();
-        System.out.println(solution.multiply("999", "999"));
+        System.out.println(solution.multiply("123", "456"));
     }
 }

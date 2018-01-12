@@ -12,39 +12,35 @@ import java.util.Stack;
  */
 public class ValidParentheses {
 
-	public boolean isValid(String s) {
-        
-		if (s == null || s.length() <=1 ){
-			return false;
-		}
-		
-		Stack<Character> stack = new Stack<Character>();
+    public boolean isValid(String s) {
+        if (s == null || s.isEmpty()) {
+            return false;
+        }
 
-		for (int i=0; i<s.length();i++) {
-			char ch = s.charAt(i);
-			if (ch == '(' || ch == '{' || ch == '[') {
-				stack.push(ch);
-			}
-			else {
-				if (stack.isEmpty() && (ch == ')' || ch == ']' || ch == '}')) {
-					return false;
-				}
-				char leftParentheses = stack.peek();
-				if ((ch == ')' && leftParentheses == '(') || 
-					(ch == '}' && leftParentheses == '{') || 
-					(ch == ']' && leftParentheses == '[')) {
-					stack.pop();
-				}
-				else {
-					return false;
-				}
-			}
-		}
-		return stack.isEmpty();
+        char[] chs = s.toCharArray();
+        int len = chs.length;
+
+        Stack<Character> stack = new Stack<>();
+        for (int i=0; i<len; i++) {
+            if (chs[i] == '{' || chs[i] == '[' || chs[i] == '(') {
+                stack.push(chs[i]);
+            }
+            else if (!stack.isEmpty() && (
+                    (stack.peek() == '(' && chs[i] == ')') ||
+                            (stack.peek() == '{' && chs[i] == '}') ||
+                            (stack.peek() == '[' && chs[i] == ']'))) {
+                stack.pop();
+            }
+            else {
+                return false;
+            }
+        }
+
+        return stack.isEmpty();
     }
-	
+
     public static void main(String[] args) {
-    	ValidParentheses solution = new ValidParentheses();
-    	System.out.print(solution.isValid("()]{}"));
+        ValidParentheses solution = new ValidParentheses();
+        System.out.print(solution.isValid("()]{}"));
     }
 }

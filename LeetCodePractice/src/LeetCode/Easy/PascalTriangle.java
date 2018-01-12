@@ -23,30 +23,32 @@ Return
  */
 public class PascalTriangle {
     public List<List<Integer>> generate(int numRows) {
-    	List<List<Integer>> result = new ArrayList<List<Integer>>();
-    	
-        if (numRows <= 0) {
-        	return result;
-        }
-    	for (int i=1; i<= numRows; i++) {
-    		List<Integer> level = new ArrayList<Integer>();
-    		if (i<=2) {
-    			for (int j=1; j<=i; j++) {
-        			level.add(1);
-    			}
-    		}
-    		else {
-    			List<Integer> lastLevel = result.get(result.size()-1);
-    			level.add(1);
-    			for (int j=0; j<lastLevel.size()-1; j++) {
-    				level.add(lastLevel.get(j)+lastLevel.get(j+1));
-    			}
-    			level.add(1);
-    		}
-			result.add(level);
-    	}
-    	
-    	return result;
+
+		if (numRows == 0) {
+			return new ArrayList<>();
+		}
+
+		List<List<Integer>> res = new ArrayList<>();
+
+		List<Integer> list = new ArrayList<>();
+		list.add(1);
+		res.add(list);
+
+		for (int i=1; i<numRows; i++) {
+			list = res.get(res.size()-1);
+
+			List<Integer> level = new ArrayList<>();
+
+			level.add(1);
+			for (int j=1; j<list.size(); j++) {
+				level.add(list.get(j-1) + list.get(j));
+			}
+			level.add(1);
+
+			res.add(level);
+		}
+
+		return res;
     }
     
     public static void main(String[] args) {
