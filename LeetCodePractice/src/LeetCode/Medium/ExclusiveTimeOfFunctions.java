@@ -29,7 +29,8 @@ import java.util.Stack;
  *
  * Note:
  * Input logs will be sorted by timestamp, NOT log id.
- * Your output should be sorted by function id, which means the 0th element of your output corresponds to the exclusive time of function 0.
+ * Your output should be sorted by function id, which means the 0th element of your output corresponds to the
+ * exclusive time of function 0.
  * Two functions won't start or end at the same time.
  * Functions could be called recursively, and will always end. 1 <= n <= 100
  *
@@ -51,34 +52,40 @@ public class ExclusiveTimeOfFunctions {
      */
     public int[] exclusiveTime(int n, List<String> logs) {
 
-        Stack<Integer> stack = new Stack<> ();
+        if (n <= 0) {
+            return new int[0];
+        }
+
         int[] res = new int[n];
+        Stack<Integer> stack = new Stack<>();
 
-        String[] s = logs.get(0).split(":");
-        stack.push(Integer.parseInt(s[0]));
+        String[] firsts = logs.get(0).split(":");
+        stack.push(Integer.valueOf(firsts[0]));
 
-        int i = 1;
-        int prev = Integer.parseInt(s[2]);
+        int i=1;
+        int prev = Integer.parseInt(firsts[2]);
         while(i<logs.size()) {
-            s = logs.get(i).split(":");
-            if (s[1].equals("start")) {
+            String[] log = logs.get(i).split(":");
+            int fn = Integer.parseInt(log[0]);
+
+            if (log[1].equals("start")) {
+                int startTime = Integer.parseInt(log[2]);
                 if (!stack.isEmpty()) {
-                    res[stack.peek()] += Integer.parseInt(s[2]) - prev;
+                    res[stack.peek()] += startTime - prev;
                 }
 
-                stack.push(Integer.parseInt(s[0]));
-                prev = Integer.parseInt(s[2]);
+                stack.push(fn);
+                prev = startTime;
             }
             else {
-                res[stack.peek()] += Integer.parseInt(s[2]) - prev + 1;
-                stack.pop();
-                prev = Integer.parseInt(s[2]) + 1;
+                int endTime = Integer.valueOf(log[2]);
+                res[stack.pop()] += endTime - prev + 1;
+                prev = endTime + 1;
             }
             i++;
         }
 
         return res;
-
     }
 
 }
