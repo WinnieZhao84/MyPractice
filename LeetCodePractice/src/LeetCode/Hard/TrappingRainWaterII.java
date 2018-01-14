@@ -40,7 +40,7 @@ public class TrappingRainWaterII {
         if (heightMap == null || heightMap.length == 0 || heightMap[0].length == 0)
             return 0;
 
-        PriorityQueue<Cell> queue = new PriorityQueue<>((a,b) -> a.height - b.height);
+        PriorityQueue<Cell> queue = new PriorityQueue<>(Comparator.comparingInt(a -> a.height));
 
         int m = heightMap.length;
         int n = heightMap[0].length;

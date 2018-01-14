@@ -48,4 +48,27 @@ public class TrappingRainWater {
         return amount;
     }
 
+    public int trap_better (int[] height) {
+        if (height.length <= 2) {
+            return 0;
+        }
+
+        int left = 0;
+        int right = height.length-1;
+        int water = 0;
+        int leftMaxHeight = height[left];
+        int rightMaxHeight = height[right];
+
+        while ( left < right ) {
+            if ( height[left] < height[right] ) {
+                leftMaxHeight = Math.max(leftMaxHeight, height[++left]);
+                water += leftMaxHeight-height[left];
+            }
+            else {
+                rightMaxHeight = Math.max(rightMaxHeight, height[--right]);
+                water += rightMaxHeight-height[right];
+            }
+        }
+        return water;
+    }
 }

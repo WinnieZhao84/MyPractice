@@ -48,8 +48,8 @@ public class InsertDeleteGetRandom {
 
     /** Initialize your data structure here. */
     public InsertDeleteGetRandom() {
-        nums = new ArrayList<Integer>();
-        locs = new HashMap<Integer, Integer>();
+        nums = new ArrayList<>();
+        locs = new HashMap<>();
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
@@ -85,6 +85,6 @@ public class InsertDeleteGetRandom {
     
     /** Get a random element from the set. */
     public int getRandom() {
-        return nums.get( random.nextInt(locs.size()) );
+        return nums.get( random.nextInt(nums.size()) );
     }
 }

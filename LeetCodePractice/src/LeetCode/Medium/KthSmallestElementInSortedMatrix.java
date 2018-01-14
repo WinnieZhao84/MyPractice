@@ -1,9 +1,6 @@
 package LeetCode.Medium;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Given a n x n matrix where each of the rows and columns are sorted in ascending order, 
@@ -32,7 +29,9 @@ import java.util.PriorityQueue;
  */
 public class KthSmallestElementInSortedMatrix {
 
-    // Complexity n ^ 2
+    /**
+     * Complexity n ^ 2
+     */
     public int kthSmallest(int[][] matrix, int k) {
         List<Integer> index = new ArrayList<Integer>();
         int length = matrix.length;
@@ -47,7 +46,7 @@ public class KthSmallestElementInSortedMatrix {
         return index.get(k-1);
     }
     
-    private class Value implements Comparable<Value> {
+    private class Value {
         int val;
         int x;
         int y;
@@ -57,16 +56,14 @@ public class KthSmallestElementInSortedMatrix {
             this.x = x;
             this.y = y;
         }
-
-        @Override
-        public int compareTo(Value that) {
-            return (this.val - that.val);
-        }
     }
-    
-    // O(k*log(k) time complexity
+
+    /**
+     * Priority Queue solution
+     * O(k*log(k) time complexity
+     */
     public int kthSmallest_better(int[][] matrix, int k) {
-        PriorityQueue<Value> queue = new PriorityQueue<Value>();
+        PriorityQueue<Value> queue = new PriorityQueue<>(Comparator.comparingInt(v -> v.val));
         
         queue.offer(new Value(matrix[0][0], 0, 0));
         for (int i=0; i<k-1; i++) {
@@ -85,15 +82,57 @@ public class KthSmallestElementInSortedMatrix {
         
         return queue.peek().val;
     }
-    
 
-    
+    /**
+     * Binary Search
+     * n*log(max-min) solution
+     */
+    public int kthSmallest_best(int[][] matrix, int k) {
+
+        int low = matrix[0][0];
+        int high = matrix[matrix.length-1][matrix.length-1];
+
+        while(low <= high) {
+            int mid = low + (high-low)/2;
+
+            int cnt = this.getLessEqual(matrix, mid);
+
+            if (cnt < k) {
+                low = mid + 1;
+            }
+            else {
+                high = mid-1;
+            }
+        }
+
+        return low;
+    }
+
+    private int getLessEqual(int[][] matrix, int val) {
+        int count = 0;
+        int n = matrix.length;
+        int i = n - 1;
+        int j = 0;
+
+        while (i >= 0 && j < n) {
+            if (matrix[i][j] <= val) {
+                count += (i+1);
+                j++;
+            }
+            else {
+                i--;
+            }
+        }
+
+        return count;
+    }
+
     public static void main (String[] args) {
         KthSmallestElementInSortedMatrix solution = new KthSmallestElementInSortedMatrix();
         
-        int[][] matrix =  {{ 1, 6, 9}, {3, 7, 10}, {4, 8, 2}};
+        int[][] matrix =  {{ 1,  5,  9}, {10, 11, 13}, {12, 13, 15}};
         
-        System.out.println(solution.kthSmallest_better(matrix, 3));
+        System.out.println(solution.kthSmallest_best(matrix, 8));
         
         int[][] matrix1 =  {{-5}};
         System.out.println(solution.kthSmallest_better(matrix1, 1));
