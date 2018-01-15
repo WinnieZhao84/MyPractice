@@ -55,4 +55,49 @@ public class TopKFrequentWords {
 
         return result;
     }
+
+    public List<String> topKFrequent_better(String[] words, int k) {
+        List<String> result = new LinkedList<>();
+        Map<String, Integer> frequencies = new HashMap<>();
+
+        for (String word : words) {
+            frequencies.put(word, frequencies.getOrDefault(word, 0)+1);
+        }
+
+        List<String>[] buckets = new ArrayList[words.length];
+
+        for (String word : frequencies.keySet()) {
+            Integer frequency = frequencies.get(word);
+
+            if (buckets[frequency] == null) {
+                buckets[frequency] = new ArrayList<>();
+            }
+            buckets[frequency].add(word);
+        }
+
+        Queue<String> res = new LinkedList<>();
+        for (int i=buckets.length-1; i>=0 && result.size() < k; i--) {
+            if (buckets[i] != null) {
+                List<String> list = buckets[i];
+
+                list.sort(String::compareTo);
+                res.addAll(list);
+            }
+        }
+
+        while(result.size() < k) {
+            result.add(res.poll());
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        TopKFrequentWords solution = new TopKFrequentWords();
+
+        System.out.println(solution.topKFrequent_better(new String[] {
+                "the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"}, 4));
+
+        System.out.println(solution.topKFrequent_better(new String[] {
+                "i", "love", "leetcode", "i", "love", "coding"}, 1));
+    }
 }
