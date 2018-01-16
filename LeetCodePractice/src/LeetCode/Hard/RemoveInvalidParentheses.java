@@ -28,7 +28,9 @@ public class RemoveInvalidParentheses {
     public List<String> removeInvalidParentheses(String s) {
         List<String> result = new ArrayList<>();
 
-        if (s == null || s.length() == 0) return result;
+        if (s == null) {
+            return result;
+        }
 
         Queue<String> queue = new LinkedList<>();
         queue.add(s);
@@ -81,5 +83,34 @@ public class RemoveInvalidParentheses {
             }
         }
         return stack.isEmpty();
+    }
+
+    /**
+     * Better isValid solution using counter instead of stack
+     * @param s
+     * @return
+     */
+    private boolean isValid_better(String s) {
+        int count = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                count++;
+            }
+            if (c == ')') {
+                if (count == 0) {
+                    return false;
+                }
+                count--;
+            }
+        }
+        return count == 0;
+    }
+
+    public static void main(String[] args) {
+        RemoveInvalidParentheses solution = new RemoveInvalidParentheses();
+
+        System.out.println(solution.removeInvalidParentheses("()())()"));
     }
 }
