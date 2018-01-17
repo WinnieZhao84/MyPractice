@@ -1,6 +1,6 @@
 package LeetCode.Medium;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.
@@ -40,6 +40,10 @@ public class TaskScheduler {
      * 25-i: count for the less frequence letters.
      */
     public int leastInterval(char[] tasks, int n) {
+        if (tasks == null || tasks.length == 0) {
+            return 0;
+        }
+
         int[] c = new int[26];
         for(char t : tasks){
             c[t - 'A']++;
@@ -57,10 +61,62 @@ public class TaskScheduler {
         return Math.max(tasks.length, (c[25] - 1) * (n + 1) + maxNum);
     }
 
+    /**
+     * Normal Solution using Priority Queue
+     * Time complexity: O(n). Number of iterations will be equal to resultant time.
+     * Space complexity: O(1). queue and list size will not exceed O(26).
+     */
+    public int leastInterval_normal(char[] tasks, int n) {
+        if (tasks == null || tasks.length == 0) {
+            return 0;
+        }
+
+        int[] map = new int[26];
+
+        for (char ch : tasks) {
+            map[ch - 'A']++;
+        }
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(26, Comparator.reverseOrder());
+        for (int count : map) {
+            if (count > 0) {
+                pq.add(count);
+            }
+        }
+
+        int total=0;
+        while(!pq.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+
+            int i=0;
+            while (i<=n) {
+                if (!pq.isEmpty()) {
+                    if (pq.peek() == 1) {
+                        pq.poll();
+                    }
+                    else {
+                        list.add(pq.poll()-1);
+                    }
+                }
+                total++;
+
+                if (pq.isEmpty() && list.isEmpty()) {
+                    break;
+                }
+                i++;
+            }
+
+            pq.addAll(list);
+        }
+
+        return total;
+    }
+
     public static void main(String[] args) {
         TaskScheduler solution = new TaskScheduler();
 
         char[] tasks = {'A','B','C','B','B','B'};
         System.out.println(solution.leastInterval(tasks, 2));
+        System.out.println(solution.leastInterval_normal(tasks, 2));
     }
 }
