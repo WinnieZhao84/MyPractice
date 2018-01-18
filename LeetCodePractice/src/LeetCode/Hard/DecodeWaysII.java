@@ -83,4 +83,9 @@ public class DecodeWaysII {
         }
         return (int) dp[s.length()];
     }
+
+    public static void main(String[] args) {
+        DecodeWaysII solution = new DecodeWaysII();
+        System.out.println(solution.numDecodings("**"));
+    }
 }
