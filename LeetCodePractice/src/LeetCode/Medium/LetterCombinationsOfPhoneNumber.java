@@ -21,27 +21,27 @@ import java.util.stream.Collectors;
  */
 public class LetterCombinationsOfPhoneNumber {
 
+    private String[] mapping = new String[] {"", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
     public List<String> letterCombinations_better(String digits) {
-        LinkedList<String> res = new LinkedList<>();
-        if (digits == null || digits.isEmpty()) {
-            return res;
+        if (digits == null || digits.length() == 0) {
+            return new ArrayList<>();
         }
 
-        String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        char[] chs = digits.toCharArray();
+        LinkedList<String> res = new LinkedList<>();
 
-        char[] chars = digits.toCharArray();
         res.add("");
-        for (int i=0; i<chars.length; i++) {
-            int x = chars[i] - '0';
 
-            while (res.peek().length() == i) {
-                String temp = res.remove();
-                for (char c : mapping[x].toCharArray()) {
+        for (int i=0; i<chs.length; i++) {
+            while (!res.isEmpty() && res.peek().length() == i) {
+                String cur = res.poll();
+                String s = mapping[chs[i] - '0'];
 
-                    res.add(temp+c);
+                for (char ch : s.toCharArray()) {
+                    res.add(cur + ch);
                 }
             }
-
         }
 
         return res;
@@ -70,7 +70,7 @@ public class LetterCombinationsOfPhoneNumber {
     public static void main(String[] args) {
         LetterCombinationsOfPhoneNumber solution = new LetterCombinationsOfPhoneNumber();
         
-        List<String> result = solution.letterCombinations("23");
+        List<String> result = solution.letterCombinations_better("23");
         
         System.out.println(result.stream().collect(Collectors.joining(",")));
     }
