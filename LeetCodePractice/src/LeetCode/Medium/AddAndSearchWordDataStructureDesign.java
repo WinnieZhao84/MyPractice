@@ -45,7 +45,7 @@ public class AddAndSearchWordDataStructureDesign {
         if (word == null || word.isEmpty()) {
             return false;
         }
-        return searchWord(word.toCharArray(), 0, root);
+        return this.search(word.toCharArray(), root, 0);
     }
 
     private void insertWord(String word) {
@@ -60,23 +60,25 @@ public class AddAndSearchWordDataStructureDesign {
         node.word = word;
     }
 
-    private boolean searchWord(char[] chars, int index, TrieNode node) {
-        if (index == chars.length) {
+    private boolean search(char[] chs, TrieNode node, int pos) {
+        if (pos == chs.length) {
             return !node.word.equals("");
         }
 
-        if (chars[index] != '.') {
-            return node.children[chars[index] - 'a'] != null && searchWord(chars, index + 1, node.children[chars[index] - 'a']);
-        }
-        else {
-            for (int i = 0; i < node.children.length; i++) {
-                if (node.children[i] != null) {
-                    if (searchWord(chars, index + 1, node.children[i])) {
-                        return true;
-                    }
+        if (chs[pos] == '.') {
+            for (TrieNode next : node.children) {
+                if (next == null) {
+                    continue;
+                }
+                if (this.search(chs, next, pos+1)) {
+                    return true;
                 }
             }
         }
+        else {
+            return node.children[chs[pos] - 'a'] != null && this.search(chs, node.children[chs[pos] - 'a'], pos+1);
+        }
+
         return false;
     }
 
