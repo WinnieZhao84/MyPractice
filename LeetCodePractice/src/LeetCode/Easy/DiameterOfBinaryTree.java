@@ -22,23 +22,35 @@ import LeetCode.Helper.TreeNode;
  */
 public class DiameterOfBinaryTree {
 
+    /**
+     * Calculate the depth of a node in the usual way: max(depth of node.left, depth of node.right) + 1.
+     * While we do, a path "through" this node uses 1 + (depth of node.left) + (depth of node.right) nodes.
+     * Search each node and remember the highest number of nodes used in some path.
+     * The desired length is 1 minus this number
+     *
+     */
     int max = 0;
     
     public int diameterOfBinaryTree(TreeNode root) {
-        maxDepth(root);
-        return max;
+        if (root == null) {
+            return 0;
+        }
+
+        this.getDepth(root);
+
+        return max-1;
     }
-    
-    private int maxDepth(TreeNode node) {
+
+    private int getDepth(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        
-        int left = this.maxDepth(node.left);
-        int right = this.maxDepth(node.right);
-        
-        max = Math.max(max, left+right);
-        
-        return Math.max(left, right) + 1;
+
+        int left = this.getDepth(node.left);
+        int right = this.getDepth(node.right);
+
+        max = Math.max(left+right+1, max);
+
+        return 1 + Math.max(left, right);
     }
 }

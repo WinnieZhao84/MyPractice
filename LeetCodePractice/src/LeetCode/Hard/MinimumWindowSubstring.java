@@ -111,7 +111,7 @@ public class MinimumWindowSubstring {
                     minLength = len;
                 }
 
-                if (map[s.charAt(start++)]++ == 0) {
+                if (start < s.length() && map[s.charAt(start++)]++ == 0) {
                     count++;
                 }
             }

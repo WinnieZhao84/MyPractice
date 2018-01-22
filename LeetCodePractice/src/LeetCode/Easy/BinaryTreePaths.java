@@ -94,7 +94,42 @@ public class BinaryTreePaths {
         result.addAll(result2);
         return result;
     }
-	
+
+    class Solution {
+        public List<String> binaryTreePaths(TreeNode root) {
+            List<String> res = new ArrayList<>();
+
+            if (root == null) {
+                return res;
+            }
+
+            this.dfs(root, "", res);
+
+            return res;
+        }
+
+        private void dfs(TreeNode node, String str, List<String> res) {
+            if (node == null) {
+                return;
+            }
+
+            if (node.left == null && node.right == null) {
+                str += node.val;
+                res.add(str);
+            }
+
+            str += node.val + "->";
+
+            if (node.left != null) {
+                this.dfs(node.left, str, res);
+            }
+
+            if (node.right != null) {
+                this.dfs(node.right, str, res);
+            }
+        }
+    }
+
 	public static void main(String[] args) {
 		BinaryTreePaths solution = new BinaryTreePaths();
 		

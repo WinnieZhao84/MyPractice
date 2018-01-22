@@ -19,45 +19,48 @@ import java.util.List;
  */
 public class ExpressionAddOperators {
 
-    List<String> result;
     public List<String> addOperators(String num, int target) {
 
-        result = new ArrayList<>();
-        if (num == null || num.isEmpty()) return result;
+        List<String> res = new ArrayList<>();
 
-        this.helper(num, target, "", 0, 0, 0);
-        return result;
+        this.dfs(res, num, target, "", 0, 0, 0);
 
+        return res;
     }
 
-    private void helper(String num, int target, String path, int pos, long prev, long multi) {
+    private void dfs(List<String> res, String num, int target, String path, int pos, long prev, long multi) {
         if (pos == num.length()) {
             if (prev == target) {
-                result.add(path);
+                res.add(path);
             }
             return;
         }
 
         for (int i=pos; i<num.length(); i++) {
-            if (i != pos && num.charAt(pos) == '0') {
+
+            if (pos != i && num.charAt(pos) == '0') {
                 break;
             }
-            long cur = Long.parseLong(num.substring(pos, i + 1));
+            Long cur = Long.parseLong(num.substring(pos, i+1));
 
             if (pos == 0) {
-                this.helper(num, target, path + cur, i+1, cur, cur);
+                this.dfs(res, num, target, path + cur, i+1, cur, cur);
             }
             else {
-                this.helper(num, target, path + "+" + cur, i+1, prev + cur, cur);
+                this.dfs(res, num, target, path + "+" + cur, i+1, prev + cur, cur);
 
-                this.helper(num, target, path + "-" +  cur, i+1, prev - cur, -cur);
+                this.dfs(res, num, target, path + "-" + cur, i+1, prev - cur, -cur);
 
                 // 12345 => 1+ 2 + 3 * 4 => 1 + 2 + 3 - 3 + 3 * 4
-                this.helper(num, target, path + "*" +  cur, i+1, prev - multi + multi * cur, cur * multi);
+                this.dfs(res, num, target, path + "*" + cur, i+1, prev - multi + multi * cur, multi * cur);
             }
-
         }
+    }
 
+    public static void main(String[] args) {
+        ExpressionAddOperators solution = new ExpressionAddOperators();
+
+        System.out.println(solution.addOperators("105", 5));
     }
 
 }
