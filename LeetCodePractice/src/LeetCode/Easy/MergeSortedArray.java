@@ -13,25 +13,28 @@ import java.util.Arrays;
  *
  */
 public class MergeSortedArray {
-	// nums1: 1,3,5,7
-	// nums2: 2,4,6,8
+    // nums1: 1,3,5,7
+    // nums2: 2,4,6,8
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-    
-    	int l = m+n-1;
-        m--;
-        n--;
-        while (m >= 0 && n >= 0) {
-            if (nums1[m] > nums2[n]) {
-                nums1[l] = nums1[m];
-                l--;
-                m--;
-            } 
-            else {
-                nums1[l] = nums2[n];
-                l--;
+        int size = m+n;
+        int pos = size-1;
+
+        m=m-1;
+        n=n-1;
+
+        while (m >=0 && n >=0) {
+            if (nums1[m] <= nums2[n]) {
+                nums1[pos] = nums2[n];
+                pos--;
                 n--;
             }
+            else {
+                nums1[pos] = nums1[m];
+                pos--;
+                m--;
+            }
         }
+
         // if nums2 still has sth left 
         for (int i = 0; i <= n; i++) {
             nums1[i] = nums2[i];
