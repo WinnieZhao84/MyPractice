@@ -51,25 +51,29 @@ public class ExclusiveTimeOfFunctions {
      * @return
      */
     public int[] exclusiveTime(int n, List<String> logs) {
+        int[] res = new int[n];
 
-        if (n <= 0) {
-            return new int[0];
+        if (logs == null || logs.isEmpty()) {
+            return res;
         }
 
-        int[] res = new int[n];
         Stack<Integer> stack = new Stack<>();
 
-        String[] firsts = logs.get(0).split(":");
-        stack.push(Integer.valueOf(firsts[0]));
+        String firstLog = logs.get(0);
+        String[] firstLogs = firstLog.split(":");
 
-        int i=1;
-        int prev = Integer.parseInt(firsts[2]);
-        while(i<logs.size()) {
-            String[] log = logs.get(i).split(":");
+        stack.push(Integer.parseInt(firstLogs[0]));
+        int prev = Integer.parseInt(firstLogs[2]);
+
+        for (int i=1; i<logs.size(); i++) {
+            String l = logs.get(i);
+            String[] log = l.split(":");
+
             int fn = Integer.parseInt(log[0]);
-
+            int startTime=0;
+            int endTime = 0;
             if (log[1].equals("start")) {
-                int startTime = Integer.parseInt(log[2]);
+                startTime = Integer.parseInt(log[2]);
                 if (!stack.isEmpty()) {
                     res[stack.peek()] += startTime - prev;
                 }
@@ -78,14 +82,14 @@ public class ExclusiveTimeOfFunctions {
                 prev = startTime;
             }
             else {
-                int endTime = Integer.valueOf(log[2]);
-                res[stack.pop()] += endTime - prev + 1;
-                prev = endTime + 1;
-            }
-            i++;
-        }
+                endTime = Integer.parseInt(log[2]);
+                if (!stack.isEmpty() && stack.pop() == fn) {
+                    res[fn] += endTime - prev + 1;
+                }
 
+                prev = endTime+1;
+            }
+        }
         return res;
     }
-
 }

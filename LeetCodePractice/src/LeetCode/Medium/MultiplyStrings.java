@@ -40,9 +40,10 @@ public class MultiplyStrings {
 
         StringBuilder sb = new StringBuilder();
         for (int n : res) {
-            if (!(sb.length() == 0 && n == 0)) {
-                sb.append(n);
+            if (sb.toString().isEmpty() && n == 0) {
+                continue;
             }
+            sb.append(n);
         }
         
         return sb.toString();

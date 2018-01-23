@@ -68,23 +68,21 @@ public class SortColors {
 
         int m=0;
         int n=nums.length-1;
+
         for (int i=0; i<=n; i++) {
-            if (nums[i] == 0 && i != m) {
-                this.swap(nums, i, m);
-                m++;
+            if (nums[i] == 0) {
+                this.swap(nums, m++, i);
             }
-            else if (nums[i] == 2 && i != n) {
-                this.swap(nums, i, n);
-                i--;
-                n--;
+            else if (nums[i] == 2) {
+                this.swap(nums, n--, i--);
             }
         }
     }
 
     private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
+        int num = nums[i];
         nums[i] = nums[j];
-        nums[j] = temp;
+        nums[j] = num;
     }
     
     public static void main(String[] args) {
