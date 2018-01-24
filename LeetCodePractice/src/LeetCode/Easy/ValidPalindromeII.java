@@ -43,4 +43,41 @@ public class ValidPalindromeII {
 
         return true;
     }
+
+    class Solution {
+        public boolean validPalindrome(String s) {
+            if (s == null) {
+                return false;
+            }
+
+            int len = s.length();
+            if (len <= 2) {
+                return true;
+            }
+
+            int i=0;
+            int j=len-1;
+
+            char[] chs = s.toCharArray();
+            while (i<j) {
+                if (chs[i] != chs[j]) {
+                    return this.isValid(chs, i, j-1) || this.isValid(chs, i+1, j);
+                }
+                i++;
+                j--;
+            }
+
+            return true;
+
+        }
+
+        private boolean isValid(char[] chs, int i, int j) {
+            while (i < j) {
+                if (chs[i++] != chs[j--]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 }

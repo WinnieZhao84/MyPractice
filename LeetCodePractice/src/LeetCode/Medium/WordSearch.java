@@ -33,41 +33,52 @@ public class WordSearch {
      * @return
      */
     public boolean exist(char[][] board, String word) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (exist(board, i, j, word, 0)) {
+        if (board == null || board.length == 0 || word == null) {
+            return false;
+        }
+
+        int row = board.length;
+        int col = board[0].length;
+
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                if (this.exist(board, word, row, col, i, j, 0)) {
                     return true;
                 }
             }
         }
+
         return false;
     }
-    
-    private boolean exist(char[][] board, int i, int j, String word, int pos) {
+
+    private boolean exist(char[][] board, String word, int row, int col, int i, int j, int pos) {
+
         if (pos == word.length()) {
             return true;
         }
-        
-        if(i > board.length-1 || i < 0 || j < 0 || j > board[0].length-1 || board[i][j] != word.charAt(pos)) {
+
+        if (i<0 || j<0 || i>=row || j>=col || board[i][j] != word.charAt(pos)) {
             return false;
         }
-        board[i][j]='*';
-        
-        boolean result = this.exist(board, i+1, j, word, pos+1) || 
-                            this.exist(board, i-1, j, word, pos+1) || 
-                            this.exist(board, i, j+1, word, pos+1) || 
-                            this.exist(board, i, j-1, word, pos+1);
-        
+
+        board[i][j] = '*';
+
+        boolean res = this.exist(board, word, row, col, i-1, j, pos+1)
+                || this.exist(board, word, row, col, i+1, j, pos+1)
+                || this.exist(board, word, row, col, i, j-1, pos+1)
+                || this.exist(board, word, row, col, i, j+1, pos+1);
+
         board[i][j] = word.charAt(pos);
-        
-        return result;
+
+        return res;
     }
     
     public static void main(String[] args) {
         WordSearch solution = new WordSearch();
         
         char[][] board = { {'A','B','C','E'}, {'S','F','C','S'}, {'A','D','E','E'} };
-        
+
+        System.out.println(solution.exist(new char[][] {{'a'}}, "ab"));
         System.out.println(solution.exist(board, "ABCCED"));
         System.out.println(solution.exist(board, "SEE"));
         System.out.println(solution.exist(board, "ABCB"));

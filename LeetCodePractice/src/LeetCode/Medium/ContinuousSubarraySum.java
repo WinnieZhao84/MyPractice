@@ -51,6 +51,45 @@ public class ContinuousSubarraySum {
         return false;
     }
 
+    public boolean checkSubarraySum_dp(int[] nums, int k) {
+        if (nums == null || nums.length <=1) {
+            return false;
+        }
+
+        if (k == 1) {
+            return true;
+        }
+
+        int len = nums.length;
+        int[] sum = new int[len+1];
+        sum[0] = 0;
+
+        for (int i=1; i<=nums.length; i++) {
+            sum[i] = nums[i-1] + sum[i-1];
+        }
+
+        if (sum[len] == 0) {
+            return true;
+        }
+
+        if (k == 0) {
+            return false;
+        }
+
+        for (int i=2; i<=len; i++) {
+            if (sum[i] % k == 0) {
+                return true;
+            }
+            for (int j=0; j<=i-2; j++) {
+                if ((sum[i] - sum[j]) % k == 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     public static void main(String[] args) {
         ContinuousSubarraySum solution = new ContinuousSubarraySum();
