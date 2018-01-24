@@ -1,5 +1,8 @@
 package LeetCode.Easy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * The count-and-say sequence is the sequence of integers beginning as follows:
 1, 11, 21, 1211, 111221, ...
@@ -42,6 +45,52 @@ public class CountAndSay {
         }
      
         return result;
+    }
+
+    class Solution {
+        Map<Integer, String> map = new HashMap<>();
+
+        public String countAndSay(int n) {
+            if (n == 0) {
+                return "";
+            }
+
+            return this.helper(n);
+        }
+
+        private String helper(int n) {
+            if (map.containsKey(n)) {
+                return map.get(n);
+            }
+
+            if (n == 1) {
+                map.put(n, "1");
+                return "1";
+            }
+
+            String s = String.valueOf(this.helper(n-1));
+
+            int count=1;
+            StringBuilder sb = new StringBuilder();
+            for (int i=1; i<s.length(); i++) {
+                if (s.charAt(i) == s.charAt(i-1)) {
+                    count++;
+                }
+                else {
+                    sb.append(count);
+                    sb.append(s.charAt(i-1));
+
+                    count = 1;
+                }
+            }
+
+            sb.append(count);
+            sb.append(s.charAt(s.length()-1));
+
+            String res = sb.toString();
+            map.put(n, res);
+            return res;
+        }
     }
     
     public static void main(String[] args) {
