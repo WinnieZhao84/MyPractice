@@ -79,6 +79,62 @@ public class WordLadder {
         }
         return true;
     }
+
+    /**
+     * Two ended BFS solution
+     *
+     * @param beginWord
+     * @param endWord
+     * @param wordList
+     * @return
+     */
+    public int ladderLength_better(String beginWord, String endWord, List<String> wordList) {
+        Set<String> beginSet = new HashSet<>();
+        Set<String> endSet = new HashSet<>();
+
+        int len = 1;
+        int strLen = beginWord.length();
+        HashSet<String> visited = new HashSet<>();
+
+        beginSet.add(beginWord);
+        endSet.add(endWord);
+
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            if (beginSet.size() > endSet.size()) {
+                Set<String> temp = beginSet;
+                beginSet = endSet;
+                endSet = temp;
+            }
+
+            Set<String> set = new HashSet<>();
+            for (String word : beginSet) {
+                char[] chs = word.toCharArray();
+
+                for (int i = 0; i < chs.length; i++) {
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        char old = chs[i];
+                        chs[i] = c;
+                        String target = String.valueOf(chs);
+
+                        if (endSet.contains(target)) {
+                            return len + 1;
+                        }
+
+                        if (!visited.contains(target) && wordList.contains(target)) {
+                            set.add(target);
+                            visited.add(target);
+                        }
+                        chs[i] = old;
+                    }
+                }
+            }
+
+            beginSet = set;
+            len++;
+        }
+
+        return 0;
+    }
     
     public static void main(String[] args) {
         WordLadder solution = new WordLadder();

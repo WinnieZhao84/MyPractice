@@ -66,6 +66,36 @@ public class CombinationSumIV {
             return count;
         }
     }
+
+    /**
+     * DP: Bottom up
+     */
+    public int combinationSum4_DP(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int[] combinations = new int[target+1];
+        combinations[0] = 1;
+
+        for (int i=1; i<=target; i++) {
+            for (int j=0; j<nums.length; j++) {
+                if (i >= nums[j]) {
+                    combinations[i] += combinations[i - nums[j]];
+                }
+            }
+        }
+
+        return combinations[target];
+    }
+
+    /**
+     * For the Follow up:
+     *
+     * If there are negative numbers in the array, we must add a requirement that each number is only used one time,
+     * or either positive number or negative number should be used only one time, otherwise there would be infinite
+     * possible combinations.
+     */
     
     public static void main(String[] args) {
         CombinationSumIV solution = new CombinationSumIV();

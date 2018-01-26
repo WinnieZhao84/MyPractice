@@ -1,6 +1,8 @@
 package LeetCode.Hard;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -40,6 +42,43 @@ public class LongestConsecutiveSequence {
         }
 
         return max;
+    }
+
+    public int longestConsecutive_better(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        int max = 1;
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                continue;
+            }
+            else {
+                int left = map.getOrDefault(num-1, 0);
+                int right = map.getOrDefault(num+1, 0);
+
+                int sum = left + right + 1;
+                map.put(num, sum);
+                max = Math.max(max, sum);
+
+                /**
+                 * Extend the length to the left & right boundary(s) of the sequence
+                 * Will do nothing if n has no neighbors
+                 */
+                map.put(num-left, sum);
+                map.put(num+right, sum);
+            }
+        }
+
+        return max;
+    }
+
+    public static void main(String[] args) {
+        LongestConsecutiveSequence solution = new LongestConsecutiveSequence();
+
+        System.out.println(solution.longestConsecutive(new int[] {1,3,4,5}));
     }
 
 }

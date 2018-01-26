@@ -66,10 +66,7 @@ public class SimplifyPath {
             String[] dirs = path.split("/");
 
             for (String dir : dirs) {
-                if (dir.equals("")) {
-                    continue;
-                }
-                else if (dir.equals(".")) {
+                if (dir.equals("") || dir.equals(".")) {
                     continue;
                 }
                 else if (dir.equals("..")) {

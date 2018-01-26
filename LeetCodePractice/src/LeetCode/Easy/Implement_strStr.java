@@ -11,45 +11,25 @@ package LeetCode.Easy;
 public class Implement_strStr {
 
     public int strStr(String haystack, String needle) {
-        int firstMatch = -1;
-        if (haystack == null || needle == null) {
+        if (haystack == null || needle == null || haystack.length() < needle.length()) {
             return -1;
+        }
+        if (haystack.isEmpty()) {
+            return needle.isEmpty() ? 0 : -1;
         }
 
-        if (needle.isEmpty()) {
-            return 0;
-        }
-        
-        int needleLength = needle.length();
-        int layStackLength = haystack.length();
-        
-        if (layStackLength < needleLength) {
-            return -1;
-        }
-        
-        for (int i=0; i<=layStackLength-needleLength; i++) {
-            for (int j=0; j<=needleLength-1; j++) {
-                char p = haystack.charAt(i+j);
-                char c= needle.charAt(j);
-                
-                if (c==p) {
-                    if (firstMatch == -1) {
-                        firstMatch = i;
-                    }
-                    
-                    if (j == needleLength-1) {
-                        return firstMatch;
-                    }
-                }
-                else {
-                    j=0;
-                    firstMatch = -1;
-                    break;
-                }
+        for(int i=0; i<=(haystack.length()-needle.length()); i++) {
+            int j = 0;
+
+            while (j<needle.length() && haystack.charAt(i+j)==needle.charAt(j)){
+                j++;
+            }
+
+            if (needle.length()== j) {
+                return i;
             }
         }
-        
-        return firstMatch;
+        return -1;
     }
     
     public static void main(String[] args) {
