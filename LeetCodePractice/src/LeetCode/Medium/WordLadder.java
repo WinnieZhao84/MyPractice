@@ -89,11 +89,13 @@ public class WordLadder {
      * @return
      */
     public int ladderLength_better(String beginWord, String endWord, List<String> wordList) {
+        if (!wordList.contains(endWord)) return 0;
+
+        Set<String> wordSet = new HashSet<>(wordList);
         Set<String> beginSet = new HashSet<>();
         Set<String> endSet = new HashSet<>();
 
         int len = 1;
-        int strLen = beginWord.length();
         HashSet<String> visited = new HashSet<>();
 
         beginSet.add(beginWord);
@@ -111,8 +113,8 @@ public class WordLadder {
                 char[] chs = word.toCharArray();
 
                 for (int i = 0; i < chs.length; i++) {
+                    char old = chs[i];
                     for (char c = 'a'; c <= 'z'; c++) {
-                        char old = chs[i];
                         chs[i] = c;
                         String target = String.valueOf(chs);
 
@@ -120,7 +122,7 @@ public class WordLadder {
                             return len + 1;
                         }
 
-                        if (!visited.contains(target) && wordList.contains(target)) {
+                        if (!visited.contains(target) && wordSet.contains(target)) {
                             set.add(target);
                             visited.add(target);
                         }
