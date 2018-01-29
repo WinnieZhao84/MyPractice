@@ -8,6 +8,13 @@ package LeetCode.Medium;
  */
 public class Pow {
 
+    /**
+     * Time complexity : O(log(n))). Each time we apply the formula (x ^ n) ^ 2 = x ^ {2 * n}
+     * n is reduced by half. Thus we need at most O(log(n)) computations to get the result.
+     *
+     * Space complexity : O(log(n)). For each computation, we need to store the result of x ^ {n / 2}.
+     * We need to do the computation for O(log(n)) times, so the space complexity is O(log(n)).
+     */
     public double myPow(double x, int n) {
 
         if (n == 0) {
