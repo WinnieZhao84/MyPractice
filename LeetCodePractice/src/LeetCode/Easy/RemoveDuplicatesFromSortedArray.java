@@ -1,5 +1,7 @@
 package LeetCode.Easy;
 
+import java.util.Arrays;
+
 /**
  * Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
  *
@@ -16,28 +18,28 @@ package LeetCode.Easy;
 public class RemoveDuplicatesFromSortedArray {
 
     public int removeDuplicates(int[] nums) {
-     
-    	if (nums.length <= 1) {
-    		return nums.length;
-    	}
-    	
-    	int length = 0;
-    	for (int i=0; i<=nums.length-1; i++ ) {
-    		if (nums[i] != nums[length]) {
-    			nums[++length] = nums[i];
-    		}
-    	}
-    	
-    	return length + 1;
+        if (nums == null) {
+            return 0;
+        }
+        if (nums.length <= 1) {
+            return nums.length;
+        }
+
+        int length = 0;
+        for (int i=0; i< nums.length; i++ ) {
+            if (nums[i] != nums[length]) {
+                nums[++length] = nums[i];
+            }
+        }
+
+        return length + 1;
     }
     
     public static void main(String[] args) {
-    	RemoveDuplicatesFromSortedArray solution = new RemoveDuplicatesFromSortedArray();
-        
-    	int[] array = {1, 2, 3, 4, 5};
+        RemoveDuplicatesFromSortedArray solution = new RemoveDuplicatesFromSortedArray();
+
+        int[] array = {1, 1, 2, 2, 3, 4, 5};
         System.out.println(solution.removeDuplicates(array));
-        for (int a: array) {
-        	System.out.print(a);
-        }
+        System.out.println(Arrays.toString(array));
     }
 }

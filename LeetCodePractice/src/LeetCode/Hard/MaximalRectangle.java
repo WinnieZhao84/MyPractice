@@ -25,11 +25,13 @@ public class MaximalRectangle {
          * The DP solution proceeds row by row, starting from the first row.
          * Let the maximal rectangle area at row i and column j be computed by [right(i,j) - left(i,j)]*height(i,j).
          *
-         * All the 3 variables left, right, and height can be determined by the information from previous row and also information from the current row.
+         * All the 3 variables left, right, and height can be determined by the information from previous row and also
+         * information from the current row.
          * So it can be regarded as a DP solution. The transition equations are:
          *
          * height means from top to this position, there are how many '1'
-         * left means at current position, what is the index of left bound of the rectangle with height[j]. 0 means at this position, no rectangle.
+         * left means at current position, what is the index of left bound of the rectangle with height[j].
+         * 0 means at this position, no rectangle.
          * right means the right bound index of this rectangle. 'n' means no rectangle.
 
          * left(i,j) = max(left(i-1,j), cur_left), cur_left can be determined from the current row

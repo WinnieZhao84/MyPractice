@@ -21,7 +21,7 @@ public class RemoveDuplicatesFromSortedArrayII {
             return 0;
         }
 
-        if (nums.length <= 1) {
+        if (nums.length <= 2) {
             return nums.length;
         }
 

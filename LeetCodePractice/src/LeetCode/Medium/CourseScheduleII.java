@@ -70,7 +70,6 @@ public class CourseScheduleII {
                         nonPreCourses.add(course);
                     }
                 }
-
             }
         }
 
