@@ -41,9 +41,6 @@ public class ReverseNodesInKGroup {
             count++;
             ListNode next = cur.next;
             if (count == k) {
-                System.out.println("pre:" + pre.val);
-                System.out.println("next:" + next.val);
-
                 pre = reverse(pre, next);
                 count = 0;
             }
@@ -57,7 +54,7 @@ public class ReverseNodesInKGroup {
             return pre;
         }
         ListNode head = pre.next;
-        ListNode cur = pre.next.next;
+        ListNode cur = head.next;
 
         while (cur != end) {
             ListNode next = cur.next;

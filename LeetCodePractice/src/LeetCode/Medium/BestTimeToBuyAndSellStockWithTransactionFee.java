@@ -27,6 +27,24 @@ package LeetCode.Medium;
  */
 public class BestTimeToBuyAndSellStockWithTransactionFee {
 
+    public int maxProfit(int[] prices, int fee) {
+        if (prices == null || prices.length <= 1) {
+            return 0;
+        }
+
+        int len = prices.length;
+        int[] hold = new int[len];
+        int[] sold = new int[len];
+
+        hold[0] = -prices[0];
+        for (int i=1; i<len; i++) {
+            hold[i] = Math.max(hold[i-1], sold[i-1] - prices[i]);
+            sold[i] = Math.max(sold[i-1], hold[i-1] + prices[i] - fee);
+        }
+
+        return sold[len-1];
+    }
+
     /**
      * At the end of the i-th day, we maintain cash, the maximum profit we could have if we did not have a share of stock,
      * and hold, the maximum profit we could have if we owned a share of stock.
@@ -35,15 +53,15 @@ public class BestTimeToBuyAndSellStockWithTransactionFee {
      * @param fee
      * @return
      */
-    public int maxProfit(int[] prices, int fee) {
+    public int maxProfit_better(int[] prices, int fee) {
         if (prices == null || prices.length == 0) {
             return 0;
         }
 
         int cash = 0, hold = -prices[0];
         for (int i = 1; i < prices.length; i++) {
-            cash = Math.max(cash, hold + prices[i] - fee);
             hold = Math.max(hold, cash - prices[i]);
+            cash = Math.max(cash, hold + prices[i] - fee);
         }
         return cash;
     }

@@ -18,15 +18,20 @@ For example:
 public class ExcelSheetColumnTitle {
     
     public String convertToTitle(int n) {
-       
-        String result = "";
-        while (n>0) {
-            int reminder = (n-1) % 26;
-            result = (char) (reminder + 'A') + result;
-            n = (n - reminder) / 26;
+        if ( n <= 0) {
+            return null;
         }
-        
-        return result;
+
+        StringBuilder sb = new StringBuilder();
+        while (n > 0) {
+            n = n-1;
+            char ch = (char)('A' + n%26);
+            sb.insert(0, ch);
+
+            n = n / 26;
+        }
+
+        return sb.toString();
     }
     
     public static void main(String[] args) {
