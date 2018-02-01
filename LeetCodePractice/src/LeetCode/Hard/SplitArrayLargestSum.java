@@ -37,44 +37,129 @@ public class SplitArrayLargestSum {
      * 我们让left=mid+1，此时left=6，right=5，循环退出了，我们返回left即可.
      */
     public int splitArray(int[] nums, int m) {
-        long sum = 0;
-        int max = 0;
-        for(int num: nums){
-            max = Math.max(max, num);
+
+        if (nums == null || nums.length == 0 || m <= 0) {
+            return 0;
+        }
+
+        int sum=0;
+        int max=0;
+        for (int num : nums) {
             sum += num;
+            max = Math.max(num, max);
         }
-        return (int)binary(nums, m, sum, max);
+
+        return this.binarySearch(nums, m, max, sum);
+
     }
 
-    private long binary(int[] nums, int m, long high, long low){
-        long mid = 0;
+    /**
+     * Time complexity : O(n * log(sum of array)).
+     * The binary search costs O(log(sum of array)), where sum of array is the sum of elements in nums.
+     * For each computation of sum, the time complexity is O(n) since we only need to go through the whole array.
+     *
+     * Space complexity : O(n).
+     * Same as the Brute Force approach. We only need the space to store the array.
+     */
+    private int binarySearch(int[] nums, int m, int low, int high) {
 
-        while(low < high){
-            mid = (high + low)/2;
-            if(valid(nums, m, mid)){
-                high = mid;
+        while (low <= high) {
+            int mid = low + (high-low)/2;
+
+            if (this.noLargerThanM(nums, m, mid)) {
+                high = mid-1;
             }
-            else{
-                low = mid + 1;
+            else {
+                low = mid+1;
             }
         }
-        return high;
+
+        return low;
     }
 
-    private boolean valid(int[] nums, int m, long max){
-        int cur = 0;
+    /**
+     * For nums array like a, b, c, d, e, f, g
+     * when a+b <= max, a+b+c > max. add count
+     * try another sub array with c and following nums
+     *
+     * Do same process here, to find all numbers of sub array which less or equal than M
+     * If count > m, it means that in order to find sum of sub arrays less than current Max,
+     * it has to separate to more ( >M ) sub arrays, hence return false as the current max is too small
+     * and we need to increase the low
+     * otherwise, there is possibility we could find smaller max.
+     */
+    private boolean noLargerThanM(int[] nums, int m, int max) {
+        int sum = 0;
         int count = 1;
-        for(int num: nums){
-            cur += num;
-            if(cur > max){
-                cur = num;
+        for (int num : nums) {
+            sum += num;
+
+            if (sum > max) {
                 count++;
-                if(count > m){
+                sum = num;
+
+                if (count > m) {
                     return false;
                 }
             }
         }
+
         return true;
+    }
+
+    /**
+     * Define dp[i][j] to be the minimum largest sub array sum for splitting nums[0..i] into j parts.
+     * Consider the jth sub array. We can split the array from a smaller index k to i to form it.
+     * Thus dp[i][j] can be derived from max(dp[k][j - 1], nums[k + 1] + ... + nums[i]).
+     * For all valid index k, dp[i][j] should choose the minimum value of the above formula.
+     *
+     * The final answer should be dp[n][m], where n is the size of the array.
+     * For corner situations, all the invalid dp[i][j] should be assigned with INFINITY,
+     * dp[0][0] should be initialized with 0.
+
+     * Time complexity : O(n^2 * m)
+     * The total number of states is O(n * m). To compute each state dp[i][j],
+     * we need to go through the whole array to find the optimum k. This requires another O(n) loop.
+     * So the total time complexity is O(n ^ 2 * m).
+     *
+     * Space complexity : O(n * m).
+     * The space complexity is equivalent to the number of states, which is O(n * m).
+     */
+    public int splitArray_dp(int[] nums, int m) {
+        if (nums == null || nums.length == 0 || m <= 0) {
+            return 0;
+        }
+
+        int n = nums.length;
+        int[] sums = new int[n+1];
+
+        sums[0] = 0;
+        for (int i=0; i<n; i++) {
+            sums[i+1] = sums[i] + nums[i];
+        }
+
+        if (m == 1) {
+            return sums[n];
+        }
+
+        int[][] dp = new int[n+1][m+1];
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= m; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        dp[0][0] = 0;
+        for (int i=1; i<=n; i++) {
+            for (int j=1; j<=m; j++) {
+                for (int k=0; k<i; k++) {
+                    dp[i][j] = Math.min(dp[i][j], Math.max(dp[k][j-1], sums[i]-sums[k]));
+                }
+            }
+        }
+
+        return dp[n][m];
     }
 
     public static void main(String[] args) {

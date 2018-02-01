@@ -24,28 +24,34 @@ import java.util.Map;
 public class ContiguousArray {
 
     public int findMaxLength(int[] nums) {
-        if (nums == null || nums.length == 0) {
+        if (nums == null || nums.length <= 1) {
             return 0;
         }
-        
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) nums[i] = -1;
-        }
-        
-        Map<Integer, Integer> sumToIndex = new HashMap<>();
-        sumToIndex.put(0, -1);
-        int sum = 0, max = 0;
-        
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            if (sumToIndex.containsKey(sum)) {
-                max = Math.max(max, i - sumToIndex.get(sum));
+
+        int max = 0;
+        Map<Integer, Integer> countDiffMap = new HashMap<>();
+        countDiffMap.put(0, -1);
+
+        int oneCnt=0;
+        int zeroCnt=0;
+        for (int i=0; i<nums.length; i++) {
+
+            if (nums[i] == 0) {
+                zeroCnt++;
+            }
+            else if (nums[i] == 1) {
+                oneCnt++;
+            }
+
+            if (countDiffMap.containsKey(zeroCnt - oneCnt)) {
+                max = Math.max(max, i - countDiffMap.get(zeroCnt - oneCnt));
             }
             else {
-                sumToIndex.put(sum, i);
+                countDiffMap.put(zeroCnt - oneCnt, i);
             }
+
         }
-        
+
         return max;
     }
     
