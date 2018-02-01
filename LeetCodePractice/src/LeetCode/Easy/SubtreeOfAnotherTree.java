@@ -62,6 +62,26 @@ public class SubtreeOfAnotherTree {
         return s;
     }
 
+    /**
+     * Better solution
+     * Time complexity : O(m*n). In worst case(skewed tree) traverse function takes O(m*n) time.
+     * Space complexity : O(n). The depth of the recursion tree can go up to n. n refers to the number of nodes in s.
+
+     */
+    class Solution {
+        public boolean isSubtree(TreeNode s, TreeNode t) {
+            return (s != null) && (this.isEqual(s, t) || this.isSubtree(s.left, t) || this.isSubtree(s.right, t));
+        }
+
+        private boolean isEqual(TreeNode s, TreeNode t) {
+            if (s == null || t == null) {
+                return s == t;
+            }
+
+            return (s.val == t.val) && this.isEqual(s.left, t.left) && this.isEqual(s.right, t.right);
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode s = new TreeNode(12);
         TreeNode t = new TreeNode(2);

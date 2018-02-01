@@ -43,13 +43,23 @@ public class ContiguousArray {
                 oneCnt++;
             }
 
+            /**
+             * Use a map to store the count diff from "0" and "1".
+             * If next time we met the same count diff key
+             * it means there is a equal number of "0" and "1" appeared,
+             * calculate the current max length.
+             *
+             *    (zeroCnt_1 - oneCnt_1) == (zeroCnt_2 - oneCnt_2)
+             * so: zeroCnt_1 - zeroCnt_2 = oneCnt_1 - oneCnt_2
+             * now it means between previous index and current index,
+             * there are equal increase count of "0" and "1"
+             */
             if (countDiffMap.containsKey(zeroCnt - oneCnt)) {
                 max = Math.max(max, i - countDiffMap.get(zeroCnt - oneCnt));
             }
             else {
                 countDiffMap.put(zeroCnt - oneCnt, i);
             }
-
         }
 
         return max;
