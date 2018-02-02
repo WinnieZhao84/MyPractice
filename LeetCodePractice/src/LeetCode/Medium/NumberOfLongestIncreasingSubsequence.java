@@ -21,10 +21,10 @@ public class NumberOfLongestIncreasingSubsequence {
 
     /**
      * The idea is to use two arrays dp[n] and cnt[n] to record the maximum length of Increasing Subsequence
-     * and the coresponding number of these sequence which ends with nums[i], respectively. That is:
+     * and the corresponding number of these sequence which ends with nums[i], respectively. That is:
      *
-     * dp[i]: the length of the Longest Increasing Subsequence which ends with nums[i].
-     * cnt[i]: the number of the Longest Increasing Subsequence which ends with nums[i].
+     * lens[i]: the length of the Longest Increasing Subsequence which ends with nums[i].
+     * cnts[i]: the number of the Longest Increasing Subsequence which ends with nums[i].
      *
      * Then, the result is the sum of each cnt[i] while its corresponding dp[i] is the maximum length
 
@@ -36,36 +36,41 @@ public class NumberOfLongestIncreasingSubsequence {
             return 0;
         }
 
-        int max_length = 0;
+        int len = nums.length;
+        if (len == 1) {
+            return len;
+        }
+
         int res = 0;
+        int[] lens = new int[len];
+        int[] cnts = new int[len];
 
-        int length = nums.length;
-        int[] dp = new int[length];
-        int[] cnt = new int[length];
+        int maxLen=1;
 
-        dp[0] = 1;
-        for (int i=0; i<nums.length; i++) {
-            dp[i] = 1;
-            cnt[i] = 1;
+        for (int i=0; i<len; i++) {
+            lens[i]=1;
+            cnts[i]=1;
 
             for (int j=0; j<i; j++) {
                 if (nums[j] < nums[i]) {
-                    if (dp[i] == dp[j] + 1) {
-                        cnt[i] += cnt[j];
+
+                    if (lens[i] < lens[j]+1) {
+                        cnts[i] = cnts[j];
                     }
-                    if (dp[i] < dp[j] + 1) {
-                        dp[i] = dp[j] + 1;
-                        cnt[i] = cnt[j];
+                    else if (lens[i] == lens[j]+1) {
+                        cnts[i] += cnts[j];
                     }
+
+                    lens[i] = Math.max(lens[j]+1, lens[i]);
                 }
             }
 
-            if (max_length == dp[i]) {
-                res += cnt[i];
+            if (maxLen == lens[i]) {
+                res += cnts[i];
             }
-            if (max_length < dp[i]) {
-                max_length = dp[i];
-                res = cnt[i];
+            else if (maxLen < lens[i]) {
+                res = cnts[i];
+                maxLen = lens[i];
             }
         }
 
