@@ -1,4 +1,4 @@
-package LeetCode.Medium;
+package LeetCode.Interview.Facebook;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ *
  * 261
  *
  * Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes),
@@ -23,13 +24,13 @@ import java.util.Queue;
  * a valid tree. using a queue, every time, if node is not visited, mark it as visited, then traverse its neighbors,
  * if is not visited, enque it, if there is any cycle in the graph, your queue ends up containing multiple instance
  * of certain numbers.
-
- * Created by WinnieZhao on 2017/3/28.
+ *
+ * Created by WinnieZhao on 2/4/2018.
  */
 public class GraphValidTree {
 
     public boolean validTree(int n, int[][] edges) {
-        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
         for (int i=0; i<n; i++) {
             list.add(new ArrayList<>());
         }

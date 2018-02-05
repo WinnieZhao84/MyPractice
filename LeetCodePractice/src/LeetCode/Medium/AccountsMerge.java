@@ -101,11 +101,12 @@ public class AccountsMerge {
          * All elements merged into one list
          */
         for (List<String> account : accounts) {
-            String parent = this.find(account.get(1), parents);
-            if (!unions.containsKey(parent)) {
-                unions.put(parent, new TreeSet<>());
-            }
             for (int i=1; i<account.size(); i++) {
+                String parent = this.find(account.get(i), parents);
+
+                if (!unions.containsKey(parent)) {
+                    unions.put(parent, new TreeSet<>());
+                }
                 unions.get(parent).add(account.get(i));
             }
         }

@@ -36,7 +36,9 @@ public class ReadNCharactersGivenRead4IICallMultipleTimes {
          *
          * read(3) read(2) read(2) should be “abc” “de” “fg”
          * but using first version solution it will print “abc” “ef” “”
-         * This is because when you use read4() to read, the pointer to read file has already moved to “e” after the first call of read4().
+         * This is because when you use read4() to read, the pointer to read file has already moved to “e” after the
+         * first call of read4().
+         *
          * So it’s not correct any more
          * Use buffer pointer (buffPtr) and buffer Counter (buffCnt) to store the data received in previous calls.
          *
