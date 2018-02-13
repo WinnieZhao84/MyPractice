@@ -45,4 +45,21 @@ public class BinaryTreeUpsideDown {
         return newRoot;
     }
 
+    public TreeNode upsideDownBinaryTree_iterator(TreeNode root) {
+        TreeNode curr = root;
+        TreeNode temp = null;
+        TreeNode prev = null;
+
+        while(curr != null) {
+            TreeNode next = curr.left;
+            curr.left = temp;
+            temp = curr.right;
+            curr.right = prev;
+
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
 }

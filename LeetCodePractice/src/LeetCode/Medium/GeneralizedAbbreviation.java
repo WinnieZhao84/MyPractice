@@ -43,12 +43,12 @@ public class GeneralizedAbbreviation {
             // do abbreviation using number for pos char
             this.dfs(res, chars, sb, pos+1, count+1);
 
-            // not do abbreviation for pos
             if (count > 0) {
                 sb.append(count);
             }
             sb.append(chars[pos]);
 
+            // not do abbreviation for pos
             this.dfs(res, chars, sb, pos+1, 0);
         }
         // set the string builder to ""
