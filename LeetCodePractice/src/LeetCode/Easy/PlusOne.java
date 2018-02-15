@@ -8,32 +8,26 @@ import java.util.Arrays;
 **/
 public class PlusOne {
     public int[] plusOne(int[] digits) {
-        int length = digits.length;
-        
-        int carrier = 1;
-        for (int i=length-1; i>=0; i--) {
-        	int digit = digits[i];   	
-        	digit += carrier;
-        	digits[i] = digit % 10;
-        	
-        	if (digit > 9) {
-        		carrier = 1;
-        	} 
-        	else {
-        		carrier = 0;
-        		break;
-        	}
 
+        if (digits == null || digits.length == 0) {
+            return new int[0];
         }
-        
-        if (carrier == 1) {
-        	int[] result = new int[digits.length + 1];
-            System.arraycopy(digits, 0, result, 1, digits.length);
-            result[0] = 1;
-            return result;
+
+        int carry = 1;
+        for (int i=digits.length-1; i>=0; i--) {
+            int sum = digits[i] + carry;
+            digits[i] = sum % 10;
+            carry = sum / 10;
+        }
+
+        if (carry == 0) {
+            return digits;
         }
         else {
-        	return digits;
+            int[] res = new int[digits.length+1];
+            res[0] = carry;
+
+            return res;
         }
     }
     

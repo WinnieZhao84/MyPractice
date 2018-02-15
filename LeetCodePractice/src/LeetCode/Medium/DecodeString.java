@@ -25,19 +25,25 @@ import java.util.Stack;
 public class DecodeString {
     
     public String decodeString(String s) {
-        
-        String result = "";
-        Stack<Integer> countStack = new Stack<>();
+
+        if (s == null || s.isEmpty() || s.equals("[]")) {
+            return "";
+        }
+
+        Stack<Integer> counts = new Stack<>();
         Stack<String> resStack = new Stack<>();
+
+        String result = "";
         int i=0;
-        while (i < s.length()) {
+        while (i<s.length()) {
+
             if (Character.isDigit(s.charAt(i))) {
                 int count = 0;
                 while (Character.isDigit(s.charAt(i))) {
                     count = 10 * count + (s.charAt(i) - '0');
                     i++;
                 }
-                countStack.push(count);
+                counts.push(count);
             }
             else if (s.charAt(i) == '[') {
                 resStack.push(result);
@@ -45,19 +51,21 @@ public class DecodeString {
                 i++;
             }
             else if (s.charAt(i) == ']') {
-                StringBuilder temp = new StringBuilder (resStack.pop());
-                int repeatTimes = countStack.pop();
-                for (int j = 0; j < repeatTimes; j++) {
-                    temp.append(result);
+                StringBuilder sb = new StringBuilder(resStack.pop());
+                int count = counts.pop();
+
+                while (count > 0) {
+                    sb.append(result);
+                    count--;
                 }
-                result = temp.toString();
+                result = sb.toString();
                 i++;
             }
             else {
                 result += s.charAt(i++);
             }
         }
-        
+
         return result;
     }
     
