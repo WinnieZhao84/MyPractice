@@ -33,7 +33,24 @@ public class GameOfLife {
     final int ALIVE_TO_DEAD = 2;
     // 0 -> 1
     final int DEAD_TO_ALIVE = 3;
-    
+
+    private boolean isAliveOld(int obj) {
+        if (obj == ALIVE_TO_ALIVE || obj == ALIVE_TO_DEAD) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean isAliveNew(int obj) {
+        if (obj % 2 == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void gameOfLife(int[][] board) {
 
         if (board == null || board.length == 0) return;
@@ -104,20 +121,63 @@ public class GameOfLife {
         }
     }
     
-    private boolean isAliveOld(int obj) {
-        if (obj == ALIVE_TO_ALIVE || obj == ALIVE_TO_DEAD) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
-    private boolean isAliveNew(int obj) {
-        if (obj % 2 == 1) {
-            return true;
-        } else {
-            return false;
+    class Solution {
+
+        /**
+         * [2nd bit, 1st bit] = [next state, current state]
+         * 00  dead (next) <- dead (current)
+         * 01  dead (next) <- live (current)
+         * 10  live (next) <- dead (current)
+         * 11  live (next) <- live (current)
+         */
+        final int DEAD_TO_DEAD = 0;
+        final int ALIVE_TO_DEAD = 1;
+        final int DEAD_TO_ALIVE = 2;
+        final int ALIVE_TO_ALIVE = 3;
+
+        int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0},{-1,-1},{1,1},{1,-1}, {-1,1}};
+
+        public void gameOfLife(int[][] board) {
+
+            if (board == null || board.length == 0) return;
+
+            int row = board.length;
+            int column = board[0].length;
+
+            for (int i=0; i<row; i++) {
+                for (int j = 0; j < column; j++) {
+
+                    int lives = this.getNeighborLives(board, i, j, row, column);
+
+                    if (board[i][j] == 1 && lives >= 2 && lives <= 3) {
+                        board[i][j] = 3;
+                    }
+                    if (board[i][j] == 0 && lives == 3) {
+                        board[i][j] = 2;
+                    }
+                }
+            }
+
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < column; j++) {
+                    board[i][j] >>= 1;  // Get the 2nd state.
+                }
+            }
+        }
+
+        private int getNeighborLives(int[][] board, int i, int j, int row, int col) {
+            int lives = 0;
+            for (int[] dir : dirs) {
+                int x = i + dir[0];
+                int y = j + dir[1];
+
+                if (x >=0 && y >=0 && x < row && y < col) {
+                    lives += (board[x][y] & 1);
+                }
+            }
+
+            return lives;
         }
     }
 }

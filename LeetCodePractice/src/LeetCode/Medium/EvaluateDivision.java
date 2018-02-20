@@ -74,7 +74,7 @@ public class EvaluateDivision {
             }
             else if (!visited.contains(i) && query[0].equals(equations[i][1])) {
                 visited.add(i);
-                double temp = this.helper(new String[] {equations[i][0], query[1]}, equations, values, visited) / values[i];
+                double temp = 1/values[i] * this.helper(new String[] {equations[i][0], query[1]}, equations, values, visited);
                 if (temp > 0) {
                     return temp;
                 }

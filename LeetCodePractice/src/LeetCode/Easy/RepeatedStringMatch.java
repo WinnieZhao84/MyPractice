@@ -20,15 +20,20 @@ public class RepeatedStringMatch {
         StringBuilder sb = new StringBuilder();
         sb.append(A);
         int count = 1;
-        while(sb.indexOf(B)<0){
-            if(sb.length()-A.length()>B.length()){
-                return -1;
-            }
+
+        while (sb.length() < B.length()) {
             sb.append(A);
             count++;
         }
 
-        return count;
+        if (sb.toString().contains(B)) {
+            return count;
+        }
+        if (sb.append(A).toString().contains(B)) {
+            return ++count;
+        }
+
+        return -1;
     }
 
     public static void main(String[] args) {
