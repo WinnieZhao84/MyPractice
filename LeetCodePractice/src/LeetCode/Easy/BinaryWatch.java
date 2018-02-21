@@ -30,39 +30,39 @@ import java.util.Set;
 public class BinaryWatch {
 
     public List<String> readBinaryWatch(int num) {
-        
+
         if (num > 10) {
             return null;
         }
-        
+
         List<String> result = new ArrayList<>();
         int[] top = {1, 2, 4, 8};
         int[] bottom = {1, 2, 4, 8, 16, 32};
-        
+
         for (int i=0; i<=num; i++) {
             Set<Integer> topResult = new HashSet<>();
             Set<Integer> bottomResult = new HashSet<>();
-            
+
             this.readBinaryWatchHelper(topResult, 0, top, 0, i);
             this.readBinaryWatchHelper(bottomResult, 0, bottom, 0, num-i);
-            
+
             String str = "";
             for (Integer topNum : topResult) {
                 if (topNum > 11) continue;
                 for (Integer bottomNum : bottomResult) {
                     if (bottomNum > 59) continue;
-                    
+
                     String bottomStr = String.valueOf(bottomNum);
                     if (bottomStr.length() == 1) {
                         bottomStr = "0" + bottomStr;
                     }
                     str = String.valueOf(topNum) + ":" + bottomStr;
-                    
+
                     result.add(str);
                 }
             }
         }
-        
+
         return result;
     }
     
@@ -74,11 +74,7 @@ public class BinaryWatch {
         }
         
         for (int i=start; i<array.length; i++) {
-            value += array[i];
-            
-            this.readBinaryWatchHelper(result, value, array, i+1, count-1);
-            
-            value = value - array[i];
+            this.readBinaryWatchHelper(result, value + array[i], array, i+1, count-1);
         }
     }
     
