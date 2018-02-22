@@ -60,10 +60,12 @@ public class SlidingWindowMaximum {
             }
 
             // Remove numbers out of range k
-            while (!queue.isEmpty() && i - queue.peek() >= k) {
+            while (!queue.isEmpty() && i - queue.peek() + 1 > k) {
                 queue.poll();
             }
-            queue.offerLast(i);
+
+            queue.offer(i);
+
             // The first item in the deque will be the greatest
             if (i-k + 1 >=0) {
                 res[i - k + 1] = nums[queue.peek()];
