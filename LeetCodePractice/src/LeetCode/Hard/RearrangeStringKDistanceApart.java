@@ -78,4 +78,10 @@ public class RearrangeStringKDistanceApart {
         }
         return candidatePos;
     }
+
+    public static void main(String[] args) {
+        RearrangeStringKDistanceApart solution = new RearrangeStringKDistanceApart();
+
+        System.out.println(solution.rearrangeString("bbaacc", 3));
+    }
 }

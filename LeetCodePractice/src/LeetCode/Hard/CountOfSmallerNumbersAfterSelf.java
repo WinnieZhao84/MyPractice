@@ -22,6 +22,11 @@ import java.util.List;
  */
 public class CountOfSmallerNumbersAfterSelf {
 
+    /**
+     * Use binary search to locate the index, which cost O(logn),
+     * then use O(n) to move the array, so O(logn) can be ignored,
+     * there are totally n elements, so runtime will be O(n^2).
+     */
     public List<Integer> countSmaller(int[] nums) {
         Integer[] result = new Integer[nums.length];
 

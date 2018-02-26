@@ -28,12 +28,16 @@ public class NumberOfOneBits {
     }
     
     public int hammingWeight_solution(int n) {
-        int i = 0;
-        while(n!=0) {
-            n&= n-1;
-            i++;
+        int count = 0;
+        while (n != 0) {
+            if ((n & 1) == 1) {
+                count++;
+            }
+
+            n >>>= 1;
         }
-        return i;
+
+        return count;
     } 
     
     public static void main(String[] args) {

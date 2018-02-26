@@ -19,31 +19,41 @@ import LeetCode.Helper.ListNode;
 public class ReverseLinkedListII {
 
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        if (head == null) return head;
-        
+        if (head == null || head.next == null || m == n) {
+            return head;
+        }
+
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        
-        ListNode pre = dummy;
+
+        ListNode pre1 = dummy;
+        ListNode cur1 = head;
         for (int i=0; i<m-1; i++) {
-            pre = pre.next;
+            pre1 = cur1;
+            cur1 = cur1.next;
         }
-        
-        // 1 - 2 - 3 - 4 - 5 ; m=2; n =4 ---> pre = 1, start = 2, then = 3
-        // dummy-> 1 -> 2 -> 3 -> 4 -> 5
-        ListNode start = pre.next;
-        ListNode then = start.next;
-        
-        // first reversing : dummy->1 - 3 - 2 - 4 - 5;   pre = 1, start = 2, then = 4
-        // second reversing: dummy->1 - 4 - 3 - 2 - 5;   pre = 1, start = 2, then = 5 (finish)
-        for (int i=0; i<n-m; i++) {
-            start.next = then.next;
-            then.next = pre.next;
-            pre.next = then;
-            then = start.next;
+
+        ListNode pre2 = null;
+        ListNode cur2 = cur1;
+        for (int i=m; i<=n; i++) {
+            ListNode next = cur2.next;
+            cur2.next = pre2;
+            pre2 = cur2;
+            cur2 = next;
         }
-        
+
+        pre1.next = pre2;
+        cur1.next = cur2;
+
         return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(3);
+        head.next = new ListNode(5);
+
+        ReverseLinkedListII solution = new ReverseLinkedListII();
+        System.out.println(solution.reverseBetween(head, 1, 1));
     }
     
 }

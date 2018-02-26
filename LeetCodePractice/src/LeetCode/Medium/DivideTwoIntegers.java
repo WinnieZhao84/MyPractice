@@ -14,7 +14,9 @@ public class DivideTwoIntegers {
         if (dividend == 0) {
             return 0;
         }
-
+        if (dividend == divisor) {
+            return 1;
+        }
         int sign = 1;
 
         long lDividend = (long)dividend;

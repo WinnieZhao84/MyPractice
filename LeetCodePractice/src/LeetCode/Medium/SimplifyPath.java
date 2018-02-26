@@ -39,21 +39,38 @@ public class SimplifyPath {
      * @return
      */
     public String simplifyPath(String path) {
-        Deque<String> stack = new LinkedList<>();
-        Set<String> skip = new HashSet<>(Arrays.asList("..",".",""));
-        for (String dir : path.split("/")) {
-            if (dir.equals("..") && !stack.isEmpty()) {
-                stack.pop();
+        if (path == null || path.isEmpty()) {
+            return "";
+        }
+
+        Stack<String> stack = new Stack<>();
+
+        String[] paths = path.split("/");
+
+        StringBuilder sb = new StringBuilder();
+        for (String p : paths) {
+            if (p.length() == 0 || p.equals(".")) {
+                continue;
             }
-            else if (!skip.contains(dir)) {
-                stack.push(dir);
+
+            if (p.equals("..")) {
+                if (!stack.isEmpty()) stack.pop();
+            }
+            else {
+                stack.push(p);
             }
         }
-        String res = "";
-        for (String dir : stack) {
-            res = "/" + dir + res;
+
+        if (stack.isEmpty()) {
+            return "/";
         }
-        return res.isEmpty() ? "/" : res;
+
+        for (String p : stack) {
+            sb.append("/");
+            sb.append(p);
+        }
+
+        return sb.toString();
     }
 
     class Solution {
@@ -96,6 +113,6 @@ public class SimplifyPath {
     public static void main(String[] args) {
         SimplifyPath solution = new SimplifyPath();
         
-        System.out.println(solution.simplifyPath("/a/./b/../../c/"));
+        System.out.println(solution.simplifyPath("/a/./b/c/"));
     }
 }

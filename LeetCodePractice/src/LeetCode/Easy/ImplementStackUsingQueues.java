@@ -22,32 +22,35 @@ import java.util.Queue;
  *
  */
 public class ImplementStackUsingQueues {
-	Queue<Integer> queue = new LinkedList<Integer>();
+
+    LinkedList<Integer> queue = new LinkedList<>();
 	
 	// Push element x onto stack.
+    // Time Complexity : O(n)
 	public void push(int x) {
-		queue.offer(x);
+        queue.add(x);
+
+        int size = queue.size();
+        while (size > 1) {
+            queue.add(queue.remove());
+            size--;
+        }
     }
 
     // Removes the element on top of the stack.
-    public void pop() {
-    	Integer value = null;
-        for (Iterator<Integer> itr = queue.iterator(); itr.hasNext();) {
-        	value = itr.next();
-        }
-        queue.remove(value);
+    // Time Complexity : O(1)
+    public int pop() {
+        return queue.remove();
     }
 
     // Get the top element.
+    // Time Complexity : O(1)
     public int top() {
-    	Integer value = null;
-        for (Iterator<Integer> itr = queue.iterator(); itr.hasNext();) {
-        	value = itr.next();
-        }
-        return value;
+        return queue.peek();
     }
 
     // Return whether the stack is empty.
+    // Time Complexity : O(1)
     public boolean empty() {
         return queue.isEmpty();
     }

@@ -59,7 +59,7 @@ public class MajorityElementII {
     
     public static void main(String[] args) {
         MajorityElementII solution = new MajorityElementII();
-        int[] nums = {2,3,1,1,1,1,1,6,4};
+        int[] nums = {3,3,3,4,4,4,5,5,5};
         System.out.println(solution.majorityElement(nums));
     }
 }

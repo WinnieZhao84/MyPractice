@@ -17,6 +17,7 @@ import java.util.PriorityQueue;
  */
 public class KthLargestElementInAnArray {
 
+    // n * log(k) Each insertion operation is into a heap of size k (so log(k)).
     public int findKthLargest(int[] nums, int k) {
         final PriorityQueue<Integer> pq = new PriorityQueue<>();
         for(int val : nums) {
@@ -32,7 +33,7 @@ public class KthLargestElementInAnArray {
     public static void main(String[] args) {
         KthLargestElementInAnArray solution = new KthLargestElementInAnArray();
         
-        int[] nums = {7,5,1,3,6,4};
+        int[] nums = {3,2,1,5,6,4};
         System.out.println(solution.findKthLargest_better(nums, 3));
     }
 

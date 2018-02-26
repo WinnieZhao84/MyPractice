@@ -37,27 +37,28 @@ public class AddTwoNumbersII {
             l2 = l2.next;
         }
 
-        ListNode cur = null;
+        ListNode head = null;
         int carry = 0;
         while (!stack1.isEmpty() || !stack2.isEmpty()) {
-            int val1 = !stack1.isEmpty() ? stack1.pop() : 0;
-            int val2 = !stack2.isEmpty() ? stack2.pop() : 0;
+            int num1 = stack1.isEmpty() ? 0 : stack1.pop();
+            int num2 = stack2.isEmpty() ? 0 : stack2.pop();
 
-            int sum = val1 + val2 + carry;
-            ListNode head = new ListNode(sum%10);
-            head.next = cur;
-            cur = head;
+            int val = num1 + num2 + carry;
+            carry = val / 10;
+            val = val % 10;
 
-            carry = sum / 10;
+            ListNode cur = new ListNode(val);
+            cur.next = head;
+            head = cur;
         }
 
         if (carry != 0) {
-            ListNode head = new ListNode(carry);
-            head.next = cur;
-            cur = head;
+            ListNode cur = new ListNode(carry);
+            cur.next = head;
+            head = cur;
         }
 
-        return cur;
+        return head;
     }
     
     public static void main(String[] args) {
