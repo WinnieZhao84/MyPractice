@@ -60,9 +60,9 @@ public class RemoveKDigits {
         
         //construct the number from the stack
         StringBuilder sb = new StringBuilder();
-        while(!stack.isEmpty())
-            sb.append(stack.pop());
-        sb.reverse();
+        for (Character n : stack) {
+            sb.append(n);
+        }
         
         //remove all the 0 at the head
         while(sb.length()>1 && sb.charAt(0)=='0')

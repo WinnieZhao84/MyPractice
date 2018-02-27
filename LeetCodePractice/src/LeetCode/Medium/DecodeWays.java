@@ -20,30 +20,32 @@ package LeetCode.Medium;
 public class DecodeWays {
 
     public int numDecodings(String s) {
-        if (s == null || s.length() == 0) {
+        if (s == null || s.isEmpty()) {
             return 0;
         }
 
-        int len = s.length();
-        char[] chars = s.toCharArray();
+        char[] chs = s.toCharArray();
+        int len = chs.length;
+        if (chs[0] == '0') {
+            return 0;
+        }
 
         int[] dp = new int[len+1];
-        dp[0] = 1;
-        dp[1] = chars[0] != '0' ? 1 : 0;
+        dp[0]=1;
+        dp[1]= chs[0] >= '1' && chs[0] <= '9' ? 1 : 0;
 
-        for (int i=2; i<=chars.length; i++) {
-            int pre = chars[i-2] - '0';
-            int cur = chars[i-1] - '0';
+        for (int i=2; i<=len; i++) {
+            int cur = chs[i-1] - '0';
+            int pre = chs[i-2] - '0';
 
-            if (cur >= 1 && cur <= 9) {
+            int sum = pre * 10 + cur;
+
+            if (cur <= 9 && cur >= 1) {
                 dp[i] += dp[i-1];
             }
-
-            int val = pre * 10 + cur;
-            if (val >= 10 && val <= 26) {
+            if (sum >= 10 && sum <= 26) {
                 dp[i] += dp[i-2];
             }
-
         }
 
         return dp[len];

@@ -69,12 +69,12 @@ public class KthSmallestElementInSortedMatrix {
         for (int i=0; i<k-1; i++) {
             Value head = queue.poll();
             
-            // push the element on the right to the queue
+            // push the element on the bottom to the queue
             if (head.x < matrix.length-1) {
                 queue.offer(new Value(matrix[head.x+1][head.y], head.x + 1, head.y));
             }
             
-            // avoid duplicates, only push the bottom element from matrix for the 1st row element
+            // avoid duplicates, only push the right element from matrix for the 1st row element
             if (head.x == 0 && head.y < matrix.length-1) {
                 queue.offer(new Value(matrix[head.x][head.y+1], head.x, head.y + 1));
             }
