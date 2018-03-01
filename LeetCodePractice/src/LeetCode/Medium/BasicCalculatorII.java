@@ -61,6 +61,52 @@ public class BasicCalculatorII {
         return res;
     }
 
+    class Solution {
+        public int calculate(String s) {
+
+            if (s == null || s.length() == 0) {
+                return 0;
+            }
+
+            char[] chs = s.toCharArray();
+
+            int num = 0;
+            Stack<Integer> stack = new Stack<>();
+            char operator = '+';
+
+            for (int i=0; i<chs.length; i++) {
+                char ch = chs[i];
+
+                if (ch >= '0' && ch <= '9') {
+                    num = num*10 + (ch-'0');
+                }
+                if (i == chs.length-1 || (!(ch >= '0' && ch <= '9') && ch != ' ')) {
+                    if (operator == '+') {
+                        stack.push(num);
+                    }
+                    else if (operator == '-') {
+                        stack.push(-num);
+                    }
+                    else if (operator == '*') {
+                        stack.push(stack.pop() * num);
+                    }
+                    else if (operator == '/') {
+                        stack.push(stack.pop() / num);
+                    }
+                    num = 0;
+                    operator = ch;
+                }
+            }
+
+            int sum = 0;
+            for (Integer n : stack) {
+                sum += n;
+            }
+
+            return sum;
+        }
+    }
+
     public static void main(String[] args) {
         BasicCalculatorII solution = new BasicCalculatorII();
         System.out.println(solution.calculate("3+2*2"));

@@ -22,54 +22,63 @@ import java.util.Stack;
 public class BasicCalculator {
 
     public int calculate(String s) {
-        if (s == null || s.isEmpty()) return 0;
+        if (s == null || s.isEmpty()) {
+            return 0;
+        }
+
+        int num = 0;
+        int res = 0;
 
         Stack<Integer> stack = new Stack<>();
-        int result = 0;
-        int num = 0;
         int sign = 1;
 
-        for (int i=0; i<s.length(); i++) {
-            char ch = s.charAt(i);
+        char[] chs = s.toCharArray();
 
-            if (Character.isDigit(ch)) {
-                num = num * 10 + (ch - '0');
+        for (int i=0; i<chs.length; i++) {
+            char ch = chs[i];
+
+            if (ch >= '0' && ch <= '9') {
+                num = num*10 + (ch - '0');
             }
             else if (ch == '+') {
-                result += sign * num;
+                res += sign * num;
                 num = 0;
                 sign = 1;
             }
             else if (ch == '-') {
-                result += sign * num;
+                res += sign * num;
                 num = 0;
                 sign = -1;
             }
             else if (ch == '(') {
-                stack.push(result);
+                stack.push(res);
                 stack.push(sign);
 
-                result = 0;
+                res = 0;
+                num = 0;
                 sign = 1;
             }
             else if (ch == ')') {
+                res += num * sign;
 
-                result += sign * num;
+                res  = res * stack.pop();
+                res += stack.pop();
+
                 num = 0;
-
-                result *= stack.pop();
-                result += stack.pop();
             }
-
         }
-        if(num != 0) result += sign * num;
-        return result;
+
+        if (num != 0) {
+            res += sign * num;
+        }
+
+        return res;
     }
 
     public static void main (String[] args) {
         BasicCalculator solution = new BasicCalculator();
 
-        System.out.println(solution.calculate("1-2+(5+1)"));
+        System.out.println(solution.calculate("2147483647"));
     }
 
 }
