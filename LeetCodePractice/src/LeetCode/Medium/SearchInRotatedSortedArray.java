@@ -55,11 +55,11 @@ public class SearchInRotatedSortedArray {
             }
         }
 
-        if (start >= end && nums[start] != target) {
-            return -1;
+        if (nums[start] == target) {
+            return start;
         }
 
-        return start;
+        return -1;
     }
     
     public static void main(String[] args) {
