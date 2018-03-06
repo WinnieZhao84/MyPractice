@@ -49,6 +49,6 @@ public class AddDigits {
     
     public static void main(String[] args) {
         AddDigits solution = new AddDigits();
-        System.out.print(solution.addDigits(38));
+        System.out.print(solution.addDigits_Better(18));
     }
 }

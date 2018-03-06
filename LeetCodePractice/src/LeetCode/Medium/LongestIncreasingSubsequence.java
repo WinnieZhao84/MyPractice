@@ -92,8 +92,8 @@ public class LongestIncreasingSubsequence {
             for(int j=0; j<i; j++) {
                 if(nums[j]<nums[i]) {
                     dp[i] = Math.max(dp[i], dp[j]+1);
-                    max = Math.max(dp[i], max);
                 }
+                max = Math.max(dp[i], max);
             }
         }
         

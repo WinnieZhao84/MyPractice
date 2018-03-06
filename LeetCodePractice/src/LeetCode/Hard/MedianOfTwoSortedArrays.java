@@ -79,7 +79,12 @@ public class MedianOfTwoSortedArrays {
     }
 
     // O(log (m+n)) solution
-    // Binary search. Call 2 times getkth and k is about half of (m + n). Every time call getkth can reduce the scale k to its half. So the time complexity is log(m + n).
+    // The key point of this problem is to ignore half part of A and B each step recursively by comparing
+    // the median of remaining A and B:
+    // if (aMid < bMid) Keep [aRight + bLeft]
+    // else Keep [bRight + aLeft]
+    // Binary search. Call 2 times getkth and k is about half of (m + n).
+    // Every time call getkth can reduce the scale k to its half. So the time complexity is log(m + n).
     public double findMedianSortedArrays_better(int[] A, int[] B) {
         int m = A.length, n = B.length;
         int l = (m + n + 1) / 2;

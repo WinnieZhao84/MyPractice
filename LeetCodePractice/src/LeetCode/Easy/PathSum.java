@@ -88,7 +88,34 @@ public class PathSum {
         }
         return false;
     }
-    
+
+    class Solution {
+        public boolean hasPathSum(TreeNode root, int sum) {
+
+            if (root == null) {
+                return false;
+            }
+
+            return this.helper(root, 0, sum);
+        }
+
+        private boolean helper(TreeNode root, int cur, int sum) {
+            if (root == null) {
+                return false;
+            }
+            if (root.left == null && root.right == null) {
+                if (cur + root.val == sum) {
+                    return true;
+                }
+                return false;
+            }
+
+            cur += root.val;
+
+            return helper(root.left, cur, sum) || helper(root.right, cur, sum);
+        }
+    }
+
     public static void main(String[] args) {
         PathSum soluion = new PathSum();
         
