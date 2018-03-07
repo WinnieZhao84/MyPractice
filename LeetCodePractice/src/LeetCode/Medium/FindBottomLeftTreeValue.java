@@ -53,6 +53,39 @@ public class FindBottomLeftTreeValue {
         
         return root.val;
     }
+
+    class Solution {
+        int height = 0;
+        int res = 0;
+
+        public int findBottomLeftValue(TreeNode root) {
+
+            if (root == null) {
+                return -1;
+            }
+            if (root.left == null && root.right == null) {
+                return root.val;
+            }
+
+            this.helper(root, 1);
+
+            return res;
+        }
+
+        private void helper(TreeNode node, int depth) {
+            if (height < depth) {
+                res = node.val;
+                height = depth;
+            }
+
+            if (node.left != null) {
+                helper(node.left, depth+1);
+            }
+            if (node.right != null) {
+                helper(node.right, depth+1);
+            }
+        }
+    }
     
     public static void main(String[] args) {
         FindBottomLeftTreeValue solution = new FindBottomLeftTreeValue();

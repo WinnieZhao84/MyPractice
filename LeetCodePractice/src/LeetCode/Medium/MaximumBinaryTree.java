@@ -69,4 +69,43 @@ public class MaximumBinaryTree {
         result[1] = max;
         return result;
     }
+
+    class Solution {
+        public TreeNode constructMaximumBinaryTree(int[] nums) {
+            if (nums == null || nums.length == 0 ) {
+                return null;
+            }
+
+            if (nums.length == 1) {
+                return new TreeNode(nums[0]);
+            }
+
+            return buildTree(nums, 0, nums.length-1);
+        }
+
+        private TreeNode buildTree(int[] nums, int start, int end) {
+
+            if (start > end) {
+                return null;
+            }
+
+            int rootIndex = -1;
+            int max = Integer.MIN_VALUE;
+
+            for (int i=start; i<=end; i++) {
+
+                if (nums[i] >= max) {
+                    max = nums[i];
+                    rootIndex = i;
+                }
+            }
+
+            TreeNode root = new TreeNode(max);
+
+            root.left = buildTree(nums, start, rootIndex-1);
+            root.right = buildTree(nums, rootIndex+1, end);
+
+            return root;
+        }
+    }
 }

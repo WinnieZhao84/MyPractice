@@ -1,4 +1,4 @@
-package LeetCode.Hard;
+package LeetCode.Interview.Microsoft.LeetCode;
 
 /**
  * 631
@@ -44,8 +44,8 @@ package LeetCode.Hard;
  * // 3 0 0 0
  *
  * Sum(3, "C", ["A1", "A1:B2"]);
- * // set C(3,"C") to be the sum of value at C(1,"A") and the values sum of the rectangle range whose top-left cell is C(1,"A")
- * // and bottom-right cell is C(2,"B"). Return 4.
+ * // set C(3,"C") to be the sum of value at C(1,"A") and the values sum of the rectangle range whose
+ * // top-left cell is C(1,"A") and bottom-right cell is C(2,"B"). Return 4.
  *
  * //   A B C
  * // 1 2 0 0
@@ -65,27 +65,19 @@ package LeetCode.Hard;
  * The test cases are using double-quotes to represent a character.
  * Please remember to RESET your class variables declared in class Excel, as static/class variables are persisted across
  * multiple test cases. Please see here for more details.
-
- * Created by WinnieZhao on 2017/6/27.
+ *
  */
 public class DesignExcelSumFormula {
-
-    /**
-     * Your Excel object will be instantiated and called as such:
-     * Excel obj = new Excel(H, W);
-     * obj.set(r,c,v);
-     * int param_2 = obj.get(r,c);
-     * int param_3 = obj.sum(r,c,strs);
-     */
-
     class Cell {
         boolean isNum;
         Integer val;
         String[] formula;
+
         public void setFormula(String[] formula) {
             this.formula = formula;
             isNum = false;
         }
+
         public int calFormula() {
             int sum = 0;
             for (String s : formula) {
@@ -107,7 +99,8 @@ public class DesignExcelSumFormula {
                             }
                         }
                     }
-                } else {
+                }
+                else {
                     int r1 = Integer.parseInt(s.substring(1)) - 1;
                     if (grid[r1][c1].isNum) {
                         sum += grid[r1][c1].val;
@@ -156,15 +149,4 @@ public class DesignExcelSumFormula {
         return grid[r - 1][c - 'A'].calFormula();
     }
 
-    public static void main(String[] args) {
-        DesignExcelSumFormula solution = new DesignExcelSumFormula(3, 'C');
-
-        String[] strs = {"A2"};
-        int sum = solution.sum(1, 'A', strs);
-        System.out.println("Sum = " + sum);
-
-        solution.set(2, 'A', 1);
-        int res = solution.get(1, 'A');
-        System.out.println("Res = " + res);
-    }
 }
