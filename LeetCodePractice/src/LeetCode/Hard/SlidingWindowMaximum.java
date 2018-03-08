@@ -1,6 +1,7 @@
 package LeetCode.Hard;
 
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -50,7 +51,7 @@ public class SlidingWindowMaximum {
             return new int[0];
         }
 
-        LinkedList<Integer> queue = new LinkedList<>();
+        Deque<Integer> queue = new LinkedList<>();
         int[] res = new int[nums.length + 1 - k];
 
         for(int i = 0; i < nums.length; i++){
