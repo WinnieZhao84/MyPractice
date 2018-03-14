@@ -1,4 +1,4 @@
-package LeetCode.Interview.LinkedIn;
+package LeetCode.Interview.LinkedIn.LeetCode;
 
 /**
  * 277

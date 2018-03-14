@@ -1,7 +1,6 @@
-package LeetCode.Interview.LinkedIn;
+package LeetCode.Interview.LinkedIn.LeetCode;
 
 import LeetCode.Helper.TreeNode;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;

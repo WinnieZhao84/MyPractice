@@ -57,6 +57,36 @@ public class FindLargestValueInEachTreeRow {
 
         return res;
     }
+
+    class Solution {
+        public List<Integer> largestValues(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+
+            if (root == null) {
+                return res;
+            }
+
+            this.helper(root, res, 0);
+
+            return res;
+        }
+
+        private void helper(TreeNode root, List<Integer> res, int depth) {
+            if (root == null) {
+                return;
+            }
+
+            if (res.size() == depth) {
+                res.add(root.val);
+            }
+            else {
+                res.set(depth, Math.max(root.val, res.get(depth)));
+            }
+
+            this.helper(root.left, res, depth+1);
+            this.helper(root.right, res, depth+1);
+        }
+    }
     
     public static void main(String[] args) {
         FindLargestValueInEachTreeRow solution = new FindLargestValueInEachTreeRow();
