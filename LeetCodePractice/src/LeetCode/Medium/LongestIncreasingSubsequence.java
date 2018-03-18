@@ -101,7 +101,7 @@ public class LongestIncreasingSubsequence {
     }
     
     public static void main(String[] args) {
-        int[] nums = {4,10,5,3,8,9};
+        int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         
         LongestIncreasingSubsequence solution = new LongestIncreasingSubsequence();
         System.out.println(solution.lengthOfLIS(nums));

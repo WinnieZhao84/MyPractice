@@ -25,45 +25,49 @@ import java.util.List;
 public class ReverseNodesInKGroup {
 
     public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null) {
+
+        if (head == null || head.next == null || k == 1) {
             return head;
         }
 
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
-        ListNode pre = dummy;
-        ListNode cur = head;
+        ListNode begin = dummy;
 
-        int count = 0;
+        int i=0;
 
-        while (cur != null) {
-            count++;
-            ListNode next = cur.next;
-            if (count == k) {
-                pre = reverse(pre, next);
-                count = 0;
+        while (head != null) {
+            i++;
+
+            if (i % k == 0) {
+                begin = reverse(begin, head.next);
+                head = begin.next;
             }
-            cur = next;
+            else {
+                head = head.next;
+            }
         }
+
         return dummy.next;
     }
 
-    private ListNode reverse(ListNode pre, ListNode end) {
-        if (pre==null || pre.next==null) {
-            return pre;
-        }
-        ListNode head = pre.next;
-        ListNode cur = head.next;
+    private ListNode reverse(ListNode begin, ListNode end) {
+        ListNode cur = begin.next;
+        ListNode pre = begin;
+
+        ListNode first = cur;
 
         while (cur != end) {
             ListNode next = cur.next;
-            cur.next = pre.next;
-            pre.next = cur;
+            cur.next = pre;
+            pre = cur;
             cur = next;
         }
-        head.next = end;
-        return head;
+        begin.next = pre;
+        first.next = cur;
+
+        return first;
     }
 
     public static void main(String[] args) {
