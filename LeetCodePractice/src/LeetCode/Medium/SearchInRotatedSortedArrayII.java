@@ -56,7 +56,7 @@ public class SearchInRotatedSortedArrayII {
             }
         }
 
-        if (start >= end && target != nums[start]) {
+        if (nums[start] != target) {
             return false;
         }
 

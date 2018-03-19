@@ -73,10 +73,45 @@ public class PermutationSequence {
         }
         return sb.toString();
     }
+
+    public String getPermutation_test(int n, int k) {
+
+        if (n <= 0 || k <= 0) {
+            return "";
+        }
+
+        int[] factors = new int[n];
+        int total = 1;
+
+        List<Integer> list = new ArrayList<>();
+        for (int i=1; i<=n; i++) {
+            total *= i;
+            list.add(i);
+        }
+
+        for (int i=0; i<n; i++) {
+            factors[i] = total/ (n-i);
+            total = factors[i];
+        }
+
+        k = k - 1;
+        StringBuilder sb = new StringBuilder();
+        int i=0;
+        while (i < n) {
+            int index = k / factors[i];
+            k = k % factors[i];
+
+            sb.append(list.get(index));
+            list.remove(index);
+            i++;
+        }
+
+        return sb.toString();
+    }
     
     public static void main(String[] args) {
         PermutationSequence solution = new PermutationSequence();
         
-        System.out.println(solution.getPermutation_better(4, 3));
+        System.out.println(solution.getPermutation_test(4, 10));
     }
 }

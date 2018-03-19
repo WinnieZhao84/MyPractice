@@ -91,28 +91,23 @@ public class PathSum {
 
     class Solution {
         public boolean hasPathSum(TreeNode root, int sum) {
-
             if (root == null) {
                 return false;
             }
 
-            return this.helper(root, 0, sum);
+            return this.helper(root, sum);
         }
 
-        private boolean helper(TreeNode root, int cur, int sum) {
+        private boolean helper(TreeNode root, int sum) {
             if (root == null) {
                 return false;
             }
+
             if (root.left == null && root.right == null) {
-                if (cur + root.val == sum) {
-                    return true;
-                }
-                return false;
+                return root.val == sum;
             }
 
-            cur += root.val;
-
-            return helper(root.left, cur, sum) || helper(root.right, cur, sum);
+            return this.helper(root.left, sum - root.val) || this.helper(root.right, sum - root.val);
         }
     }
 
