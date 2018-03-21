@@ -15,27 +15,33 @@ import LeetCode.Helper.ListNode;
 public class RemoveDuplicatesFromSortedListII {
 
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode dummy = new ListNode(0); 
-        ListNode fast = head;
-        ListNode slow = dummy;
-        
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode dummy = new ListNode(0);
         dummy.next = head;
-        
-        while(fast != null) {
-            while (fast.next != null && fast.val == fast.next.val) {
-                fast = fast.next;    //while loop to find the last node of the duplicate.
-            }
-            
-            if (slow.next != fast) { //duplicates detected.
-                slow.next = fast.next; //remove the duplicate.
-                fast = slow.next;     //reposition the fast pointer.
-            } 
-            else { //no duplicate, move down both pointer.
-                slow = slow.next;
+
+        ListNode slow = dummy;
+        ListNode fast = head;
+
+
+        while (fast != null) {
+
+            while (fast != null && fast.next != null && fast.val == fast.next.val) {
                 fast = fast.next;
             }
-            
+
+            if (slow.next == fast) {
+                slow = slow.next;
+            }
+            else {
+                slow.next = fast.next;
+            }
+
+            fast = fast.next;
         }
+
         return dummy.next;
     }
     
