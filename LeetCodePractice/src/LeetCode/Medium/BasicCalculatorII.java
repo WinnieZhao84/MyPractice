@@ -63,47 +63,51 @@ public class BasicCalculatorII {
 
     class Solution {
         public int calculate(String s) {
-
-            if (s == null || s.length() == 0) {
+            if (s == null || s.isEmpty()) {
                 return 0;
             }
 
             char[] chs = s.toCharArray();
 
-            int num = 0;
             Stack<Integer> stack = new Stack<>();
-            char operator = '+';
+
+            int num = 0;
+            char sign = '+';
 
             for (int i=0; i<chs.length; i++) {
                 char ch = chs[i];
 
                 if (ch >= '0' && ch <= '9') {
-                    num = num*10 + (ch-'0');
+                    num = num * 10 + (ch - '0');
                 }
-                if (i == chs.length-1 || (!(ch >= '0' && ch <= '9') && ch != ' ')) {
-                    if (operator == '+') {
+                if (i == chs.length-1 || (ch == '+' || ch == '-' || ch == '*' || ch == '/')) {
+
+                    if (sign == '+') {
                         stack.push(num);
                     }
-                    else if (operator == '-') {
+                    else if (sign == '-') {
                         stack.push(-num);
                     }
-                    else if (operator == '*') {
+                    else if (sign == '*') {
                         stack.push(stack.pop() * num);
                     }
-                    else if (operator == '/') {
+                    else if (sign == '/') {
                         stack.push(stack.pop() / num);
                     }
                     num = 0;
-                    operator = ch;
+                    sign = ch;
+                }
+                else {
+                    continue;
                 }
             }
 
-            int sum = 0;
+            int res = 0;
             for (Integer n : stack) {
-                sum += n;
+                res += n;
             }
 
-            return sum;
+            return res;
         }
     }
 
