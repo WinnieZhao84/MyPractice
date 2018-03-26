@@ -124,6 +124,61 @@ public class AccountsMerge {
         return parents.get(email).equals(email) ? email : find(parents.get(email), parents);
     }
 
+    public List<List<String>> accountsMerge_DFS(List<List<String>> accounts) {
+
+        List<List<String>> result = new ArrayList<>();
+
+        if (accounts == null || accounts.isEmpty()) {
+            return result;
+        }
+
+        Map<String, String> emailToName = new HashMap();
+        Map<String, ArrayList<String>> graph = new HashMap();
+        for (List<String> account: accounts) {
+            String name = "";
+            for (String email: account) {
+                if (name == "") {
+                    name = email;
+                    continue;
+                }
+                graph.computeIfAbsent(email, x-> new ArrayList<>()).add(account.get(1));
+                graph.computeIfAbsent(account.get(1), x-> new ArrayList<>()).add(email);
+                emailToName.put(email, name);
+            }
+        }
+
+        Set<String> visited = new HashSet<>();
+        for (String email : graph.keySet()) {
+
+            if (!visited.contains(email)) {
+
+                Stack<String> stack = new Stack<>();
+                stack.push(email);
+                visited.add(email);
+
+                Set<String> set = new TreeSet<>();
+                List<String> res = new ArrayList<>();
+
+                while (!stack.isEmpty()) {
+                    String cur = stack.pop();
+                    set.add(cur);
+
+                    for (String node : graph.get(cur)) {
+                        if (!visited.contains(node)) {
+                            stack.push(node);
+                            visited.add(node);
+                        }
+
+                    }
+                }
+                res.add(0, emailToName.get(email));
+                res.addAll(set);
+                result.add(res);
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         AccountsMerge solution = new AccountsMerge();
 
