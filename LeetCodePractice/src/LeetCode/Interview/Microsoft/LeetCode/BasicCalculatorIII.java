@@ -1,7 +1,6 @@
 package LeetCode.Interview.Microsoft.LeetCode;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * 772
@@ -10,66 +9,110 @@ import java.util.LinkedList;
  *
  * For example: "(1+2) *10 -25/(1-7)" -> 34
  *
+ * 思路就是两个stack，一个存数字一个存符号。如果遇到数字直接存到数字stack；如果遇到符号，有几种情况：
+ *
+ * 1.当前符号比上一个符号优先级高，比如* 高于+，那么直接进栈
+ * 2.当前符号低于上一个，那么就要把所有已经在stack里面优先于当前符号的全算完，再推进当前符号
+ * 3.当前符号是“（”，直接push
+ * 4.当前符号是“）”，就要把所有“（”以前的符号全部算完
+ *
  */
 public class BasicCalculatorIII {
-    public int calculate(String s) {
 
-        char [] charArr = s.toCharArray();
-        int [] calRes = calculate(charArr, 0, s.length() - 1);
-        return calRes[0];
+    public static void main(String[] args) {
+        BasicCalculatorIII solution = new BasicCalculatorIII();
+
+        System.out.println(solution.calculate("(1+2)*10-25/((7-7) + 5)"));
     }
 
-    private int [] calculate(char [] arr, int start, int end) {
-        int i = start;
-        Character sign = '+';
-        Deque<Integer> stack = new LinkedList<>();
+    public int calculate(String s) {
 
-        while (i <= end) {
-            if (arr[i] == '(') {
-                int[] preRes = calculate(arr, i + 1, end);
-                int num = preRes[0];
-                if (sign == '*') {
-                    stack.offerFirst(num * stack.pollFirst());
-                } else if (sign == '/') {
-                    stack.offerFirst(stack.pollFirst() / num);
-                } else if (sign == '-') {
-                    stack.offerFirst(-1 * num);
-                } else {
-                    stack.offerFirst(num);
-                }
-                i = preRes[1];
+        Stack<Integer> integers = new Stack<>();
+        Stack<Character> ops = new Stack<>();
+
+        int i = 0;
+        int num = 0;
+        boolean hasDigit = false;
+
+        while (i < s.length()) {
+            char cur = s.charAt(i);
+
+            if (this.isDigit(cur)) {
+                num = num * 10 + (cur - '0');
+                hasDigit = true;
             }
-            else if (Character.isDigit(arr[i])) {
-                int num = 0;
-                while (i <= end && Character.isDigit(arr[i])) {
-                    num = num * 10 + arr[i] - '0';
-                    i++;
+            else {
+                if (hasDigit) {
+                    hasDigit = false;
+                    integers.push(num);
+                    num = 0;
                 }
-                if (sign == '*') {
-                    stack.offerFirst(num * stack.pollFirst());
-                } else if (sign == '/') {
-                    stack.offerFirst(stack.pollFirst() / num);
-                } else if (sign == '-') {
-                    stack.offerFirst(-1 * num);
-                } else {
-                    stack.offerFirst(num);
+
+                if (this.isOp(cur)) {
+                    if (cur == '(') {
+                        ops.push('(');
+                    }
+                    else if (cur == ')') {
+                        while (!ops.isEmpty() && ops.peek() != '(') {
+                            integers.push(this.calc(integers.pop(), integers.pop(), ops.pop()));
+                        }
+                        ops.pop();
+                    }
+                    else {// +, -, *, /
+                        while(!ops.isEmpty() && this.precede(cur, ops.peek())) {
+                            integers.push(this.calc(integers.pop(), integers.pop(), ops.pop()));
+                        }
+                        ops.push(cur);
+                    }
                 }
-                continue;
-            }
-            else if (arr[i] == '+' || arr[i] == '-' || arr[i] == '*' || arr[i] == '/') {
-                sign = arr[i];
-            }
-            else if (arr[i] == ')') {
-                break;
             }
             i++;
         }
 
-        int res = 0;
-        while (!stack.isEmpty()) {
-            res += stack.pollFirst();
+        while (!ops.isEmpty()) {
+            integers.push(calc(integers.pop(), integers.pop(), ops.pop()));
         }
 
-        return new int[]{res, i};
+        return integers.isEmpty()? 0 : integers.pop();
+    }
+
+    private boolean isDigit(char ch) {
+        return ch >= '0' && ch <= '9';
+    }
+
+    private boolean isOp(char ch) {
+        if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '(' || ch == ')') {
+            return true;
+        }
+        return false;
+    }
+
+    private int calc(int first, int second, char op) {
+        if (op == '-') {
+            return second - first;
+        }
+        else if (op == '*') {
+            return first * second;
+        }
+        else if (op == '/') {
+            return second / first;
+        }
+
+        return first + second;
+    }
+
+    private boolean precede(char first, char second) {
+        if (second == '*' || second == '/') {
+            return true;
+        }
+        if (second == '+' || second == '-') {
+            if (first == '*' || first == '/') {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        return false;
     }
 }
