@@ -1,5 +1,8 @@
 package LeetCode.Easy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Suppose you have a long flowerbed in which some of the plots are planted and some are not.
  * However, flowers cannot be planted in adjacent plots - they would compete for water and both would die.
@@ -42,5 +45,38 @@ public class CanPlaceFlowers {
         }
 
         return n == 0;
+    }
+
+    public boolean canPlaceFlowers_test(int[] flowerbed, int n) {
+
+        if (flowerbed == null || flowerbed.length == 0 || flowerbed.length < n) {
+            return false;
+        }
+
+        int len = flowerbed.length;
+        for (int i=0; i<len; i++) {
+            if (n == 0) {
+                return true;
+            }
+
+            if (flowerbed[i] == 0 && (i == 0 || flowerbed[i-1] == 0) && (i == len-1 || flowerbed[i+1] == 0)) {
+                flowerbed[i] = 1;
+                n--;
+            }
+        }
+
+        return n == 0;
+    }
+
+    public static void main(String[] args) {
+        CanPlaceFlowers solution = new CanPlaceFlowers();
+        int[] nums = new int[] {0};
+
+        List<Integer> list = new ArrayList<>();
+        list.add(null);
+
+        System.out.println(list);
+
+        System.out.println(solution.canPlaceFlowers_test(nums, 1));
     }
 }

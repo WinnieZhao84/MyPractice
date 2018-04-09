@@ -53,7 +53,7 @@ public class FindSmallestLetterGreaterThanTarget {
         }
 
         int l=0;
-        int r=length;
+        int r=length-1;
 
         while (l<r) {
             int mid = l + (r-l)/2;

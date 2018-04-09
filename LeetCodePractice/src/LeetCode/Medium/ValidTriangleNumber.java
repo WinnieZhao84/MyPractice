@@ -23,6 +23,13 @@ import java.util.Arrays;
  */
 public class ValidTriangleNumber {
 
+    /**
+     * Time complexity : O(n^2). Loop of k and j will be executed O(n^2) times in total,
+     * because we do not reinitialize the value of k for a new value of j chosen (for the same i).
+     * Thus the complexity will be O(n^2+n^2)=O(n^2).
+     *
+     * Space complexity : O(logn). Sorting takes O(logn) space.
+     */
     public int triangleNumber(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;

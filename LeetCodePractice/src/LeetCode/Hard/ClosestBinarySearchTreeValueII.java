@@ -18,6 +18,9 @@ import java.util.*;
  */
 public class ClosestBinarySearchTreeValueII {
 
+    /**
+     * O(lgN) solution
+     */
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
         List<Integer> ret = new LinkedList<>();
         Stack<TreeNode> succ = new Stack<>();
@@ -103,5 +106,35 @@ public class ClosestBinarySearchTreeValueII {
             curr = curr.right;
         }
         return ret;
+    }
+
+    /**
+     * O(N) solution
+     */
+    public List<Integer> closestKValues_normal(TreeNode root, double target, int k) {
+        LinkedList<Integer> res = new LinkedList<>();
+
+        if (root == null) {
+            return res;
+        }
+
+        this.inorder(res, root, target, k);
+
+        return res;
+    }
+
+    private void inorder(LinkedList<Integer> res, TreeNode root, double target, int k) {
+        if (root == null) {
+            return;
+        }
+
+        inorder(res, root.left, target, k);
+
+        if (res.size() == k && Math.abs(root.val - target) < Math.abs(res.peekFirst() - target)) {
+            res.removeFirst();
+        }
+        res.add(root.val);
+
+        inorder(res, root.right, target, k);
     }
 }
