@@ -60,16 +60,18 @@ public class ShuffleAnArray {
         
         return shuffledNums;
     }
+
+    private int randRange(int min, int max) {
+        return random.nextInt(max - min) + min;
+    }
     
     public int[] shuffle_better() {
         int size = nums.length;
         int[] shuffledNums = Arrays.copyOf(nums, size);
         
         for (int i=0; i<size; i++) {
-            int j = random.nextInt(i+1);
-            
             // Pick an element to swap from the range [i, j)
-            this.swap(shuffledNums, i, j);
+            this.swap(shuffledNums, i, this.randRange(i, size));
         }
         
         return shuffledNums;

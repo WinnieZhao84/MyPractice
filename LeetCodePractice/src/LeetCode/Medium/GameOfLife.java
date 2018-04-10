@@ -131,10 +131,6 @@ public class GameOfLife {
          * 10  live (next) <- dead (current)
          * 11  live (next) <- live (current)
          */
-        final int DEAD_TO_DEAD = 0;
-        final int ALIVE_TO_DEAD = 1;
-        final int DEAD_TO_ALIVE = 2;
-        final int ALIVE_TO_ALIVE = 3;
 
         int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0},{-1,-1},{1,1},{1,-1}, {-1,1}};
 
