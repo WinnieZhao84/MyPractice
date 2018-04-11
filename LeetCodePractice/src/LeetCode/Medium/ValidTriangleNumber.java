@@ -1,6 +1,8 @@
 package LeetCode.Medium;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Given an array consists of non-negative integers, your task is to count the number of triplets chosen from the array
@@ -55,5 +57,63 @@ public class ValidTriangleNumber {
         }
 
         return count;
+    }
+
+    class Triangle {
+        public boolean canFormTriangle(int[] input) {
+            Arrays.sort(input);
+            for (int i = input.length - 1; i >= 2; i--) {
+                int number1 = input[i];
+                int number2 = input[i - 1];
+                int number3 = input[i - 2];
+                if (number3 + number2 > number1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int numberOfTriangle(int[] input) {
+            int count = 0;
+            Arrays.sort(input);
+            for (int i = input.length - 1; i >= 2; i--) {
+                int right = i - 1;
+                int left = 0;
+                while (left < right) {
+                    if (input[left] + input[right] > input[i]) {
+                        count += right - left;
+                        right--;
+                    }
+                    else {
+                        left++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        public List<List<Integer>> allTriangle(int[] input) {
+
+            List<List<Integer>> result = new ArrayList<>();
+            Arrays.sort(input);
+            for (int i = input.length - 1; i >= 2; i--) {
+                int right = i - 1;
+                int left = 0;
+                while (left < right) {
+                    if (input[left] + input[right] > input[i]) {
+                        for (int k = left; k < right; k++) {
+                            List<Integer> tri = Arrays.asList(input[k], input[right], input[i]);
+                            result.add(tri);
+                        }
+                        right--;
+                    }
+                    else {
+                        left++;
+                    }
+                }
+            }
+            return result;
+        }
+
     }
 }
