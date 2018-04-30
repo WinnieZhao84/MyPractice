@@ -47,25 +47,37 @@ public class ReverseWordsInAString {
         return String.join(" ", words);
     }
 
-    public String reverseWords_test(String s) {
-        if (s == null || s.isEmpty()) {
-            return s;
+    public String reverseString(String input) {
+        if (input == null || input.length() == 0) {
+            return "";
         }
-
-        s=s.trim();
-        String rev = this.reverse(s, 0, s.length()-1);
-
-        String[] strs = rev.split(" ");
-        StringBuilder sb = new StringBuilder();
-        for (String str : strs) {
-            if (str.isEmpty()) {
-                continue;
+        char[] letters = input.toCharArray();
+        reverse(0, letters.length - 1, letters);
+        int slow = 0;
+        while (slow < letters.length) {
+            if (letters[slow] == ' ') {
+                slow++;
             }
-            sb.append(this.reverse(str, 0, str.length()-1));
-            sb.append(" ");
+            else {
+                int fast = slow + 1;
+                while (fast < letters.length && letters[fast] != ' ') {
+                    fast++;
+                }
+                reverse(slow, fast - 1, letters);
+                slow = fast;
+            }
         }
+        return String.valueOf(letters);
+    }
 
-        return sb.toString().trim();
+    private void reverse(int start, int end, char[] input) {
+        while (start <= end) {
+            char temp = input[start];
+            input[start] = input[end];
+            input[end] = temp;
+            start++;
+            end--;
+        }
     }
 
     private String reverse(String s, int start, int end) {
@@ -83,6 +95,6 @@ public class ReverseWordsInAString {
     
     public static void main(String[] args) {
         ReverseWordsInAString solution = new ReverseWordsInAString();
-        System.out.println(solution.reverseWords_test("   a   b "));
+        System.out.println(solution.reverseWords("   a   b "));
     }
 }

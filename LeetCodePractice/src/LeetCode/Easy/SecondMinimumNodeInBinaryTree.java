@@ -69,4 +69,20 @@ public class SecondMinimumNodeInBinaryTree {
 
     }
 
+    public static void main(String[] args) {
+        SecondMinimumNodeInBinaryTree solution = new SecondMinimumNodeInBinaryTree();
+
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(5);
+
+        root.right.left = new TreeNode(5);
+        root.right.right = new TreeNode(7);
+
+        root.right.right.left = new TreeNode(7);
+        root.right.right.right = new TreeNode(9);
+
+        System.out.println(solution.findSecondMinimumValue(root));
+    }
+
 }

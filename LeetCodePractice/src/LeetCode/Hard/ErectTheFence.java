@@ -35,6 +35,17 @@ public class ErectTheFence {
         return (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
     }
 
+    /**
+     * Time complexity : O(nlog(n)). Sorting the given points takes O(nlog(n)) time.
+     * Further, after sorting the points can be considered in two cases, while being pushed onto the hull
+     * or while popping from the hull. Atmost, every point is touched twice(both push and pop) taking 2n(O(n)) time
+     * in the worst case.
+     *
+     * Space complexity : O(n). hull stack can grow upto size n.
+
+     * @param points
+     * @return
+     */
     public List <Point> outerTrees(Point[] points) {
 
         // Sort the points on the basis of their x-coordinate values.

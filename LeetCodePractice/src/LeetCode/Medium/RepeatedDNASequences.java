@@ -71,7 +71,7 @@ public class RepeatedDNASequences {
         Set<Integer> words = new HashSet<>();
         Set<Integer> doubleWords = new HashSet<>();
         List<String> rv = new ArrayList<>();
-        char[] map = new char[26];
+        int[] map = new int[26];
         //map['A' - 'A'] = 0;
         map['C' - 'A'] = 1;
         map['G' - 'A'] = 2;

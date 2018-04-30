@@ -78,7 +78,7 @@ public class FindKPairsWithSmallestSums {
     }
     
     /**
-     * Better solution:
+     * Better solution: O(KlogK) time complexity
      * 
      * @author WinnieZhao
      *
