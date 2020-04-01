@@ -15,23 +15,31 @@ import LeetCode.Helper.TreeNode;
  */
 public class MinimumDepthBinaryTree {
 	
-	public int minDepth_recursively(TreeNode root) {
-    	if (root == null) {
-    		return 0;
-    	}
-    	
-    	return this.minDepthHelper(root, 1);
+    /**
+     * DFS solution
+     */
+	public int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        
+        if (root.left == null) {
+            return minDepth(root.right) + 1;
+        }
+        else if (root.right == null) {
+            return minDepth(root.left) + 1;
+        }
+        
+        return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
 	}
 	
-	private int minDepthHelper(TreeNode node, int depth) {
-		if (node == null) return Integer.MAX_VALUE;
-		if (node.left == null && node.right == null) {
-			return depth;
-		}
-		
-		return Math.min(this.minDepthHelper(node.left, depth+1), this.minDepthHelper(node.right, depth+1));
-	}
-
+/**
+ * BFS is much better here, rather than a DFS approach.
+ * Sure, the solution here is short in terms of lines of code and looks nice, but it's far from optimal.
+ * If you have a tree where say the root's left subtree has a depth of 500 and the right subtree has a depth of 1, 
+ * the code is going to traverse all the way down the 500 left subtree first before finally traversing the right 
+ * subtree with a depth of 1 and figuring out "d'oh!" that's the min depth.
+ */
     public int minDepth_iternatively(TreeNode root) {
         
     	if (root == null) {
