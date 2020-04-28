@@ -36,48 +36,48 @@ import java.util.Set;
  */
 public class WordLadder {
 
-    // BFS, Time Limit Exceed
+    // BFS
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-         if (!wordList.contains(endWord)) return 0;
+        Set<String> wordSet = new HashSet<>(wordList);
+        if (!wordSet.contains(endWord)) {
+            return 0;
+        }
          
          Queue<String> queue = new LinkedList<String>();
          queue.add(beginWord);
          
          Set<String> visited = new HashSet<String>();
-         int length = 1;
+         int step = 1;
          while(!queue.isEmpty()) {
 
              int size = queue.size();
              for (int i=0; i<size; i++) {
                  String word = queue.poll();
                  
-                 if (word.equals(endWord)) {
-                     return length;
-                 }
+                 char[] chs = word.toCharArray();
                  
-                 for (String target : wordList) {
-
-                     if (!visited.contains(target) && this.isValid(word, target)) {
-                         queue.add(target);
-                         visited.add(target);
+                 for (int j=0; j<chs.length; j++) {
+                     char old = chs[j];
+                     for (char c = 'a'; c<='z'; c++) {
+                         
+                         chs[j] = c;
+                         
+                         String s = String.valueOf(chs);
+                         if (endWord.equals(s)) {
+                             return step+1;
+                         }
+                         if (!visited.contains(s) && wordSet.contains(s)) {
+                             queue.add(s);
+                             visited.add(s);
+                         }
+                         chs[j] = old;
                      }
-
                  }
              }
-             length++;
+             step++;
 
          }
          return 0;
-        
-    }
-    
-    private boolean isValid(String word, String target) {
-        int diff = 0;
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) != target.charAt(i)) diff++;
-            if (diff > 1) return false;
-        }
-        return true;
     }
 
     /**
