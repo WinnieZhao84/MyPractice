@@ -25,7 +25,7 @@ import java.util.Queue;
  * 
  * 
  * @author WinnieZhao
- *
+ * BFS Time Complexity: O(mn) Space Complexity: O(mn)
  */
 public class SurroundedRegions {
 
@@ -80,6 +80,7 @@ public class SurroundedRegions {
 
     /**
      * DFS solution
+     * Time Complexity: O(mn) Space Complexity: O(mn)
      */
     class Solution {
         public void solve(char[][] board) {
