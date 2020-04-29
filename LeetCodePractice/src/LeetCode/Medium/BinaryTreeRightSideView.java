@@ -48,6 +48,38 @@ public class BinaryTreeRightSideView {
         this.rightSideViewHelper(node.left, result, depth+1);
     }
     
+    public List<Integer> rightSideView_BFS(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        
+        if (root == null) {
+            return res;
+        }
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        
+        while (!queue.isEmpty()) {
+            
+            int size = queue.size();
+            for (int i=0; i<size; i++) {
+                TreeNode cur = queue.poll();
+                
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                } 
+                
+                if (i == size-1) {
+                    res.add(cur.val);
+                }
+            }
+        }
+        
+        return res;
+    }
+    
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(9);
