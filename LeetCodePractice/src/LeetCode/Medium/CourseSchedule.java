@@ -27,52 +27,58 @@ import java.util.Queue;
  *
  */
 public class CourseSchedule {
-    List<Integer> valid = new ArrayList<>();
-    
-    public boolean canFinish_DFS(int numCourses, int[][] prerequisites) {
+
+    public boolean canFinish_dfs(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || numCourses == 1) {
+            return true;
+        }
+        
         if (prerequisites == null || prerequisites.length == 0) {
             return true;
         }
-
-        List<List<Integer>> preCourses = new ArrayList<List<Integer>>();
+        
+        int[] visited = new int[numCourses];
+                
+        List<List<Integer>> precourses = new ArrayList<>();
         for (int i=0; i<numCourses; i++) {
-            preCourses.add(new ArrayList<>());
+            precourses.add(new ArrayList<>());
         }
-
+        
         for (int i=0; i<prerequisites.length; i++) {
-            int course = prerequisites[i][0];
-            int preCourse = prerequisites[i][1];
-            preCourses.get(course).add(Integer.valueOf(preCourse));
+            int pre = prerequisites[i][1];
+            int cur = prerequisites[i][0];
+            precourses.get(cur).add(Integer.valueOf(pre));
         }
-
-        List<Integer> visited = new ArrayList<>();
-
+        
         for (int i=0; i<numCourses; i++) {
-            if (!this.dfs(preCourses, visited, i)) {
+            if (!dfs(precourses, visited, i)) {
                 return false;
             }
         }
-
+        
         return true;
     }
     
-    private boolean dfs(List<List<Integer>> preCourses, List<Integer> visited, int course) {
-        if (visited.contains(course)) {
-            return false;
-        }
-        if (valid.contains(course)) {
+    // visited == 1 means the node and all its linked ones have been visited and this is a good node
+    // visited == 2 means there is a loop, the same node is visiting.
+    private boolean dfs(List<List<Integer>> precourses, int[] visited, int course) {
+        if (visited[course] == 1) {
             return true;
         }
-        visited.add(Integer.valueOf(course));
-        for (Integer pre : preCourses.get(course)) {
-
-            if (!this.dfs(preCourses, visited, pre)) {
+        
+        if (visited[course] == 2) {
+            return false;
+        }
+        
+        visited[course] = 2;
+        
+        for (Integer pre : precourses.get(course)) {
+            if (!dfs(precourses, visited, pre)) {
                 return false;
             }
-            valid.add(pre);
         }
-        visited.remove(Integer.valueOf(course));
-
+        
+        visited[course] = 1;
         return true;
     }
     
