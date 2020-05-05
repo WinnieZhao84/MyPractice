@@ -35,8 +35,13 @@ import java.util.Queue;
  */
 public class CourseScheduleII {
     
-    private int N = 0;
+    private int N = 0;  
     
+    // Time Complexity: O(V + E) where VV represents the number of vertices and EE represents the number of edges. We pop each node exactly once from the zero in-degree queue and that gives us VV. 
+    // Also, for each vertex, we iterate over its adjacency list and in totality, we iterate over all the edges in the graph which gives us EE. Hence, O(V + E)O(V+E)
+    // Space Complexity: O(V + E) We use an intermediate queue data structure to keep all the nodes with 0 in-degree. In the worst case, there won't be any prerequisite relationship 
+    // and the queue will contain all the vertices initially since all of them will have 0 in-degree. That gives us O(V)O(V). Additionally, we also use the adjacency list to represent our graph initially. 
+    // The space occupied is defined by the number of edges because for each node as the key, we have all its adjacent nodes in the form of a list as the value. Hence, O(E)O(E). So, the overall space complexity is O(V + E).
     public int[] findOrder_BFS(int numCourses, int[][] prerequisites) {
         int[] result = new int[numCourses];
 
@@ -92,7 +97,10 @@ public class CourseScheduleII {
             pre.add(c);
         }
     }
-    
+ 
+    // Time Complexity: O(N) considering there are N courses in all. We essentially perform a complete depth first search covering all the nodes in the forest. 
+    // It's a forest and not a graph because not all nodes will be connected together. There can be disjoint components as well.
+    // Space Complexity: O(N) the space utilized by the recursion stack (not the stack we used to maintain the topologically sorted order)
     public int[] findOrder_DFS(int numCourses, int[][] prerequisites) {
         N = 0;
         int[] result = new int[numCourses];
