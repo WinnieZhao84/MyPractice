@@ -35,7 +35,7 @@ import java.util.Queue;
  */
 public class CourseScheduleII {
     
-    private int N = 0;  
+    private int N = 0; // For DFS
     
     // Time Complexity: O(V + E) where VV represents the number of vertices and EE represents the number of edges. We pop each node exactly once from the zero in-degree queue and that gives us VV. 
     // Also, for each vertex, we iterate over its adjacency list and in totality, we iterate over all the edges in the graph which gives us EE. Hence, O(V + E)O(V+E)
@@ -85,52 +85,62 @@ public class CourseScheduleII {
         return result;
     }
 
-    class Course {
-        boolean visited = false;
-        boolean tested = false;
-        int number;
-        List<Course> pre = new ArrayList<Course>();
-        public Course(int i) {
-            number = i;
-        }
-        public void add(Course c) {
-            pre.add(c);
-        }
-    }
- 
     // Time Complexity: O(N) considering there are N courses in all. We essentially perform a complete depth first search covering all the nodes in the forest. 
     // It's a forest and not a graph because not all nodes will be connected together. There can be disjoint components as well.
     // Space Complexity: O(N) the space utilized by the recursion stack (not the stack we used to maintain the topologically sorted order)
     public int[] findOrder_DFS(int numCourses, int[][] prerequisites) {
-        N = 0;
-        int[] result = new int[numCourses];
-        Course[] courses = new Course[numCourses];
-        for (int i = 0; i < numCourses; i++) {
-            courses[i] = new Course(i);
+        if (numCourses == 0 || prerequisites == null) {
+            return new int[0];
         }
-        for (int i = 0; i < prerequisites.length; i++) {
-            courses[prerequisites[i][0]].add(courses[prerequisites[i][1]]);
+        
+        List<List<Integer>> preCourses = new ArrayList<>();
+        
+        for (int i=0; i<numCourses; i++) {
+            preCourses.add(new ArrayList<>());
         }
-        for (int i = 0; i < numCourses; i++) {
-            if (isCyclic(courses[i], result)) {
+        
+        for (int i=0; i<prerequisites.length; i++) {
+            int pre = prerequisites[i][1];
+            int cur = prerequisites[i][0];
+            
+            preCourses.get(cur).add(Integer.valueOf(pre));
+        }
+        
+        int[] visited = new int[numCourses];
+        
+        int[] res = new int[numCourses];
+        
+        for (int i=0; i<numCourses; i++) {
+            if (!dfs(res, preCourses, visited, i)) {
                 return new int[0];
             }
         }
-        return result;
+        
+        return res;
     }
-
-    private boolean isCyclic(Course cur, int[] result) {
-        if (cur.tested == true) return false;
-        if (cur.visited == true) return true;
-        cur.visited = true;
-        for (Course c : cur.pre) {
-            if (isCyclic(c, result)) {
-                return true;
+    
+    // visited == 1 means the node and all its linked ones have been visited and this is a good node
+    // visited == 2 means there is a loop, the same node is visiting.
+    private boolean dfs(int[] res, List<List<Integer>> precourses, int[] visited, int course) {
+        if (visited[course] == 1) {
+            return true;
+        }
+        
+        if (visited[course] == 2) {
+            return false;
+        }
+        
+        visited[course] = 2;
+        for (Integer pre : precourses.get(course)) {
+            if (!dfs(res, precourses, visited, pre)) {
+                return false;
             }
         }
-        cur.tested = true;
-        result[N++] = cur.number;
-        return false;
+        
+        visited[course] = 1; 
+        res[N++] = course;
+        
+        return true;
     }
     
     public static void main(String[] args) {
