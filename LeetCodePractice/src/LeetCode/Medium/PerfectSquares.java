@@ -55,6 +55,42 @@ public class PerfectSquares {
         return dp[n];
     }
     
+    public int numSquares_BFS(int n) {
+        
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        
+        Set<Integer> visited = new HashSet<>();
+        visited.add(0);
+        
+        int step = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            step++;
+            
+            for (int i=0; i<size; i++) {
+                Integer cur = queue.poll();
+                
+                for (int j=1; j<n; j++) {
+                    int sum = j*j + cur;
+                    if (sum == n) {
+                        return step;
+                    }
+                    else if (sum < n) {
+                        if (!visited.contains(sum)) {
+                            queue.add(sum);
+                            visited.add(sum);
+                        }
+                    } 
+                    else {
+                        break;
+                    }
+                }
+            }
+        }
+        return step;
+    }
+    
     public static void main(String[] args) {
         PerfectSquares solution = new PerfectSquares();
         
