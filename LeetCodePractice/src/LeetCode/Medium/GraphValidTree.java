@@ -64,4 +64,51 @@ public class GraphValidTree {
         }
         return true;
     }
+    
+    public boolean validTree_DFS(int n, int[][] edges) {
+       if (n==1) {
+           return true;
+       }
+              
+       if (n==0 || edges.length ==0) {
+           return false;
+       }
+       
+       List<List<Integer>> connections = new ArrayList<>();
+       for (int i=0; i<n; i++) {
+           connections.add(new ArrayList<>());
+       }
+       
+       for (int i=0; i<edges.length; i++) {
+            connections.get(edges[i][0]).add(edges[i][1]);
+            connections.get(edges[i][1]).add(edges[i][0]);
+       }
+
+       boolean[] visited = new boolean[n];
+       
+       dfs(connections, visited, 0, -1);
+       
+       for (boolean b : visited) {
+           if (!b) {
+               return false;
+           }
+       }
+       
+       return true;
+    }
+    
+    private boolean dfs(List<List<Integer>> connections, boolean[] visited, int cur, int parent) {
+        if (visited[cur]) {
+            return false;
+        }
+        
+        visited[cur] = true;
+        for (Integer next : connections.get(cur)) {
+            // Check if the next makes a cycle when next is not cur's parent (e.g. 0->1, 1->0)
+            if (next != parent && !dfs(connections, visited, next, cur)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
