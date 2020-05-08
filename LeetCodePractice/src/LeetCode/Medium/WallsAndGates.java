@@ -30,73 +30,89 @@ import java.util.Queue;
  */
 public class WallsAndGates {
 
-    int m;
-    int n;
-    public void wallsAndGates(int[][] rooms) {
+   public void wallsAndGates(int[][] rooms) {
         if (rooms == null || rooms.length == 0) {
             return;
         }
-        m = rooms.length;
-        n = rooms[0].length;
-
-        for(int i=0; i< m; i++) {
-            for (int j = 0; j < n; j++) {
+        
+        int m = rooms.length;
+        int n = rooms[0].length;
+        
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
                 if (rooms[i][j] == 0) {
-                    this.dfs(rooms, i, j, 0);
+                    this.dfs(rooms, i, j, m, n, 0);
                 }
             }
         }
     }
-
-    private void dfs (int[][] rooms, int i, int j, int dist) {
-        if (i<0 || j<0 || i>=m || j>=n || rooms[i][j] == -1) {
+    
+    private void dfs(int[][] rooms, int x, int y, int m, int n, int distance) {
+        if (x<0 || y<0 || x>=m || y>=n || rooms[x][y]<distance) {
             return;
         }
-
-        if( dist > rooms[i][j]) return;
-        // don't really need the min methods, if it is 0 ,then only show once.
-        rooms[i][j] = Math.min(rooms[i][j], dist);// since a room is already 0,
-        // in first level, there is no set really.
-        dfs(rooms, i+1, j, dist+1);
-        dfs(rooms, i-1, j, dist+1);
-        dfs(rooms, i, j+1, dist+1);
-        dfs(rooms, i, j-1, dist+1);
+        
+        rooms[x][y] = distance;
+        
+        dfs(rooms, x-1, y, m, n, distance+1);
+        dfs(rooms, x+1, y, m, n, distance+1);
+        dfs(rooms, x, y-1, m, n, distance+1);
+        dfs(rooms, x, y+1, m, n, distance+1);
     }
 
+    class Point {
+        int x;
+        int y;
+        
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    
+    /**
+     * @param rooms: m x n 2D grid
+     * @return: nothing
+     */
     public void wallsAndGates_BFS(int[][] rooms) {
-        if(rooms == null || rooms.length == 0) return;
-        int[][] dir = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
-        class Pair{
-            int x;
-            int y;
-            Pair(int _x, int _y){
-                x = _x;
-                y = _y;
-            }
-        };
-        Queue<Pair> queue = new LinkedList<>();
-
-        for(int i= 0; i< rooms.length; i++){
-            for(int j =0; j< rooms[0].length; j++){
-                if(rooms[i][j] == 0){
-                    queue.offer(new Pair(i,j));
+        if (rooms == null || rooms.length == 0) {
+            return;
+        }
+        
+        Queue<Point> queue = new LinkedList<>();
+        
+        for (int i=0; i<rooms.length; i++) {
+            for (int j=0; j<rooms[0].length; j++) {
+                if (rooms[i][j] == 0) {
+                  queue.add(new Point(i,j));
                 }
             }
         }
-
-        while(!queue.isEmpty()) {
-            Pair p = queue.poll();
-
-            for(int[] d : dir){
-                int x = p.x + d[0];
-                int y = p.y + d[1];
-
-                if (x <0 || x >= rooms.length || y <0 || y>= rooms[0].length || rooms[x][y] <= rooms[p.x][p.y] + 1) {
-                    continue;
+        
+        int[][] dirs = {{0,1},{0,-1},{1,0},{-1,0}};
+        
+        int m = rooms.length;
+        int n = rooms[0].length;
+        
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            
+            for (int i=0; i<size; i++) {
+                Point cur = queue.poll();
+                
+                for (int[] dir : dirs) {
+                    int x = cur.x + dir[0];
+                    int y = cur.y + dir[1];
+                    
+                    if (x >= m || x < 0 || y <0 || y >=n || rooms[x][y] < rooms[cur.x][cur.y]+1) {
+                        continue;
+                    }
+                    
+                    rooms[x][y] = rooms[cur.x][cur.y] + 1;
+                    queue.add(new Point(x,y));
                 }
-                rooms[x][y] = rooms[p.x][p.y] + 1;
-                queue.offer(new Pair(x,y));
             }
+
         }
     }
 }
