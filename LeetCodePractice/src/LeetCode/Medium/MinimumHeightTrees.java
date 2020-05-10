@@ -2,8 +2,12 @@ package LeetCode.Medium;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -143,5 +147,58 @@ public class MinimumHeightTrees {
         }
         
         return leaves;
+    }
+    
+    public List<Integer> findMinHeightTrees_regular(int n, int[][] edges) {
+        List<Integer> res = new ArrayList<>();
+        if (n == 0) {
+            return new ArrayList<>();
+        }
+        
+        if (n == 1) {
+            res.add(0);
+            return res;
+        }
+        
+        Map<Integer, Set<Integer>> neighbors = new HashMap<>();
+        int[] degree = new int[n];
+        for (int i=0; i<n; i++) {
+            neighbors.put(i, new HashSet<>());
+        }
+        for (int i=0; i<edges.length; i++) {
+            neighbors.get(edges[i][0]).add(edges[i][1]);
+            neighbors.get(edges[i][1]).add(edges[i][0]);
+            degree[edges[i][0]]++;
+            degree[edges[i][1]]++;
+        }
+        
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i=0; i<n; i++) {
+            if (degree[i] == 1) {
+                queue.add(i);
+            }
+        }
+        
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            
+            List<Integer> list = new ArrayList<>();
+            for (int i=0; i<size; i++) {
+                Integer leave = queue.poll();
+                
+                list.add(leave);
+                
+                for (Integer next : neighbors.get(leave)) {
+                    degree[next]--;
+                    
+                    if (degree[next] == 1) {
+                        queue.add(next);
+                    }
+                }
+            }
+            res = list;
+        }
+        return res;
+        
     }
 }
