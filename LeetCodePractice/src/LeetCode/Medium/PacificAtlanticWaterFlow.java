@@ -38,6 +38,10 @@ import java.util.Queue;
  */
 public class PacificAtlanticWaterFlow {
 
+    /**
+     * DFS
+     * Complexity: O(mn)
+     */
     public List<List<Integer>> pacificAtlantic(int[][] matrix) {
         List<List<Integer>> res = new ArrayList<>();
         
@@ -92,6 +96,7 @@ public class PacificAtlanticWaterFlow {
     
     /**
      * BFS
+     * Complexity: O(mn)
      */
     public List<List<Integer>> pacificAtlantic_BFS(int[][] matrix) {
         List<List<Integer>> res = new ArrayList<>();
