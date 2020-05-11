@@ -38,23 +38,32 @@ public class RemoveInvalidParentheses {
 
         boolean found = false;
         while(!queue.isEmpty()) {
-            s = queue.poll();
-
-            if (this.isValid(s)) {
-                result.add(s);
-                found = true;
-            }
-
-            if (found) continue;
-
-            for (int i=0; i<s.length(); i++) {
-                if (s.charAt(i) != '(' && s.charAt(i) != ')') continue;
-
-                String newStr = s.substring(0, i) + s.substring(i + 1);
-
-                if (!visited.contains(newStr)) {
-                    queue.add(newStr);
-                    visited.add(newStr);
+            int size = queue.size();
+            
+            for (int i=0; i<size; i++) {
+                String cur = queue.poll();
+                
+                if (this.isValid(cur)) {
+                    result.add(cur);
+                    found = true;
+                }
+                
+                if (found == true) {
+                    continue;
+                }
+                
+                int len = cur.length();
+                
+                for (int j=0; j<len; j++) {
+                    if (cur.charAt(j) != '(' && cur.charAt(j) != ')') {
+                        continue;
+                    }
+                    String next = cur.substring(0, j) + cur.substring(j+1);
+                    
+                    if (!visited.contains(next)) {
+                        queue.add(next);
+                        visited.add(next);
+                    }
                 }
             }
         }
