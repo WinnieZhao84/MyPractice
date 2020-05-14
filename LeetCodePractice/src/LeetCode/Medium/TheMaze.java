@@ -51,6 +51,16 @@ package LeetCode.Medium;
 public class TheMaze {
 
     int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        
+    class Cell {
+        int x;
+        int y;
+        
+        Cell (int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
     
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
        
@@ -92,7 +102,6 @@ public class TheMaze {
         }
         return false;
     }
-    
     
     public boolean hasPath_BFS(int[][] maze, int[] start, int[] destination) {
        
