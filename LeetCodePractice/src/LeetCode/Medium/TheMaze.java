@@ -83,4 +83,57 @@ public class TheMaze {
     private boolean isValid(int[][] maze, int row, int col) {
         return row >= 0 && row < maze.length && col >= 0 && col < maze[0].length && maze[row][col] != 1;
     }
+    
+    class Cell {
+        int x;
+        int y;
+        
+        Cell (int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    
+    int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    
+    public boolean hasPath_BFS(int[][] maze, int[] start, int[] destination) {
+       
+       if (maze == null || maze.length == 0) {
+           return false;
+       }
+       
+       Queue<Cell> queue = new LinkedList<>();
+       queue.add(new Cell(start[0], start[1]));
+       
+       int m = maze.length;
+       int n = maze[0].length;
+    
+       boolean[][] visited = new boolean[m][n];
+              
+       while(!queue.isEmpty()) {
+            Cell cur = queue.poll();
+   
+            if (cur.x == destination[0] && cur.y == destination[1]) {
+                return true;
+            }
+            
+            for (int[] dir : dirs) {
+                int x = cur.x + dir[0];
+                int y = cur.y + dir[1];
+                
+                while (x>=0 && y>=0 && x<m && y< n && maze[x][y] == 0) {
+                    x += dir[0];
+                    y += dir[1];
+                }
+               
+                int lastX = x-dir[0];
+                int lastY = y-dir[1];
+                if (!visited[lastX][lastY]) {
+                    visited[lastX][lastY] = true;
+                    queue.add(new Cell(lastX, lastY));
+                }
+            }
+        }
+        return false;
+    }
 }
