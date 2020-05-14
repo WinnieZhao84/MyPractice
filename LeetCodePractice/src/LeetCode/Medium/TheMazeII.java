@@ -18,64 +18,62 @@ import java.util.Queue;
  */
 public class TheMazeII {
 
-    static final int[][] dirs = new int[][] {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-
-    class Pair {
+    class Cell {
         int x;
         int y;
-        int len;
-        public Pair(int x, int y, int len) {
+        
+        Cell (int x, int y) {
             this.x = x;
             this.y = y;
-            this.len = len;
         }
     }
-
+    
+    int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    
     public int shortestDistance(int[][] maze, int[] start, int[] destination) {
-        if(maze == null || maze.length == 0 || maze[0].length == 0) {
+        if (maze == null || maze.length == 0) {
             return -1;
         }
-
+        
+        Queue<Cell> queue = new LinkedList<>();
+        queue.add(new Cell(start[0], start[1]));
+       
         int m = maze.length;
         int n = maze[0].length;
-        int[][] dp = new int[m][n];
-        Queue<Pair> que = new LinkedList<>();
-
-        que.offer(new Pair(start[0], start[1], 0));
-        for(int i = 0; i < m; i++) {
-            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        
+        // two matrix minimum value, common approach is to keep a DP matrix as record
+        int[][] distance = new int[m][n];
+        for (int[] row: distance) {
+            Arrays.fill(row, Integer.MAX_VALUE);
         }
+            
+        distance[start[0]][start[1]] = 0;    
+        int step = 0;
+        while(!queue.isEmpty()) {
+                
+            Cell cur = queue.poll();
 
-
-        while(!que.isEmpty()) {
-            Pair cur = que.poll();
-            for(int[] dir : dirs) {
-                int nextX = cur.x;
-                int nextY = cur.y;
-                int len = cur.len;
-
-                while(nextX < m && nextX >= 0 && nextY < n && nextY >= 0 && maze[nextX][nextY] == 0) {
-                    nextX += dir[0];
-                    nextY += dir[1];
-                    len++;
-
+            for (int[] dir : dirs) {
+                int x = cur.x;
+                int y = cur.y;
+                
+                step = 0;
+                while (x >=0 && y>=0 && x<m && y< n && maze[x][y] == 0) {
+                    x += dir[0];
+                    y += dir[1];
+                    step++;
                 }
-                nextX -= dir[0];
-                nextY -= dir[1];
-                len--;
-
-                // avoid going through unneccessary cases.
-                if(len > dp[destination[0]][destination[1]]) {
-                    continue;
-                }
-
-                if(len < dp[nextX][nextY]) {
-                    dp[nextX][nextY] = len;
-                    que.offer(new Pair(nextX, nextY, len));
+                
+                int lastX = x - dir[0];
+                int lastY = y - dir[1];
+                step--;
+                
+                if (distance[lastX][lastY] > distance[cur.x][cur.y] + step) {
+                    distance[lastX][lastY] = distance[cur.x][cur.y] + step;
+                    queue.add(new Cell(lastX, lastY));
                 }
             }
         }
-
-        return dp[destination[0]][destination[1]] == Integer.MAX_VALUE ? -1 : dp[destination[0]][destination[1]];
+        return distance[destination[0]][destination[1]] == Integer.MAX_VALUE ? -1 : distance[destination[0]][destination[1]];
     }
 }
