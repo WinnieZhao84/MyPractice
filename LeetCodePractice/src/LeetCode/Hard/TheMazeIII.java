@@ -117,6 +117,7 @@ public class TheMazeIII {
                 int x = cur.x;
                 int y = cur.y;
 
+                // Explore current direction until hitting a wall or the hole
                 while (x>=0 && y>=0 && x<m && y<n && maze[x][y] != 1 && (x != hole[0] || y != hole[1])) {
                     x+=dirs[i][0];
                     y+=dirs[i][1];
