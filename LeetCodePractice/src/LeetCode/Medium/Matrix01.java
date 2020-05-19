@@ -84,6 +84,49 @@ public class Matrix01 {
         matrix.get(rowIndex).set(columnIndex, min);
     }
 
+    public int[][] updateMatrix_BFS(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        
+        int[][] distance = new int[m][n]; // Keep a distance matrix for DP
+        boolean[][] visited = new boolean[m][n];
+        
+        Queue<int[]> queue = new LinkedList<>();
+        
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
+                if (matrix[i][j] == 0) {
+                    queue.add(new int[] {i, j});
+                    distance[i][j] = 0;
+                } else {
+                    distance[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        
+        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        
+        while(!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            visited[cur[0]][cur[1]] = true;
+            
+            for (int[] dir : dirs) {
+                int x = cur[0] + dir[0];
+                int y = cur[1] + dir[1];
+                
+                if (x <0 || y<0 || x>=m || y >= n || visited[x][y]) {
+                    continue;
+                }
+                
+                if (distance[x][y] > distance[cur[0]][cur[1]] + 1) {
+                    distance[x][y] = distance[cur[0]][cur[1]] + 1;
+                    queue.offer(new int[] {x, y});
+                }
+            }
+        }
+        return distance;
+    }
+    
     public static void main(String[] args) {
         List<Integer> row1 = new ArrayList<>();
         row1.add(1);
