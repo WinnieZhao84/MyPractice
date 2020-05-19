@@ -60,72 +60,82 @@ import java.util.PriorityQueue;
  * Created by WinnieZhao on 2017/7/17.
  */
 public class TheMazeIII {
-
     class Point implements Comparable<Point> {
-        int x,y,l;
-        String s;
+        int x;
+        int y;
+        int distance;
+        String directions;
 
-        public Point(int _x, int _y) {
-            x=_x;
-            y=_y;
-            l=Integer.MAX_VALUE;
-            s="";
-        }
-        public Point(int _x, int _y, int _l,String _s) {
-            x=_x;
-            y=_y;
-            l=_l;
-            s=_s;
+        Point(int x, int y, int distance, String directions) {
+            this.x = x;
+            this.y = y;
+            this.distance = distance;
+            this.directions = directions;
         }
 
-        public int compareTo(Point p) {
-            return l==p.l ? s.compareTo(p.s) : l-p.l;
+        public int compareTo(Point other) {
+            if (this.distance == other.distance) {
+                return this.directions.compareTo(other.directions);
+            }
+            return this.distance - other.distance;
         }
     }
-
+    
+    /**
+     * @param maze: the maze
+     * @param ball: the ball position
+     * @param hole: the hole position
+     * @return: the lexicographically smallest way
+     */
     public String findShortestWay(int[][] maze, int[] ball, int[] hole) {
-        int m=maze.length;
-        int n=maze[0].length;
-
-        Point[][] points = new Point[m][n];
-        for (int i=0; i<m*n; i++) {
-            points[i/n][i%n] = new Point(i/n, i%n);
+    
+        if (maze == null || maze.length == 0) {
+            return "impossible";
         }
 
-        int[][] dir=new int[][] {{-1,0},{0,1},{1,0},{0,-1}};
-        String[] ds=new String[] {"u","r","d","l"};
+        int m = maze.length;
+        int n = maze[0].length;
 
-        PriorityQueue<Point> list = new PriorityQueue<>(); // using priority queue
-        list.offer(new Point(ball[0], ball[1], 0, ""));
+        boolean[][] visited = new boolean[m][n];
 
-        while (!list.isEmpty()) {
-            Point p=list.poll();
+        String[] routes = {"d", "l", "r", "u"};
+        int[][] dirs = {{1,0},{0,-1},{0,1},{-1,0}};
 
-            if (points[p.x][p.y].compareTo(p) <= 0) {
-                continue; // if we have already found a route shorter
+        PriorityQueue<Point> pq = new PriorityQueue();
+        pq.offer(new Point(ball[0], ball[1], 0, ""));
+
+        while(!pq.isEmpty()) {
+            Point cur = pq.poll();
+
+            visited[cur.x][cur.y] = true;
+
+            if (cur.x == hole[0] && cur.y == hole[1]) {
+                return cur.directions;
             }
+            for (int i=0; i<dirs.length; i++) {
+                int distance = cur.distance;
+                int x = cur.x;
+                int y = cur.y;
 
-            points[p.x][p.y]=p;
+                while (x>=0 && y>=0 && x<m && y<n && maze[x][y] != 1 && (x != hole[0] || y != hole[1])) {
+                    x+=dirs[i][0];
+                    y+=dirs[i][1];
 
-            for (int i=0; i<4; i++) {
-                int xx=p.x;
-                int yy=p.y;
-                int l=p.l;
-
-                while (xx>=0 && xx<m && yy>=0 && yy<n && maze[xx][yy]==0 && (xx!=hole[0] || yy!=hole[1])) {
-                    xx+=dir[i][0];
-                    yy+=dir[i][1];
-                    l++;
+                    distance++;
                 }
-                if (xx != hole[0] || yy != hole[1]) { // check the hole
-                    xx-=dir[i][0];
-                    yy-=dir[i][1];
-                    l--;
+
+                if (x != hole[0] || y != hole[1]) {
+                    x-=dirs[i][0];
+                    y-=dirs[i][1];
+                    distance--;
                 }
-                list.offer(new Point(xx, yy, l, p.s+ds[i]));
+
+                if (!visited[x][y]) {
+                    pq.add(new Point(x, y, distance, cur.directions+routes[i]));
+                }
             }
         }
 
-        return points[hole[0]][hole[1]].l == Integer.MAX_VALUE ? "impossible" : points[hole[0]][hole[1]].s;
+        return "impossible";
     }
 }
