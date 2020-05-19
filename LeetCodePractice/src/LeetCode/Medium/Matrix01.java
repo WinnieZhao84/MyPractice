@@ -41,6 +41,8 @@ public class Matrix01 {
 
     int row;
     int column;
+    
+    // DP solution, same complexity as BFS.
     public List<List<Integer>> updateMatrix(List<List<Integer>> matrix) {
         if (matrix == null || matrix.size() == 0) {
             return matrix;
@@ -84,6 +86,11 @@ public class Matrix01 {
         matrix.get(rowIndex).set(columnIndex, min);
     }
 
+    /**
+     * Time complexity: O(r*c). Since, the new cells are added to the queue only if their current distance is greater than
+     * the calculated distance, cells are not likely to be added multiple times.
+     * Space complexity: O(r*c)
+     **/
     public int[][] updateMatrix_BFS(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
