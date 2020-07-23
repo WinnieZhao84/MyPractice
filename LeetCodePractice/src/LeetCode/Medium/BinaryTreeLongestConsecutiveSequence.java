@@ -1,7 +1,6 @@
 package LeetCode.Medium;
 
 import LeetCode.Helper.TreeNode;
-import sun.reflect.generics.tree.Tree;
 
 /**
  * 298

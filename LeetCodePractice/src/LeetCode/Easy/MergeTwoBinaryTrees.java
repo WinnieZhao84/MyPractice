@@ -1,7 +1,6 @@
 package LeetCode.Easy;
 
 import LeetCode.Helper.TreeNode;
-import sun.reflect.generics.tree.Tree;
 
 /**
  * Given two binary trees and imagine that when you put one of them to cover the other,
