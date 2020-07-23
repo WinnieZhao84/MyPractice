@@ -50,37 +50,97 @@ package LeetCode.Medium;
  */
 public class TheMaze {
 
-    int[][] dirs = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
-
-    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
-        boolean[][] visited = new boolean[maze.length][maze[0].length];
-        return dfs(maze, start, destination, visited);
+    int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        
+    class Cell {
+        int x;
+        int y;
+        
+        Cell (int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
-
-    private boolean dfs(int[][] maze, int[] p, int[] destination, boolean[][] visited) {
-        if (visited[p[0]][p[1]]) {
+    
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+       
+        if (maze == null || maze.length == 0) {
             return false;
         }
-        if (p[0] == destination[0] && p[1] == destination[1]) {
+
+        int m = maze.length;
+        int n = maze[0].length;
+    
+        boolean[][] visited = new boolean[m][n];
+        return dfs(maze, visited, start, destination);
+    }
+    
+    private boolean dfs(int[][] maze, boolean[][] visited, int[] cur, int[] destination) {
+        int x = cur[0];
+        int y = cur[1];
+        
+        if (visited[x][y]) {
+            return false;
+        }
+        if (x == destination[0] && y == destination[1]) {
             return true;
         }
-        visited[p[0]][p[1]] = true;
-        for (int i = 0; i < dirs.length; i++) {
-            int[] d = dirs[i];
-            int row = p[0];
-            int col = p[1];
-            while (isValid(maze, row + d[0], col + d[1])) {
-                row += d[0];
-                col += d[1];
+        
+        visited[x][y] = true;
+        
+        for (int[] dir : dirs) {
+            x = cur[0];
+            y = cur[1];
+            
+            while (x>=0 && y>=0 && x<maze.length && y<maze[0].length && maze[x][y] == 0) {
+                x += dir[0];
+                y += dir[1];
             }
-            if (this.dfs(maze, new int[]{ row, col }, destination, visited)) {
+            if (dfs(maze, visited, new int[] {x-dir[0], y-dir[1]}, destination)) {
                 return true;
             }
         }
         return false;
     }
-
-    private boolean isValid(int[][] maze, int row, int col) {
-        return row >= 0 && row < maze.length && col >= 0 && col < maze[0].length && maze[row][col] != 1;
+    
+    public boolean hasPath_BFS(int[][] maze, int[] start, int[] destination) {
+       
+       if (maze == null || maze.length == 0) {
+           return false;
+       }
+       
+       Queue<Cell> queue = new LinkedList<>();
+       queue.add(new Cell(start[0], start[1]));
+       
+       int m = maze.length;
+       int n = maze[0].length;
+    
+       boolean[][] visited = new boolean[m][n];
+              
+       while(!queue.isEmpty()) {
+            Cell cur = queue.poll();
+   
+            if (cur.x == destination[0] && cur.y == destination[1]) {
+                return true;
+            }
+            
+            for (int[] dir : dirs) {
+                int x = cur.x;
+                int y = cur.y;
+                
+                while (x>=0 && y>=0 && x<m && y< n && maze[x][y] == 0) {
+                    x += dir[0];
+                    y += dir[1];
+                }
+               
+                int lastX = x-dir[0];
+                int lastY = y-dir[1];
+                if (!visited[lastX][lastY]) {
+                    visited[lastX][lastY] = true;
+                    queue.add(new Cell(lastX, lastY));
+                }
+            }
+        }
+        return false;
     }
 }

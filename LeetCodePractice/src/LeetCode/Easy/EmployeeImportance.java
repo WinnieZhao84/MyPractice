@@ -48,4 +48,33 @@ public class EmployeeImportance {
 
         return total;
     }
+    
+    public int getImportance_BFS(List<Employee> employees, int id) {
+        if (employees == null || employees.size() == 0) {
+            return 0;
+        }
+        
+        Queue<Integer> queue = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
+        visited.add(id);
+        queue.add(id);
+        
+        int total = 0;
+        while (!queue.isEmpty()) {
+            
+            Integer cur = queue.poll();
+            for (Employee em : employees) {
+                if (em.id == cur) {
+                    for (Integer sub : em.subordinates) {
+                        if (!visited.contains(sub)) {
+                            queue.add(sub);
+                        }
+                    }
+                    total += em.importance;
+                }
+            }
+        }
+        
+        return total;
+    }
 }
