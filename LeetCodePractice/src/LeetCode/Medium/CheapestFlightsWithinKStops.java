@@ -33,6 +33,9 @@ import java.util.Queue;
  *
  */
 public class CheapestFlightsWithinKStops {
+    /**
+     * Time Complexity: O(nlogn). n is the number of flight
+     */
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
         Map<Integer, List<int[]>> graph = new HashMap<>();
         
