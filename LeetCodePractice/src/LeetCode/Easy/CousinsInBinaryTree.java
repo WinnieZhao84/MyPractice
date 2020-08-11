@@ -45,12 +45,10 @@ public class CousinsInBinaryTree {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         
-        boolean xExisted=false;
-        boolean yExisted=false;
-        
         while(!queue.isEmpty()) {
             int size = queue.size();
-            
+            boolean xExisted=false;
+            boolean yExisted=false;
             for (int i=0; i<size; i++) {
                 TreeNode cur = queue.poll();
                 
