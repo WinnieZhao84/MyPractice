@@ -1,0 +1,37 @@
+
+------------------------------
+## 1. High-Performance Model Serving Infrastructure
+In traditional backend engineering, you scale microservices by CPU/Memory. In AI, you scale around the unique bottlenecks of GPUs (VRAM, memory bandwidth, compute cores).
+
+* vLLM & Triton Inference Server: Study how these C++/Python-based engines serve models. You must understand how your backend talks to them over gRPC/HTTP2. [4, 5] 
+* PagedAttention: Learn how vLLM manages GPU memory similarly to virtual memory in Operating Systems. This is a massive interview talking point. [6] 
+* Continuous Batching: Understand how model servers dynamically group incoming inference requests mid-flight to maximize GPU utilization, instead of using traditional static request queueing. [7] 
+* Quantization Formats (AWQ, GPTQ, GGUF): Learn how shrinking weights from FP16 to INT8/INT4 reduces VRAM requirements and changes inference throughput.
+
+## 2. Real-Time Streaming & Network Protocols
+AI inference is slow and incremental. You need to transition your networking knowledge from stateless request/response to long-lived, high-throughput streaming states.
+
+* Server-Sent Events (SSE) & gRPC Streaming: Learn the data packet layouts required to stream tokens from an engine like vLLM, through a Java/Go gateway, and down to a GraphQL/WebSocket client.
+* Backpressure & Memory Management: Understand how to buffer streaming responses when your backend client cannot consume text tokens as fast as the GPU generates them.
+* JSON-Schema Structuring: Learn how to enforce model servers to return structured JSON outputs (Structured Outputs) via tool calling protocols instead of raw markdown text. [8, 9] 
+
+## 3. Advanced Vector Databases & RAG Architecture
+As an infra engineer, your job in Retrieval-Augmented Generation (RAG) is not tuning prompt algorithms—it is optimizing data ingestion, storage layout, and search latencies.
+
+* Vector Database Engines: Master the distributed architecture of Qdrant, Milvus, or Pinecone. Focus on how they scale horizontally across clusters. [10] 
+* HNSW (Hierarchical Navigable Small World): Understand the core indexing algorithm behind vector searches. Learn how it trades off RAM, index build time, and search accuracy. [11] 
+* Hybrid Search and Reranking Infrastructure: Design data pipelines that run BM25 lexical text searches (e.g., Elasticsearch) concurrently with Vector searches, merging and sorting results via a Reranking model service. [12, 13, 14] 
+
+## 4. AI Gateway & Platform Management (Day 2 Operations)
+This is where traditional distributed systems engineering shines. AI platforms require unique operational guardrails to prevent crashing or bankrupting a company. [15] 
+
+* Token-Based Rate Limiting: Traditional systems rate-limit by IP or request-per-second (RPS). You must learn to build dynamic rate limiters (via Redis) based on Tokens-Per-Minute (TPM), calculating input and output tokens consumed.
+* Semantic Caching: Learn how to save money by intercepting requests, vectorizing the user query, and checking if an identical or semantically similar query exists in a vector cache to bypass the LLM completely.
+* Model Router Resilience: Design high-availability proxy layers that handle smart routing, load-balancing across model endpoints, and fallback logic (e.g., if OpenAI/Anthropic fails, route to an internal self-hosted open-source model).
+* Asynchronous Guardrails: Implement middleware pipelines that perform fast, sub-millisecond moderation and safety checks on text payloads before passing them to the model or user.
+
+------------------------------
+## What to skip
+
+* Do NOT learn how to train or fine-tune models from scratch (PyTorch/Transformers).
+* Do NOT spend time on deep learning theory, calculus, or weights-optimization algorithms. [16, 17, 18, 19, 20] 
