@@ -35,3 +35,58 @@ This is where traditional distributed systems engineering shines. AI platforms r
 
 * Do NOT learn how to train or fine-tune models from scratch (PyTorch/Transformers).
 * Do NOT spend time on deep learning theory, calculus, or weights-optimization algorithms. [16, 17, 18, 19, 20] 
+
+
+
+---
+
+## 📚 Technical Deep Dives & Learning Resources
+
+### 1. High-Performance Model Serving Infrastructure
+*Traditional backends scale by CPU/RAM; AI backends scale around GPU bottlenecks (VRAM, memory bandwidth, compute cores).*
+
+*   **vLLM & Triton Inference Server**
+    *   [vLLM Engineering Blog: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai) — Deep dive into the V1/V0 scheduling architecture and runtime execution engine.
+    *   [vLLM Serving Tutorial by Ready Tensor (YouTube)](https://youtube.com) — Practical guide to spinning up endpoints, tuning GPU settings, and benchmarking setups.
+*   **PagedAttention & Continuous Batching**
+    *   *Efficient Memory Management for Large Language Model Serving with PagedAttention* (SOSP 2023 Paper) — Essential systems engineering paper modeling the KV Cache after **OS Virtual Memory Management**.
+    *   [vLLM Continuous Batching Deep Dive by Swfte](https://swfte.com) — Analysis of continuous batching as a dynamic scheduling problem under production multi-tenant traffic.
+*   **Quantization Formats (AWQ, GPTQ, GGUF)**
+    *   [RunPod Guide to vLLM Optimization](https://runpod.io) — Breakdown of memory constraints and running models in INT4/INT8 to optimize cluster footprint.
+
+### 2. Real-Time Streaming & Network Protocols
+*AI inference is high-latency and incremental. The system paradigm shifts from stateless request/response to long-lived asynchronous streaming states.*
+
+*   **SSE & gRPC Streaming (Backpressure & Memory Management)**
+    *   [vLLM Triton Attention Backend Deep Dive](https://vllm.ai) — Native communication architecture between high-speed memory and driver layers.
+    *   [NVIDIA Triton Server GitHub Tutorials](https://github.com) — Reference implementation templates for building highly-concurrent asynchronous tensor clients.
+*   **JSON-Schema Structuring (Guided Decoding)**
+    *   [vLLM Guided Decoding Documentation](https://vllm.ai) — Explores how backend components leverage libraries like Outlines to force deterministic regex/JSON formats at the logit level.
+
+### 3. Advanced Vector Databases & RAG Architecture
+*As an infra engineer, the challenge isn't tuning the prompt—it's optimizing data chunk ingestion pipelines, storage topology, and multi-node index retrieval.*
+
+*   **Vector Database Engines & HNSW Indexing**
+    *   [What Is HNSW and Why Is It So Fast? (Endee Blog)](https://endee.io) — System-level breakdown of graph navigation hierarchies for dense high-dimensional vectors.
+    *   [HNSW Index: Architecture for Fast Vector Search by M. Brenndoerfer](https://mbrenndoerfer.com) — Analyzes why KD-trees fail at scale and evaluates memory consumption vs accuracy trade-offs.
+    *   [Deep Dive into HNSW Architecture via MongoDB Vector Search (YouTube)](https://youtube.com) — Code-level visualization of graph building, entry-point calculations, and layer routing.
+*   **Hybrid Search & Reranking Infrastructure**
+    *   [Milvus Blog Guide to HNSW](https://milvus.io) — Focuses on solving slow search convergence across distributed high-volume database nodes.
+
+### 4. AI Gateway & Platform Management (Day 2 Operations)
+*Building the protective operational proxy layer around foundational models to ensure reliability, visibility, and cost safety.*
+
+*   **Token-Based Rate Limiting & Semantic Caching**
+    *   [LLM Gateway Architecture: Engineering Reference by Digital Applied](https://digitalapplied.com) — Architectural blueprint explaining why traditional reverse proxies (Nginx/Envoy) cannot handle deep token tracking.
+    *   [Semantic Cache in an LLM Gateway via Engineers Meet AI](https://substack.com) — Concrete breakdown of components required to intercept and match queries semantically via similarity thresholds.
+*   **Model Router Resilience & Asynchronous Guardrails**
+    *   [AI Gateway Patterns: Cost Control and Reliability at Scale (Virtido)](https://virtido.com) — Structural paradigms for budget tracking, P95 latency containment, and active multi-provider failover routing.
+    *   [LLM Gateway as an Architectural Pattern (Level Up Coding)](https://gitconnected.com) — Mapping the migration path from standard Connection Pools to explicit Model Gateways for platform governance.
+
+---
+
+## 🚫 What to Completely Skip
+To stay laser-focused on qualifying for an infrastructure role, explicitly **ignore** the following:
+*   How to build, train, or fine-tune neural networks from scratch.
+*   Heavy machine learning math (e.g., Backpropagation, Calculus, Gradient Descent equations).
+*   Python UI libraries like Streamlit or Gradio (these are for quick p
